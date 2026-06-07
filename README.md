@@ -23,5 +23,3 @@ These solutions are provided for educational purposes. This is an independent wo
 ## License
 
 MIT
-
-## Structure
