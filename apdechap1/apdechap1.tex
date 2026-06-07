@@ -1844,5 +1844,120 @@ Define the radial vector \( \pmb{r} \) as above. The coordinate transformation i
 % QUESTION 19
 \qs{1.5.19}{Determine the scale factors for spherical coordinates.}
 
+Define the radial vector \( \pmb{r} \) as above. The coordinate transformation is as given in equation (1.5.21). The scale factors and transformed unit vectors are as follows:
+\begin{align*}
+	\frac{\partial \pmb{r}}{\partial \rho} & = \frac{\partial x}{\partial \rho}\pmb{\hat{i}} + \frac{\partial y}{\partial \rho}\pmb{\hat{j}} + \frac{\partial z}{\partial \rho}\pmb{\hat{k}} \\
+	 & = \sin\!\left(\phi\right)\cos\!\left(\theta\right)\pmb{\hat{i}} + \sin\!\left(\phi\right)\sin\!\left(\theta\right)\pmb{\hat{j}} + \cos\!\left(\phi\right)\pmb{\hat{k}} \\ 
+	h_{\rho} & = \abs{\partial \pmb{r} / \partial \rho} = \sqrt{\sin^{2}\!\left(\phi\right)\cos^{2}\!\left(\theta\right) + \sin^{2}\!\left(\phi\right)\sin^{2}\!\left(\theta\right) + \cos^{2}\!\left(\phi\right)} = \boxed{1} \\
+	\pmb{\hat{e}_{\rho}} & = \frac{1}{h_{\rho}}\frac{\partial \pmb{r}}{\partial \rho} = \boxed{\frac{\partial \pmb{r}}{\partial \rho}} \\
+	\frac{\partial \pmb{r}}{\partial \phi} & = \frac{\partial x}{\partial \phi}\pmb{\hat{i}} + \frac{\partial y}{\partial \phi}\pmb{\hat{j}} + \frac{\partial z}{\partial \phi}\pmb{\hat{k}} \\
+					       & = \rho \cos\!\left(\phi\right) \cos\!\left(\theta\right) \pmb{\hat{i}} + \rho \cos\!\left(\phi\right) \sin\!\left(\theta\right) \pmb{\hat{j}} - \rho \sin\!\left(\phi\right) \pmb{\hat{k}} \\
+	h_{\phi} & = \abs{\partial \pmb{r} / \partial \phi} = \rho \sqrt{\cos^{2}\!\left(\phi\right) \cos^{2}\!\left(\theta\right) + \cos^{2}\!\left(\phi\right) \sin^{2}\!\left(\theta\right) + \sin^{2}\!\left(\phi\right) } = \boxed{\rho} \\
+	\pmb{\hat{e}_{\phi}} & = \frac{1}{h_{\phi}}\frac{\partial \pmb{r}}{\partial \phi} = \boxed{\frac{1}{\rho}\frac{\partial \pmb{r}}{\partial \phi}} \\
+	\frac{\partial \pmb{r}}{\partial \theta} & = \frac{\partial x}{\partial \theta}\pmb{\hat{i}} + \frac{\partial y}{\partial \theta}\pmb{\hat{j}} + \frac{\partial z}{\partial \theta}\pmb{\hat{k}} \\
+						 & = -\rho \sin\!\left(\phi\right) \sin\!\left(\theta\right) \pmb{\hat{i}} + \rho \sin\!\left(\phi\right) \cos\!\left(\theta\right) \pmb{\hat{j}} \\
+	h_{\theta} & = \abs{\partial \pmb{r} / \partial \theta} = \rho \sqrt{\sin^{2}\!\left(\phi\right) \sin^{2}\!\left(\theta\right) + \sin^{2}\!\left(\phi\right) \cos^{2}\!\left(\theta\right) } = \boxed{\rho \sin\!\left(\phi\right)} \\
+	\pmb{\hat{e}_{\theta}} & = \frac{1}{h_{\theta}}\frac{\partial \pmb{r}}{\partial \theta} = \boxed{\frac{1}{\rho \sin\!\left(\phi\right)}\frac{\partial \pmb{r}}{\partial \theta}}
+\end{align*}
+
+% QUESTION 20
+\qs{1.5.20}{The gradient of a scalar can be expressed in terms of the new coordinate system \( \nabla g = a \partial \pmb{r} / \partial u + b \partial \pmb{r} / \partial v + c \partial \pmb{r} / \partial w \), where you will determine the scalars \( a \), \( b \), \( c \). Using \( dg = \nabla g \cdot d \pmb{r} \), derive that the \textbf{gradient} in an orthogonal curvilinear coordinate system is given by
+\begin{equation}
+	\nabla g = \frac{1}{h_{u}}\frac{\partial g}{\partial u}\pmb{\hat{e}_{u}} + \frac{1}{h_{v}}\frac{\partial g}{\partial v}\pmb{\hat{e}_{v}} + \frac{1}{h_{w}}\frac{\partial g}{\partial w}\pmb{\hat{e}_{w}}
+	\tag{1.5.23}
+\end{equation}
+An expression for the divergence is more difficult to derive, and we will just state that if a vector \( \pmb{p} \) is expressed in terms of this new coordinate system \( \pmb{p} = p_{u}\pmb{\hat{e}_{u}} + p_{v}\pmb{\hat{e}_{v}} + p_{w}\pmb{\hat{e}_{w}} \), then the \textbf{divergence} satisfies
+\begin{equation}
+	\nabla \cdot \pmb{p} = \frac{1}{h_{u}h_{v}h_{w}}\!\left[ \frac{\partial }{\partial u}\!\left( h_{v}h_{w}p_{u} \right) + \frac{\partial }{\partial v}\!\left( h_{u}h_{w}p_{v} \right) + \frac{\partial }{\partial w}\!\left( h_{u}h_{v}p_{w} \right) \right]
+	\tag{1.5.24}
+\end{equation}}
+
+The basis vectors in \( u \), \( v \), and \( w \) coordinates are
+\[
+	\pmb{\hat{e}_{u}} = \frac{1}{h_{u}}\frac{\partial \pmb{r}}{\partial u}, \quad \pmb{\hat{e}_{v}} = \frac{1}{h_{v}}\frac{\partial \pmb{r}}{\partial v}, \quad \pmb{\hat{e}_{w}} = \frac{1}{h_{w}}\frac{\partial \pmb{r}}{\partial w} 
+\]
+And the differentials are 
+\begin{align*}
+	dg & = \frac{\partial g}{\partial u}du + \frac{\partial g}{\partial v}dv + \frac{\partial g}{\partial w}dw \\
+	d \pmb{r} & = \frac{\partial \pmb{r}}{\partial u}du + \frac{\partial \pmb{r}}{\partial v}dv + \frac{\partial \pmb{r}}{\partial w}dw \\ 
+		  & = h_{u}du \, \pmb{\hat{e}_{u}} + h_{v}dv \, \pmb{\hat{e}_{v}} + h_{w}dw \, \pmb{\hat{e}_{w}}
+\end{align*}
+where the last equality stems from the definition of the basis vectors. Calculating \( \nabla g \cdot d \pmb{r} \) and invoking orthogonality between the basis vectors, we find
+\[
+	\nabla g \cdot d \pmb{r} = h^{2}_{u}a \, du + h^{2}_{v}b \, dv + h^{2}_{w}c \, dw 
+\]
+Setting equal to \( dg \), we can derive
+\[
+	\frac{\partial g}{\partial u} = h^{2}_{u}a, \quad \frac{\partial g}{\partial v} = h^{2}_{v}b, \quad \frac{\partial g}{\partial w} = h^{2}_{w}c 
+\]
+Back to the definition of \( \nabla g \). If we isolate \( a \), \( b \), and \( c \) and each of the derivatives of \( \pmb{r} \) from the basis vectors, we can conclude
+\[
+	\nabla g = \frac{1}{h_{u}}\frac{\partial g}{\partial u}\pmb{\hat{e}_{u}} + \frac{1}{h_{v}}\frac{\partial g}{\partial v}\pmb{\hat{e}_{v}} + \frac{1}{h_{w}}\frac{\partial g}{\partial w}\pmb{\hat{e}_{w}}
+\]
+
+% QUESTION 21
+\qs{1.5.21}{Using (1.5.23) and (1.5.24), derive the \textbf{Laplacian} in an orthogonal curvilinear coordinate system:
+\begin{equation}
+	\nabla^{2}T = \frac{1}{h_{u}h_{v}h_{w}}\!\left[ \frac{\partial }{\partial u}\!\left( \frac{h_{v}h_{w}}{h_{u}}\frac{\partial T}{\partial u} \right) + \frac{\partial }{\partial v}\!\left( \frac{h_{u}h_{w}}{h_{v}}\frac{\partial T}{\partial v} \right) + \frac{\partial }{\partial w}\!\left( \frac{h_{u}h_{v}}{h_{w}}\frac{\partial T}{\partial w} \right) \right] 
+	\tag{1.5.25}
+\end{equation}}
+
+Replace the components of \( \pmb{p} \) with those of \( \nabla g \), switching out \( g \) for \( T \), from (1.5.23):
+\[
+	p_{u} \implies \frac{1}{h_{u}}\frac{\partial T}{\partial u}, \quad p_{v} \implies \frac{1}{h_{v}}\frac{\partial T}{\partial v}, \quad p_{w} \implies \frac{1}{h_{w}}\frac{\partial T}{\partial w} 
+\]
+And then substitute in equation (1.5.24):
+\[
+	\nabla \cdot \nabla T = \nabla^{2}T = \frac{1}{h_{u}h_{v}h_{w}}\!\left[ \frac{\partial }{\partial u}\!\left( \frac{h_{v}h_{w}}{h_{u}}\frac{\partial T}{\partial u} \right) + \frac{\partial }{\partial v}\!\left( \frac{h_{u}h_{w}}{h_{v}}\frac{\partial T}{\partial v} \right) + \frac{\partial }{\partial w}\!\left( \frac{h_{u}h_{v}}{h_{w}}\frac{\partial T}{\partial w} \right) \right] 
+\]
+
+% QUESTION 22
+\qs{1.5.22}{Using (1.2.25), derive the Laplacian for cylindrical coordinates.}
+
+Let \( u = r \), \( v = \theta \), and \( w = z \). Recall from exercise 18 that the scale factors are
+\[
+	h_{r} = 1, \quad h_{\theta} = r, \quad h_{z} = 1 
+\]
+Substituting into (1.5.25) yields
+\begin{align*}
+	\nabla^{2}T & = \frac{1}{h_{r}h_{\theta}h_{z}}\!\left[ \frac{\partial }{\partial r}\!\left( \frac{h_{\theta}h_{z}}{h_{r}}\frac{\partial T}{\partial r} \right) + \frac{\partial }{\partial \theta}\!\left( \frac{h_{r}h_{z}}{h_{\theta}}\frac{\partial T}{\partial \theta} \right) + \frac{\partial }{\partial z}\!\left( \frac{h_{r}h_{\theta}}{h_{z}}\frac{\partial T}{\partial z} \right) \right] \\
+	 & = \frac{1}{r}\!\left[ \frac{\partial }{\partial r}\!\left( r \frac{\partial T}{\partial r} \right) + \frac{\partial }{\partial \theta}\!\left( \frac{1}{r}\frac{\partial T}{\partial \theta} \right) + \frac{\partial }{\partial z}\!\left( r \frac{\partial T}{\partial z} \right) \right] \\
+	 & = \frac{1}{r}\frac{\partial }{\partial r}\!\left( r \frac{\partial T}{\partial r} \right) + \frac{1}{r^{2}}\frac{\partial^2 T}{\partial \theta^2} + \frac{\partial^2 T}{\partial z^2}
+\end{align*}
+
+% QUESTION 23
+\qs{1.5.23}{Using (1.5.25), derive the Laplacian for spherical coordinates.}
+
+Let \( u = \rho \), \( v = \phi \), and \( w = \theta \). Recall from exercise 19 that the scale factors are 
+\[
+	h_{\rho} = 1, \quad h_{\phi} = \rho, \quad h_{\theta} = \rho \sin\!\left(\phi\right)  
+\]
+Substituting into (1.5.25) yields
+\begin{align*}
+	\nabla^{2}T & = \frac{1}{h_{\rho}h_{\phi}h_{\theta}}\!\left[ \frac{\partial }{\partial \rho}\!\left( \frac{h_{\phi}h_{\theta}}{h_{\rho}}\frac{\partial T}{\partial \rho} \right) + \frac{\partial }{\partial \phi}\!\left( \frac{h_{\rho}h_{\theta}}{h_{\phi}}\frac{\partial T}{\partial \phi} \right) + \frac{\partial }{\partial \theta}\!\left( \frac{h_{\rho}h_{\phi}}{h_{\theta}}\frac{\partial T}{\partial \theta} \right) \right] \\
+	 & = \frac{1}{\rho^{2}\sin\!\left(\phi\right)}\!\left[ \frac{\partial }{\partial \rho}\!\left( \rho^{2}\sin\!\left(\phi\right) \frac{\partial T}{\partial \rho}\right) + \frac{\partial }{\partial \phi}\!\left( \sin\!\left(\phi\right) \frac{\partial T}{\partial \phi} \right) + \frac{\partial }{\partial \theta}\!\left( \frac{1}{\sin\!\left(\phi\right)}\frac{\partial T}{\partial \theta} \right) \right] \\ 
+	 & = \frac{1}{\rho^{2}}\frac{\partial }{\partial \rho}\!\left( \rho^{2}\frac{\partial T}{\partial \rho} \right) + \frac{1}{\rho^{2}\sin\!\left(\phi\right)}\frac{\partial }{\partial \phi}\!\left( \sin\!\left(\phi\right) \frac{\partial T}{\partial \phi} \right) + \frac{1}{\rho^{2}\sin^{2}\!\left(\phi\right)}\frac{\partial^2 T}{\partial \theta^2}
+\end{align*}
+
+% QUESTION 24
+\qs{1.5.24}{Derive the three-dimensional heat equation assuming constant thermal properties and assuming there are no sources of thermal energy. (\textit{Hint}: Use an arbitrary three-dimensional region, and use the divergence theorem.)}
+
+The insight to make here is that the derivation of the heat equation is coordinate-agnostic. By habit we derived it in \( x \), \( y \), and \( z \) coordinates, but we could have chosen any basis. Thus refer to exercise 1.5.15.
+
+When evaluating \( k \nabla^{2}u \), we use (1.5.25) with the appropriate scale factors.
+
+\newpage
+
+% QUESTION 25
+\qs{1.5.25}{Suppose a sphere of radius \( 2 \) satisfies \( \frac{\partial u}{\partial t} = \nabla^{2}u + 5 \) with \( u \!\left( x,y,z,0 \right) = f \!\left( x,y,z \right) \) and on the surface of the sphere it is given that \( \nabla u \cdot \pmb{\hat{n}} = 6 \), where \( \pmb{\hat{n}} \) is a unit outward normal vector. Calculate the total thermal energy for this sphere as a function of time. (\textit{Hint}: Use the divergence theorem.)}
+
+Using the integral conservation law and the divergence theorem, write
+\begin{align*}
+	\int^{t}_{0} \!\left[ \frac{d }{d t}\iiint_{R} u \!\left( x,y,z,T \right) \, dV \right] \, dT & = \!\left[ \oiint \nabla u \cdot \pmb{\hat{n}} \, dS + \iiint_{R} 5 \, dV \right]t \\
+	\implies \iiint_{R} u \!\left( x,y,z,t \right) \, dV & = \iiint_{R} f \!\left( x,y,z \right) \, dV + \!\left[ \oiint 6 \, dS + \iiint_{R} 5 \, dV \right]t \\
+								    & = \iiint_{R} f \!\left( x,y,z \right) \, dV + 6 \cdot 16 \pi t + 5 \cdot \frac{32}{3}\pi t \\
+								    & = \iiint_{R} f \!\left( x,y,z \right) \, dV + \frac{448 \pi t}{3}
+\end{align*}
+Using the surface area and volume of a sphere formulae, \( S = 4 \pi r^{2} \) and \( V = \frac{4}{3}\pi r^{3} \).
 
 \end{document}
