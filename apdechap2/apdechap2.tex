@@ -1,0 +1,2170 @@
+\documentclass[a4paper]{article}
+
+\def\nbook {Applied Partial Differential Equations \\ with Fourier Series and Boundary Value Problems}
+\def\nbookshort {APDeq}
+
+\input{../headerapde}
+\hfuzz=125pt  % ignore overfull boxes up to 5pt
+\hbadness=10000 % suppress underfull warnings
+
+\usetikzlibrary{arrows.meta, calc, decorations.markings, backgrounds}
+\usepackage{esint}
+
+\begin{document}
+\maketitle
+
+\newpage
+\tableofcontents
+
+\newpage
+
+\section{\textsf{2 - Method of Separation of Variables}}
+\subsection{\textsf{2.2 - Linearity}}
+
+% QUESTION 1
+\qs{2.2.1}{Show that any linear combination of linear operators is a linear operator.}
+Let \( c_{1} \) and \( c_{2} \) be constants and \( u_{1} \) and \( u_{2} \) be functions. Define
+\[
+	L \!\left( c_{1}u_{1} + c_{2}u_{2} \right) = \sum^{n}_{i=1} d_{i}L_{i}\!\left( c_{1}u_{1} + c_{2}u_{2} \right) 
+\]
+where the \( L_{i} \)'s are each linear operators and the \( d_{i} \)'s are constants. By the definition of linear operator, we can demonstrate
+\begin{align*}
+	L \!\left( c_{1}u_{1} + c_{2}u_{2} \right) & = \sum^{n}_{i=1} d_{i}L_{i}\!\left( c_{1}u_{1} + c_{2}u_{2} \right) \\
+	 & = \sum^{n}_{i=1} d_{i}\!\left[ c_{1}L_{i}\!\left( u_{1} \right) + c_{2}L_{i}\!\left( u_{2} \right) \right] \\ 
+	 & = c_{1}\sum^{n}_{i=1} d_{i}L_{i}\!\left( u_{1} \right) + c_{2}\sum^{n}_{i=1} d_{i}L_{i}\!\left( u_{2} \right)
+\end{align*}
+Thereby establishing that \( L \) is also a linear operator.
+
+\vspace{12pt}
+
+% QUESTION 2
+\qs{2.2.2}{\begin{enumerate}[label=(\alph*)]
+	\item Show that \( L \!\left( u \right) = \frac{\partial }{\partial x}\!\left[ K_{0}\!\left( x \right)\frac{\partial u}{\partial x} \right] \) is a linear operator.
+	\item Show that usually \( L \!\left( u \right) = \frac{\partial }{\partial x}\!\left[ K_{0}\!\left( x,u \right)\frac{\partial u}{\partial x} \right] \) is not a linear operator.
+\end{enumerate}}
+
+Let \( c_{1} \) and \( c_{2} \) be constants and \( u_{1} \) and \( u_{2} \) be functions.
+
+\begin{enumerate}[label=(\alph*)]
+	\item \begin{align*}
+		L \!\left( c_{1}u_{1} + c_{2}u_{2} \right) & = \frac{\partial }{\partial x}\!\left[ K_{0}\!\left( x \right)\frac{\partial }{\partial x}\!\left( c_{1}u_{1} + c_{2}u_{2} \right) \right] \\
+		 & = \frac{\partial }{\partial x}\!\left[ K_{0}\!\left( x \right)\!\left( c_{1}\frac{\partial u_{1}}{\partial x} + c_{2}\frac{\partial u_{2}}{\partial x} \right) \right] \\ 
+		 & = c_{1}\frac{\partial }{\partial x}\!\left[ K_{0}\!\left( x \right)\frac{\partial u_{1}}{\partial x} \right] + c_{2}\frac{\partial }{\partial x}\!\left[ K_{0}\!\left( x \right)\frac{\partial u_{2}}{\partial x} \right] \\
+		 & = c_{1}L \!\left( u_{1} \right) + c_{2}L \!\left( u_{2} \right)
+	\end{align*}
+	\item As given, one would need to demonstrate 
+	\begin{align*}
+		L \!\left( c_{1}u_{1} + c_{2}u_{2} \right) & = \frac{\partial }{\partial x}\!\left[ K_{0}\!\left( x, c_{1}u_{1} + c_{2}u_{2} \right)\frac{\partial }{\partial x}\!\left( c_{1}u_{1} + c_{2}u_{2} \right) \right] \\
+		 & = c_{1}\frac{\partial }{\partial x}\!\left[ K_{0}\!\left( x,u_{1} \right)\frac{\partial u_{1}}{\partial x} \right] + c_{2}\!\left[ K_{0}\!\left( x,u_{2} \right)\frac{\partial u_{2}}{\partial x} \right]
+	\end{align*}
+	And for the sake of argument, suppose
+	\[
+		K_{0}\!\left( x,c_{1}u_{1} + c_{2}u_{2} \right) = c_{1}K_{0}\!\left( x,u_{1} \right) + c_{2}K_{0}\!\left( x,u_{2} \right) 
+	\]
+	Then we would have
+	\begin{align*}
+		L \!\left( c_{1}u_{1} + c_{2}u_{2} \right) & = \frac{\partial }{\partial x}\!\left[ K_{0}\!\left( x, c_{1}u_{1} + c_{2}u_{2} \right)\frac{\partial }{\partial x}\!\left( c_{1}u_{1} + c_{2}u_{2} \right) \right] \\
+		 & = \frac{\partial }{\partial x}\!\left[ \!\left( c_{1}K_{0}\!\left( x,u_{1} \right) + c_{2}K_{0}\!\left( x,u_{2} \right) \right) \!\left( c_{1}\frac{\partial u_{1}}{\partial x} + c_{2}\frac{\partial u_{2}}{\partial x} \right) \right] \\
+		 & = c^{2}_{1}\frac{\partial }{\partial x}\!\left[ K_{0}\!\left( x,u_{1} \right)\frac{\partial u_{1}}{\partial x} \right] + c^{2}_{2}\!\left[ K_{0}\!\left( x,u_{2} \right)\frac{\partial u_{2}}{\partial x} \right] \\ 
+		 & \qquad + c_{1}c_{2}\frac{\partial }{\partial x}\!\left[ K_{0}\!\left( x,u_{1} \right)\frac{\partial u_{2}}{\partial x} \right] + c_{1}c_{2}\!\left[ K_{0}\!\left( x,u_{2} \right)\frac{\partial u_{1}}{\partial x} \right]
+	\end{align*}
+	But even here, the cross-terms must be guaranteed to vanish, and the squared constant terms do not adhere to the definition of linearity.
+	Under the given information, there is no way to determine if \( K_{0}\!\left( x,u \right) \) decomposes in the way that it needs to enable this second equality to be true.
+\end{enumerate}
+
+% QUESTION 3
+\qs{2.2.3}{Show that \( \frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2} + Q \!\left( u,x,t \right) \) is linear if \( Q = \alpha \!\left( x,t \right)u + \beta \!\left( x,t \right) \) and, in addition, homogeneous if \( \beta \!\left( x,t \right) = 0 \).}
+
+Define
+\[
+	L \!\left( u \right) = \frac{\partial u}{\partial t} - k \frac{\partial^2 u}{\partial x^2} - \alpha \!\left( x,t \right)u = \beta \!\left( x,t \right)
+\]
+To test for linearity, compute
+\begin{align*}
+	L \!\left( c_{1}u_{1} + c_{2}u_{2} \right) & = \frac{\partial }{\partial t}\!\left( c_{1}u_{1} + c_{2}u_{2} \right) - k \frac{\partial^2 }{\partial x^2}\!\left( c_{1}u_{1} + c_{2}u_{2} \right) \\
+						   & \qquad - \alpha \!\left( x,t \right) \!\left( c_{1}u_{1} + c_{2}u_{2} \right) \\
+	 & = c_{1}\frac{\partial u_{1}}{\partial t} + c_{2}\frac{\partial u_{2}}{\partial t} - c_{1}k \frac{\partial^2 u_{1}}{\partial x^2} - c_{2}k \frac{\partial^2 u_{2}}{\partial x^2} \\ 
+	 & \qquad -c_{1}\alpha \!\left( x,t \right)u_{1} - c_{2}\alpha \!\left( x,t \right)u_{2} \\
+	 & = c_{1}L \!\left( u_{1} \right) + c_{2}L \!\left( u_{2} \right)
+\end{align*}
+By definition of homogeneity, \( \beta \!\left( x,t \right) = 0 \) produces the homogeneous condition.
+
+\newpage 
+
+% QUESITON 4
+\qs{2.2.4}{In this exercise we derive superposition principles for nonhomogeneous problems.
+\begin{enumerate}[label=(\alph*)]
+	\item Consider \( L \!\left( u \right) = f \). If \( u_{p} \) is a particular solution, \( L \!\left( u_{p} \right) = f \), and if \( u_{1} \) and \( u_{2} \) are homogeneous solutions, \( L \!\left( u_{i} \right) = 0 \), show that \( u  = u_{p} + c_{1}u_{1} + c_{2}u_{2} \) is another particular solution.
+	\item If \( L \!\left( u \right) = f_{1} + f_{2} \), where \( u_{pi} \) is a particular solution corresponding to \( f_{i} \), what is a particular solution for \( f_{1} + f_{2} \)?
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item \( L \!\left( u_{p} + c_{1}u_{1} + c_{2}u_{2} \right) = L \!\left( u_{p} \right) + c_{1}L \!\left( u_{1} \right) + c_{2}L \!\left( u_{2} \right) = f + 0 + 0 = f \)
+	\item One particular solution is \( u = u_{p1} + u_{p2} \). In general, we can have
+	\[
+		u = c_{1}u_{1} + c_{2}u_{2} + u_{p1} + u_{p2} 
+	\]
+\end{enumerate}
+
+% QUESTION 5
+\qs{2.2.5}{If \( L \) is a linear operator, show that \( L \!\left( \sum^{M}_{n=1} c_{n}u_{n} \right) = \sum^{M}_{n=1} c_{n}L \!\left( u_{n} \right) \). Use this result to show that the principle of superposition may be extended to any finite number of homogeneous solutions.}
+
+Compute from the definition of linearity
+\[
+	L \!\left( \sum^{M}_{n=1} c_{n}u_{n} \right) = \sum^{M}_{n=1} L \!\left( c_{n}u_{n} \right) = \sum^{M}_{n=1} c_{n}L \!\left( u_{n} \right)
+\]
+Assuming homogeneity for every solution, we can do (pedantically) induction on \( M \) to demonstrate that the result holds for any finite natural number.
+\[
+	L \!\left( \sum^{M}_{n=1} c_{n}u_{n} + c_{M+1}u_{M+1} \right) = \sum^{M}_{n=1} L \!\left( c_{n}u_{n} \right) + L \!\left( c_{M+1}u_{M+1} \right) = \sum^{M+1}_{n=1} c_{n}L \!\left( u_{n} \right) 
+\]
+
+\newpage
+\subsection{\textsf{2.3 - Heat Equation with Zero Temperatures at Finite Ends}}
+
+% QUESTION 1
+\qs{2.3.1}{For the following partial differential equations, what ordinary differential equations are implied by the method of separation of variables?
+\begin{enumerate}[label=(\alph*)]
+	\item \( \displaystyle{\frac{\partial u}{\partial t} = \frac{k}{r}\frac{\partial }{\partial r}\!\left( r \frac{\partial u}{\partial r} \right)} \)
+	\item \( \displaystyle{\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2} - v_{0}\frac{\partial u}{\partial x}} \)
+	\item \( \displaystyle{\frac{\partial^2 u}{\partial x^2} + \frac{\partial u}{\partial y} = 0} \)
+	\item \( \displaystyle{\frac{\partial u}{\partial t} = \frac{k}{r^{2}}\frac{\partial }{\partial r}\!\left( r^{2}\frac{\partial u}{\partial r} \right)} \)
+	\item \( \displaystyle{\frac{\partial u}{\partial t} = k \frac{\partial^4 u}{\partial x^4}} \)
+	\item \( \displaystyle{\frac{\partial^2 u}{\partial t^2} = c^{2}\frac{\partial^2 u}{\partial x^2}} \)
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item Let \( u \!\left( r,t \right) = \phi \!\left( r \right)G \!\left( t \right) \). Then
+	\begin{align*}
+		\frac{\partial u}{\partial t} & = \phi \!\left( r \right) \frac{d G}{d t} \\
+		\frac{k}{r}\frac{\partial }{\partial r}\!\left( r \frac{\partial u}{\partial r} \right) & = \frac{k}{r}G \!\left( t \right)\frac{d}{dr}\!\left( r \frac{d \phi}{dr} \right)
+	\end{align*}
+	Setting equal and separating variables, we find
+	\begin{alignat*}{2}
+		 && \phi \!\left( r \right)\frac{d G}{d t} & = \frac{k}{r}G \!\left( t \right)\frac{d}{dr}\!\left( r \frac{d \phi}{dr} \right) \\
+		\implies \quad && \frac{1}{k G \!\left( t \right)}\frac{d G}{d t} & = \frac{1}{r \phi \!\left( r \right)}\frac{d}{dr}\!\left( r \frac{d \phi}{dr} \right) = -\lambda
+	\end{alignat*}
+	This produces ordinary differential equations
+	\[
+		\frac{d G}{d t} = -\lambda k G \!\left( t \right), \qquad \frac{1}{r}\frac{d }{dr}\!\left( r \frac{d \phi}{dr} \right) = -\lambda \phi \!\left( r \right)
+	\]
+	\item Let \( u \!\left( x,t \right) = \phi \!\left( x \right)G \!\left( t \right) \). Then
+	\begin{align*}
+		\frac{\partial u}{\partial t} & = \phi \!\left( x \right)\frac{d G}{d t} \\
+		k \frac{\partial^2 u}{\partial x^2} - v_{0}\frac{\partial u}{\partial x} & = G \!\left( t \right)\!\left[ k \frac{d^2 \phi}{d x^2} - v_{0}\frac{d \phi}{d x} \right] \\ 
+											 & = k G \!\left( t \right)\!\left[ \frac{d^2 \phi}{d x^2} - \frac{v_{0}}{k}\frac{d \phi}{d x} \right]
+	\end{align*}
+	Setting equal and separating variables, we find
+	\begin{alignat*}{2}
+		 && \phi \!\left( x \right)\frac{d G}{d t} & = kG \!\left( t \right)\!\left[ \frac{d^2 \phi}{d x^2} - \frac{v_{0}}{k}\frac{d \phi}{d x} \right] \\
+		\implies && \frac{1}{k G \!\left( t \right)}\frac{d G}{d t} & = \frac{1}{\phi \!\left( x \right)}\!\left[ \frac{d^2 \phi}{d x^2} - \frac{v_{0}}{k}\frac{d \phi}{d x} \right] = -\lambda 
+	\end{alignat*}
+	This produces ordinary differential equations
+	\[
+		\frac{d G}{d t} = -\lambda k G \!\left( t \right), \qquad \frac{d^2 \phi}{d x^2} - \frac{v_{0}}{k}\frac{d \phi}{d x} = -\lambda \phi \!\left( x \right) 
+	\]
+	\item Let \( u \!\left( x,y \right) = \phi \!\left( x \right)G \!\left( y \right) \). Then
+	\[
+		\frac{\partial^2 u}{\partial x^2} + \frac{\partial u}{\partial y} = \frac{d^2 \phi}{d x^2}G \!\left( y \right) + \phi \!\left( x \right)\frac{d G}{d y} = 0 
+	\]
+	Setting equal to zero and separating variables, we find
+	\[
+		 \frac{1}{\phi \!\left( x \right)}\frac{d^2 \phi}{d x^2} = -\frac{1}{G \!\left( y \right)}\frac{d G}{d y} = -\lambda
+	\]
+	This produces ordinary differential equations
+	\[
+		\frac{d^2 \phi}{d x^2} = -\lambda \phi \!\left( x \right), \qquad \frac{d G}{d y} = \lambda G \!\left( y \right) 
+	\]
+	\item Let \( u \!\left( r,t \right) = \phi \!\left( r \right)G \!\left( t \right) \). Then 
+	\begin{align*}
+		\frac{\partial u}{\partial t} & = \phi \!\left( r \right)\frac{d G}{d t} \\
+		\frac{k}{r^{2}}\frac{\partial }{\partial r}\!\left( r^{2}\frac{\partial u}{\partial r} \right) & = G \!\left( t \right)\frac{k}{r^{2}}\frac{d }{d r}\!\left( r^{2}\frac{d \phi}{d r} \right)
+	\end{align*}
+	Setting equal and separating variables, we find
+	\begin{alignat*}{2}
+		 && \phi \!\left( r \right)\frac{d G}{d t} & = G \!\left( t \right)\frac{k}{r^{2}}\frac{d }{d r}\!\left( r^{2}\frac{d \phi}{d r} \right) \\
+		\implies && \frac{1}{kG \!\left( t \right)}\frac{d G}{d t} & = \frac{1}{r^{2}\phi \!\left( r \right)}\frac{d }{d r}\!\left( r^{2}\frac{d \phi}{d r} \right) = -\lambda
+	\end{alignat*}
+	This produces ordinary differential equations
+	\[
+		\frac{d G}{d t} = -\lambda k G \!\left( t \right), \quad \frac{1}{r^{2}}\frac{d }{d r}\!\left( r^{2}\frac{d \phi}{d r} \right) = -\lambda \phi \!\left( r \right)
+	\]
+	\item Let \( u \!\left( x,t \right) = \phi \!\left( x \right)G \!\left( t \right) \). Then 
+	\begin{align*}
+		\frac{\partial u}{\partial t} & = \phi \!\left( x \right)\frac{d G}{d t} \\
+		k \frac{\partial^4 u}{\partial x^4} & = k G \!\left( t \right)\frac{d^4 \phi}{d x^4}
+	\end{align*}
+	Setting equal and separating variables, we find
+	\begin{alignat*}{2}
+		 && \phi \!\left( x \right)\frac{d G}{d t} & = k G \!\left( t \right)\frac{d^4 \phi}{d x^4} \\
+		\implies && \frac{1}{k G \!\left( t \right)}\frac{d G}{d t} & = \frac{1}{\phi \!\left( x \right)}\frac{d^4 \phi}{d x^4} = -\lambda
+	\end{alignat*}
+	This produces ordinary differential equations
+	\[
+		\frac{d G}{d t} = -\lambda k G \!\left( t \right), \quad \frac{d^4 \phi}{d x^4} = -\lambda \phi \!\left( x \right) 
+	\]
+	\item Let \( u \!\left( x,t \right) = \phi \!\left( x \right)G \!\left( t \right) \). Then
+	\begin{align*}
+		\frac{\partial^2 u}{\partial t^2} & = \phi \!\left( x \right)\frac{d^2 G}{d t^2} \\
+		c^{2}\frac{\partial^2 u}{\partial x^2} & = c^{2} G \!\left( t \right)\frac{d^2 \phi}{d x^2}
+	\end{align*}
+	Setting equal and separating variables, we find
+	\begin{alignat*}{2}
+		 && \phi \!\left( x \right)\frac{d^2 G}{d t^2} & = c^{2}G \!\left( t \right)\frac{d^2 \phi}{d x^2} \\
+		\implies && \frac{1}{c^{2}G \!\left( t \right)}\frac{d^2 G}{d t^2} & = \frac{1}{\phi \!\left( x \right)}\frac{d^2 \phi}{d x^2} = -\lambda
+	\end{alignat*}
+	This produces ordinary differential equations
+	\[
+		\frac{d^2 G}{d t^2} = -\lambda c^{2}G \!\left( t \right), \quad \frac{d^2 \phi}{d x^2} = -\lambda \phi \!\left( x \right)
+	\]
+\end{enumerate}
+
+\newpage
+% QUESTION 2
+\qs{2.3.2}{Consider the differential equation
+\[
+	\frac{d^2 \phi}{d x^2} + \lambda \phi = 0 
+\]
+Determine the eigenvalues \( \lambda \) (and corresponding eigenfunctions) if \( \phi \) satisfies the following boundary conditions. Analyze three cases (\( \lambda > 0 \), \( \lambda = 0 \), \( \lambda < 0 \)). You may assume that the eigenvalues are real.
+\begin{enumerate}[label=(\alph*)]
+	\item \( \phi \!\left( 0 \right) = 0 \) and \( \phi \!\left( \pi \right) = 0 \)
+	\item \( \phi \!\left( 0 \right) = 0 \) and \( \phi \!\left( 1 \right) = 0 \)
+	\item \( \displaystyle{\frac{d \phi}{d x}\!\left( 0 \right) = 0} \) and \( \displaystyle{\frac{d \phi}{d x}\!\left( L \right) = 0} \) (If necessary, see Section 2.4.1.)
+	\item \( \phi \!\left( 0 \right) = 0 \) and \( \displaystyle{\frac{d \phi}{d x}\!\left( L \right) = 0} \)
+	\item \( \displaystyle{\frac{d \phi}{d x}\!\left( 0 \right) = 0} \) and \( \phi \!\left( L \right) = 0 \)
+	\item \( \phi \!\left( a \right) = 0 \) and \( \phi \!\left( b \right) = 0 \) (You may assume that \( \lambda > 0 \).)
+	\item \( \phi \!\left( 0 \right) = 0 \) and \( \displaystyle{\frac{d \phi}{d x}\!\left( L \right)} + \phi \!\left( L \right) = 0 \) (If necessary, see Section 5.8.)
+\end{enumerate}}
+
+The general forms for each case are
+\begin{alignat*}{2}
+	\phi & = c_{1}\cos\!\left(\sqrt{\lambda}x\right) + c_{2}\sin\!\left(\sqrt{\lambda}x\right) && \quad \!\left( \lambda > 0 \right) \\
+	\phi & = c_{1} + c_{2}x && \quad \!\left( \lambda = 0 \right) \\ 
+	\phi & = c_{1}\cosh\!\left( \sqrt{s}x \right) + c_{2}\sinh\!\left( \sqrt{s}x \right) && \quad \!\left( \lambda < 0, s = -\lambda \right)
+\end{alignat*}
+
+\begin{enumerate}[label=(\alph*)]
+	\item \underline{\( \lambda > 0 \)}
+	The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( 0 \right) & = c_{1} = 0 \\
+		\phi \!\left( \pi \right) & = c_{2}\sin\!\left(\sqrt{\lambda}\pi\right) = 0
+	\end{align*}
+	which forces \( \sqrt{\lambda} = n \), implying \( \lambda = n^{2} \) for positive integers. Then \( \phi \!\left( x \right) = c_{2}\sin\!\left(nx\right) \).
+
+	\underline{\( \lambda = 0 \)}
+	The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( 0 \right) & = c_{1} = 0 \\
+		\phi \!\left( \pi \right) & = c_{2}\pi = 0
+	\end{align*}
+	implying \( c_{2} = 0 \), so we only have the trivial solution, confirming that \( \lambda = 0 \) cannot be an eigenvalue.
+
+	\underline{\( \lambda < 0 \)}
+	Let \( -\lambda = s \). The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( 0 \right) & = c_{1} = 0 \\
+		\phi \!\left( \pi \right) & = c_{2}\sinh\!\left( \sqrt{s}\pi \right) = 0
+	\end{align*}
+	which requires either \( s = 0 \) or \( c_{2} = 0 \). We consider only \( s > 0 \), so that forces \( c_{2} = 0 \), and the implication that \( \lambda < 0 \) also cannot be an eigenvalue.
+	\item \underline{\( \lambda > 0 \)} The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( 0 \right) & = c_{1} = 0 \\
+		\phi \!\left( 1 \right) & = c_{2}\sin\!\left(\sqrt{\lambda}\right) = 0
+	\end{align*}
+	which forces \( \lambda = \!\left( n \pi \right)^{2} \) for positive integers. Then \( \phi \!\left( x \right) = c_{2}\sin\!\left(n \pi x\right) \).
+
+	\underline{\( \lambda = 0 \)}
+	The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( 0 \right) & = c_{1} = 0 \\
+		\phi \!\left( 1 \right) & = c_{2} = 0
+	\end{align*}
+	leaving us only with the trivial solution, implying that \( \lambda = 0 \) cannot be an eigenvalue.
+
+	\underline{\( \lambda < 0 \)}
+	Let \( -\lambda = s \). The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( 0 \right) & = c_{1} = 0 \\
+		\phi \!\left( 1 \right) & = c_{2}\sinh\!\left( \sqrt{s} \right) = 0
+	\end{align*}
+	which requires either \( s = 0 \) or \( c_{2} = 0 \). We consider only \( s > 0 \) (equivalent with \( \lambda < 0 \)), so we must have \( c_{2} = 0 \), ergo \( \lambda < 0 \) also cannot be an eigenvalue.
+	\item \underline{\( \lambda > 0 \)}
+	The boundary conditions produce
+	\begin{align*}
+		\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2}\sqrt{\lambda} = 0 \quad \implies c_{2} = 0 \\
+		\frac{d \phi}{d x}\!\left( L \right) & = -c_{1}\sqrt{\lambda}\sin\!\left(\sqrt{\lambda}L\right) = 0
+	\end{align*}
+	which requires \( \lambda = \!\left( n \pi / L \right)^{2} \) for positive integers. Then \( \phi \!\left( x \right) = c_{1}\cos\!\left(n \pi x / L\right) \).
+
+	\underline{\( \lambda = 0 \)}
+	The boundary conditions produce
+	\[
+		\frac{d \phi}{d x}\!\left( 0 \right) = \frac{d \phi}{d x}\!\left( L \right) = c_{2} = 0
+	\]
+	Then \( \phi \!\left( x \right) = c_{1} \), thus establishing \( \lambda = 0 \) as an eigenvalue for this function.
+
+	\underline{\( \lambda < 0 \)}
+	Let \( -\lambda = s \). The boundary conditions produce
+	\begin{align*}
+		\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2}\sqrt{s} = 0 \quad \implies c_{2} = 0 \\
+		\frac{d \phi}{d x}\!\left( L \right) & = c_{1}\sqrt{s}\sinh\!\left(\sqrt{s}L\right) = 0
+	\end{align*}
+	which requires \( c_{1} = 0 \) as well, as neither \( s = 0 \) nor \( L = 0 \) can be true. Therefore \( \lambda < 0 \) does not exist as an eigenvalue.
+	\item \underline{\( \lambda > 0 \)} The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( 0 \right) & = c_{1} = 0 \\
+		\frac{d \phi}{d x}\!\left( L \right) & = c_{2}\sqrt{\lambda}\cos\!\left(\sqrt{\lambda}L\right) = 0
+	\end{align*}
+	which requires \( \lambda = \!\left[ \!\left( 2n - 1 \right)\pi / 2L \right]^{2} = \!\left[ \!\left( n - 1/2 \right)\pi / L \right]^{2} \) for positive integers. Then
+	\[
+		\phi \!\left( x \right) = c_{2}\sin\!\left(\frac{\!\left( n - \frac{1}{2} \right)\pi x}{L}\right) 
+	\]
+
+	\underline{\( \lambda = 0 \)}
+	The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( 0 \right) & = c_{1} = 0 \\
+		\frac{d \phi}{d x}\!\left( L \right) & = c_{2} = 0
+	\end{align*}
+	Leaving only the trivial solution, so \( \lambda = 0 \) is not an eigenvalue.
+
+	\underline{\( \lambda < 0 \)}
+	Let \( s = -\lambda \). The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( 0 \right) & = c_{1} = 0 \\
+		\frac{d \phi}{d x}\!\left( L \right) & = c_{2}\sqrt{s}\cosh\!\left(\sqrt{s}L\right) = 0 \quad \implies c_{2} = 0
+	\end{align*}
+	which confirms that \( \lambda < 0 \) are ineligible to be eigenvalues of the boundary value problem.
+	\item \underline{\( \lambda > 0 \)}
+	The boundary conditions produce
+	\begin{align*}
+		\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2}\sqrt{\lambda} = 0 \quad \implies c_{2} = 0 \\
+		\phi \!\left( L \right) & = c_{1}\cos\!\left(\sqrt{\lambda}L\right) = 0
+	\end{align*}
+	which forces \( \lambda = \!\left[ \!\left( n - 1/2 \right)\pi / L \right]^{2} \) for positive integers. Then
+	\[
+		\phi \!\left( x \right) = c_{1}\cos\!\left(\frac{\!\left( n - \frac{1}{2} \right)\pi x}{L}\right) 
+	\]
+
+	\underline{\( \lambda = 0 \)}
+	The boundary conditions produce
+	\begin{align*}
+		\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2} = 0 \\
+		\phi \!\left( L \right) & = c_{1} = 0
+	\end{align*}
+	implying that \( \lambda = 0 \) cannot be an eigenvalue of \( \phi \).
+
+	\underline{\( \lambda < 0 \)}
+	Let \( s = -\lambda \). The boundary conditions produce
+	\begin{alignat*}{2}
+		\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2}\sqrt{s} = 0 \quad && \implies c_{2} = 0 \\
+		\phi \!\left( L \right) & = c_{1}\cosh\!\left(\sqrt{s}L\right) = 0 \quad && \implies c_{1} = 0
+	\end{alignat*}
+	once more indicating that the trivial solution is all that is yielded, ensuring that \( \lambda < 0  \) can never be eigenvalues of the boundary value problem.
+	\item \underline{\( \lambda > 0 \)}
+	The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( a \right) & = c_{1}\cos\!\left(\sqrt{\lambda}a\right) + c_{2}\sin\!\left(\sqrt{\lambda}a\right) = 0 \\
+		\phi \!\left( b \right) & = c_{1}\cos\!\left(\sqrt{\lambda}b\right) + c_{2}\sin\!\left(\sqrt{\lambda}b\right) = 0
+	\end{align*}
+	One insight here is to rewrite these equations as a matrix equation
+	\[
+		\begin{bmatrix}
+			\cos\!\left(\sqrt{\lambda}a\right) & \sin\!\left(\sqrt{\lambda}a\right)\\[6pt]
+			\cos\!\left(\sqrt{\lambda}b\right) & \sin\!\left(\sqrt{\lambda}b\right)
+		\end{bmatrix}
+		\begin{bmatrix}
+			c_{1} \\
+			c_{2}
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			0 \\
+			0
+		\end{bmatrix}
+	\]
+	And calculate the determinant of the left-most matrix using the sine angle difference identity:
+	\[
+		\det = \cos\!\left(\sqrt{\lambda}a\right)\sin\!\left(\sqrt{\lambda}b\right) - \cos\!\left(\sqrt{\lambda}b\right)\sin\!\left(\sqrt{\lambda}a\right) = \sin\!\left(\sqrt{\lambda}\!\left( b - a \right)\right) 
+	\]
+	Now, the question before us that will determine \( \lambda \): is the determinant zero or non-zero? We know that we cannot have \( c_{1} \) and \( c_{2} \) both equal to zero if we want positive eigenvalues, which implies that there exists a non-trivial solution. In turn, we can deduce that \textit{the rows are linearly dependent}, guaranteeing a zero determinant. This forces
+	\[
+		\lambda = \!\left( \frac{n \pi}{b - a} \right)^{2} 
+	\]
+	for positive integers. Since there exist non-zero coefficients \( c_{1} \) and \( c_{2} \), we can guess one solution for both
+	\begin{align*}
+		c_{1} & = -C \sin\!\left(\sqrt{\lambda}a\right) \\
+		c_{2} & = C \cos\!\left(\sqrt{\lambda}a\right)
+	\end{align*}
+	In the first row the combination of the two terms is clearly zero, and in the second, that is simply equal to the determinant, which we have established is zero. The corresponding eigenfunctions are
+	\begin{align*}
+		\phi \!\left( x \right) & = -C \sin\!\left(\sqrt{\lambda}a\right)\cos\!\left(\sqrt{\lambda}x\right) + C \cos\!\left(\sqrt{\lambda}a\right)\sin\!\left(\sqrt{\lambda}x\right) \\
+					& = C \sin\!\left(\sqrt{\lambda}\!\left( x - a \right)\right) \\
+					& = C \sin\!\left(\frac{n \pi \!\left( x - a \right)}{b - a}\right)
+	\end{align*}
+	\item \underline{\( \lambda > 0 \)} 
+	The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( 0 \right) & = c_{1} = 0 \\
+		\frac{d \phi}{d x}\!\left( L \right) + \phi \!\left( L \right) & = c_{2}\sqrt{\lambda}\cos\!\left(\sqrt{\lambda}L\right) + c_{2}\sin\!\left(\sqrt{\lambda}L\right) = 0
+	\end{align*}
+	Equivalently, the second boundary condition can be written as 
+	\[
+		\tan\!\left(\sqrt{\lambda}L\right) = -\sqrt{\lambda} 
+	\]
+	which is legal as if \( \cos\!\left(\sqrt{\lambda}L\right) = 0 \), the corresponding values of \( \lambda \) would not render \( \sin\!\left(\sqrt{\lambda}L\right) = 0 \), forcing \( c_{2} = 0 \), and producing only the trivial solution. The equation derived is a transcendental equation and must be evaluated with numerical methods. Referring to Figure 5.8.1 in Haberman demonstrates that there are infinitely many solutions. For now, call the solutions \( \lambda_{1} \), \( \lambda_{2} \), ..., where \( \lambda_{1} < \lambda_{2} < \cdots \). Then \( \phi_{n} \!\left( x \right) = c_{2}\sin\!\left(\sqrt{\lambda_{n}}x\right) \) for positive integers.
+
+	\underline{\( \lambda = 0 \)} 
+	The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( 0 \right) & = c_{1} = 0 \\
+		\frac{d \phi}{d x}\!\left( L \right) + \phi \!\left( L \right) & = c_{2}\!\left( 1 + L \right) = 0
+	\end{align*}
+	Forcing \( c_{2} = 0 \), so only the trivial solution exists, implying \( \lambda = 0 \) cannot be an eigenvalue.
+	
+	\underline{\( \lambda < 0 \)}
+	Let \( s = -\lambda \). The boundary conditions produce
+	\begin{align*}
+		\phi \!\left( 0 \right) & = c_{1} = 0 \\
+		\frac{d \phi}{d x}\!\left( L \right) + \phi \!\left( L \right) & = c_{2}\sqrt{s}\cosh\!\left(\sqrt{s}L\right) + c_{2}\sinh\!\left(\sqrt{s}L\right) = 0
+	\end{align*}
+	Again, we can rewrite the second boundary condition as 
+	\[
+		\tanh\!\left( \sqrt{s}L \right) = -\sqrt{s} 
+	\]
+	This is once more a transcendental equation, however it is true only at \( s = 0 \), as when \( s > 0 \), \( \tanh\!\left( \sqrt{s} \right) > 0 \) and \( -\sqrt{s} < 0 \). Therefore we have \( c_{2} = 0 \), and once again only the trivial solution. There exist no eigenvalues \( \lambda < 0 \) for \( \phi \).
+\end{enumerate}
+
+\newpage
+% QUESTION 3
+\qs{2.3.3}{Consider the heat equation
+\[
+	\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2} 
+\]
+subject to the boundary conditions
+\[
+	u \!\left( 0,t \right) = 0 \qquad \text{and} \qquad u \!\left( L,t \right) = 0
+\]
+Solve the initial value problem if the temperature is initially
+\begin{enumerate}[label=(\alph*)]
+	\item \( u \!\left( x,0 \right) = 6 \sin\!\left(\frac{9 \pi x}{L}\right) \)
+	\item \( u \!\left( x,0 \right) = 3 \sin\!\left(\frac{\pi x}{L}\right) - \sin\!\left(\frac{3 \pi x}{L}\right) \)
+	\item \( u \!\left( x,0 \right) = 2 \cos\!\left(\frac{3 \pi x}{L}\right) \)
+	\item \( u \!\left( x,0 \right) = \begin{cases}
+		1 & \quad 0 < x \le L/2 \\
+		2 & \quad L/2 < x < L
+	\end{cases} \)
+	\item \( u \!\left( x,0 \right) = f \!\left( x \right) \)
+\end{enumerate}}
+
+Use the general solution
+\[
+	u \!\left( x,t \right) = B \sin\!\left(\frac{n \pi x}{L}\right)e^{-k \!\left( n \pi / L \right)^{2}t} 
+\]
+
+\begin{enumerate}[label=(\alph*)]
+	\item Set \( B = 6 \) and \( n = 9 \) to get
+	\[
+		u \!\left( x,t \right) = 6 \sin\!\left(\frac{9 \pi x}{L}\right)e^{-k \!\left( 9 \pi / L \right)^{2}t} 
+	\]
+	\item From the principle of superposition, the general form looks like
+	\[
+		u \!\left( x,t \right) = B_{1}\sin\!\left(\frac{n_{1}\pi x}{L}\right)e^{-k \!\left( n_{1}\pi / L \right)^{2}t} + B_{2}\sin\!\left(\frac{n_{2}\pi x}{L}\right)e^{-k \!\left( n_{2}\pi / L \right)^{2}t} 
+	\]
+	Set \( B_{1} = 3 \), \( B_{2} = -1 \), \( n_{1} = 1 \), and \( n_{2} = 3 \) to get
+	\[
+		u \!\left( x,t \right) = 3 \sin\!\left(\frac{\pi x}{L}\right)e^{-k \!\left( \pi / L \right)^{2}t} - \sin\!\left(\frac{3 \pi x}{L}\right)e^{-k \!\left( 3 \pi / L \right)^{2}t} 
+	\]
+	\item The issue here is the initial temperature fails to meet the boundary conditions.
+	In this case, the general solution is
+	\[
+		u \!\left( x,t \right) = \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{-k \!\left( n \pi / L \right)^{2}t} 
+	\]
+	From the initial condition, we must set equal
+	\[
+		 u \!\left( x,0 \right) = 2 \cos\!\left(\frac{3 \pi x}{L}\right) = \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi x}{L}\right)
+	\]
+	Now, multiply both sides by \( \sin\!\left(m \pi x / L\right) \) and integrate from \( 0 \) to \( L \):
+	\[
+		\int^{L}_{0} 2 \cos\!\left(\frac{3 \pi x}{L}\right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx = \int^{L}_{0} \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi x}{L}\right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx  
+	\]
+	By orthogonality of sines, the right-hand side equals
+	\[
+		A_{m}\int^{L}_{0} \sin^{2}\!\left(\frac{m \pi x}{L}\right) \, dx 
+	\]
+	And solving for \( A_{m} \) gives us
+	\[
+		A_{m} = \frac{\int^{L}_{0} 2 \cos\!\left(\frac{3 \pi x}{L}\right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx}{\int^{L}_{0} \sin^{2}\!\left(\frac{m \pi x}{L}\right) \, dx} = \frac{2}{L}\int^{L}_{0} 2 \cos\!\left(\frac{3 \pi x}{L}\right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx 
+	\]
+	Using the product identity for cosine and sine, we further derive
+	\begin{align*}
+		A_{m} & = \frac{2}{L}\int^{L}_{0} 2 \cos\!\left(\frac{3 \pi x}{L}\right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx \\
+		& = \frac{2}{L}\!\left[ \int^{L}_{0} \sin\!\left(\frac{\!\left( m + 3 \right)\pi x}{L}\right) \, dx + \int^{L}_{0} \sin\!\left(\frac{\!\left( m - 3 \right)\pi x}{L}\right) \, dx \right] \\
+		 & = -\frac{2}{L}\!\left[ \frac{L}{\!\left( m + 3 \right)\pi}\cos\!\left(\frac{\!\left( m + 3 \right)\pi x}{L}\right)\Big|^{L}_{0} + \frac{L}{\!\left( m - 3 \right)\pi}\cos\!\left(\frac{\!\left( m - 3 \right)\pi x}{L}\right)\Big|^{L}_{0} \right] \\
+		 & = \begin{cases}
+			 \displaystyle{-\frac{2}{L}\!\left[ -\frac{2L}{\!\left( m + 3 \right)\pi} - \frac{2L}{\!\left( m - 3 \right)\pi} \right]}, & m \text{ even} \\
+		 	0, & m \text{ odd}
+		     \end{cases} \\
+		 & = \begin{cases}
+			 \displaystyle{\frac{8m}{\!\left( m + 3 \right)\!\left( m - 3 \right)\pi}}, & m \text{ even} \\
+		 	0, & m \text{ odd}
+		 \end{cases}
+	\end{align*}
+	Rewriting as 
+	\[
+		A_{n} = \frac{16n}{\!\left( 2n + 3 \right)\!\left( 2n - 3 \right)\pi} 
+	\]
+	we have temperature distribution
+	\[
+		u \!\left( x,t \right) = \sum^{\infty}_{n=1} \frac{16n}{\!\left( 2n + 3 \right)\!\left( 2n - 3 \right)\pi}\sin\!\left(\frac{2n \pi x}{L}\right)e^{-k \!\left( 2n \pi / L \right)^{2}t} 
+	\]
+	Observe that by ensuring that we sum only over even indices, \textit{every} index throughout the expression must be scaled by a factor of two.
+	\item From the general solution
+	\[
+		u \!\left( x,t \right) = \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{-k \!\left( n \pi / L \right)^{2}t} 
+	\]
+	Set equal
+	\[
+		u \!\left( x,0 \right) = \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi x}{L}\right) 
+	\]
+	And multiply both sides by \( \sin\!\left(m \pi x / L\right) \) and integrate from \( 0 \) to \( L \) to get
+	\begin{align*}
+		\int^{L}_{0} u \!\left( x,0 \right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx & = \int^{L/2}_{0} \sin\!\left(\frac{m \pi x}{L}\right) \, dx + \int^{L}_{L/2} 2 \sin\!\left(\frac{m \pi x}{L}\right) \, dx \\
+											      & = \int^{L}_{0} \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi x}{L}\right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx \\
+											      & = A_{m}\int^{L}_{0} \sin^{2}\!\left(\frac{m \pi x}{L}\right) \, dx \\
+											      & = A_{m}\frac{L}{2}
+	\end{align*}
+	Isolating \( A_{m} \), we find
+	\begin{align*}
+		A_{m} & = \frac{2}{L}\!\left[ \int^{L/2}_{0} \sin\!\left(\frac{m \pi x}{L}\right) \, dx + \int^{L}_{L/2} 2 \sin\!\left(\frac{m \pi x}{L}\right) \, dx \right] \\
+		      & = -\frac{2}{L}\frac{L}{m \pi}\!\left[ \cos\!\left(\frac{m \pi x}{L}\right)\Big|^{L/2}_{0} + 2 \cos\!\left(\frac{m \pi x}{L}\right)\Big|^{L}_{L/2} \right] \\
+		      & = \frac{2}{m \pi}\!\left[ 1 + \cos\!\left(\frac{m \pi}{2}\right) - 2 \cos\!\left(m \pi\right) \right]
+	\end{align*}
+	Unfortunately, due to the \( \cos\!\left(m \pi / 2\right) \) term and the modulo \( 4 \) arithmetic involved in evaluating it, there is no simpler algebraic expression for this Fourier coefficient. Nevertheless, it does allow us to write the complete temperature distribution:
+	\[
+		u \!\left( x,t \right) = \sum^{\infty}_{n=1} \frac{2}{n \pi}\!\left[ 1 + \cos\!\left(\frac{n \pi}{2}\right) - 2 \cos\!\left(n \pi\right) \right]\sin\!\left(\frac{n \pi x}{L}\right)e^{-k \!\left( n \pi / L \right)^{2}t} 
+	\]
+	\item In the absolute general case for the initial condition, we set equal
+	\[
+		u \!\left( x,0 \right) = f \!\left( x \right) = \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi x}{L}\right) 
+	\]
+	Multiply both sides by \( \sin\!\left( m \pi x / L \right) \), integrate over \( 0 \) to \( L \), and invoke sine orthongonality to get
+	\begin{align*}
+		\int^{L}_{0} f \!\left( x \right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx & = \int^{L}_{0} \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi x}{L}\right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx \\
+		 & = A_{m}\int^{L}_{0} \sin^{2}\!\left(\frac{m \pi x}{L}\right) \, dx
+	\end{align*}
+	Leading us to
+	\[
+		A_{m} = \frac{\displaystyle{\int^{L}_{0} f \!\left( x \right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx}}{\displaystyle{\int^{L}_{0} \sin^{2}\!\left(\frac{m \pi x}{L}\right) \, dx}} = \frac{2}{L} \int^{L}_{0} f \!\left( x \right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx
+	\]
+\end{enumerate}
+
+% QUESTION 4
+\qs{2.3.4}{Consider
+\[
+	\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2} 
+\]
+subject to \( u \!\left( 0,t \right) = 0 \), \( u \!\left( L,t \right) = 0 \), and \( u \!\left( x,0 \right) = f \!\left( x \right) \).
+\begin{enumerate}[label=(\alph*)]
+	\item What is the total heat energy in the rod as a function of time?
+	\item What is the flow of heat energy out of the rod at \( x = 0 \)? at \( x = L \)?
+	\item What relationship should exist between parts (a) and (b)?
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item For the one-dimensional rod, we have the energy per unit length, \( c \rho A u \!\left( x,t \right) \). To find the total energy in the rod, we must integrate across the entire length \( 0 \) to \( L \). Let \( B_{n} \) be the Fourier coefficient derived in 2.3.3(e). Compute
+	\begin{align*}
+		\substack{\text{Total} \\ \text{Energy}} & = \int^{L}_{0} c \rho A u \!\left( x,t \right) \, dx \\
+							 & = \int^{L}_{0} c \rho A \sum^{\infty}_{n=1} B_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{-k \!\left( n \pi / L \right)^{2}t} \, dx \\
+							 & = c \rho A \sum^{\infty}_{n=1} B_{n}\frac{L}{n \pi} \!\left[ 1 - \cos\!\left(n \pi\right) \right]e^{-k \!\left( n \pi / L \right)^{2}t} \\
+							 & = c \rho A \sum^{\infty}_{j=1} B_{2j-1}\frac{2L}{\!\left( 2j - 1 \right)\pi}e^{-k \!\left( \!\left( 2j - 1 \right)\pi / L \right)^{2}t}
+	\end{align*}
+	Where in the final step, we re-index the sum based on whether \( n \) is even or odd.
+	\item From the Fourier heat transfer law, we multiply by the area \( A \) to get the total flow of energy per time
+	\[
+		\phi \!\left( x \right)A = -k_{0} \frac{\partial u}{\partial x} = -k_{0} A \sum^{\infty}_{n=1} B_{n}\frac{n \pi}{L}\cos\!\left(\frac{n \pi x}{L}\right)e^{-k \!\left( n \pi / L \right)^{2}t} 
+	\]
+	At either end
+	\begin{align*}
+		\phi \!\left( 0 \right)A & = -k_{0}A \sum^{\infty}_{n=1} B_{n}\frac{n \pi}{L}e^{-k \!\left( n \pi / L \right)^{2}t} \\
+		\phi \!\left( L \right)A & = -k_{0}A \sum^{\infty}_{n=1} B_{n}\frac{n \pi}{L}\!\left( -1 \right)^{n}e^{-k \!\left( n \pi / L \right)^{2}t}
+	\end{align*}
+	where the sign convention is \( \phi \!\left( x \right) \) describes the \textit{rightward} flow of heat energy per time per unit area at point \( x \).
+	\item Physically, we can reconstruct the heat equation by balancing the rate of change of total energy with the spatial difference in flux at both ends of the rod. For the former, if \( E \) is the total energy and \( k = k_{0} / c \rho \), then
+	\begin{align*}
+		\frac{\partial E}{\partial t} & = -c \rho k A \sum^{\infty}_{j=1} B_{2j-1}\!\left( \frac{\!\left( 2j-1 \right)\pi}{L} \right)^{2}\!\left( \frac{2L}{\!\left( 2j-1 \right)\pi} \right)e^{-k \!\left( \!\left( 2j-1 \right)\pi / L \right)^{2}t} \\
+					      & = -k_{0} A \sum^{\infty}_{j=1} 2B_{2j-1}\frac{\!\left( 2j-1 \right)\pi}{L}e^{-k \!\left( \!\left( 2j-1 \right)\pi / L \right)^{2}t}
+	\end{align*}
+	and for the latter
+	\begin{align*}
+		\!\left[ \phi \!\left( 0 \right) - \phi \!\left( L \right) \right]A & = -k_{0}A \sum^{\infty}_{n=1} B_{n}\frac{n \pi}{L}e^{-k \!\left( n \pi / L \right)^{2}t}\!\left( 1 - \!\left( -1 \right)^{n} \right) \\ 
+		 & = -k_{0} A \sum^{\infty}_{j=1} 2B_{2j-1}\frac{\!\left( 2j-1 \right)\pi}{L}e^{-k \!\left( \!\left( 2j-1 \right)\pi / L \right)^{2}t}
+	\end{align*}
+	where the last line arises from the elimination of the even modes, leaving only the odd modes. Hence the rate of change of energy balances the spatial difference of heat flux:
+	\[
+		\frac{\partial E}{\partial t} = \!\left[ \phi \!\left( 0 \right) - \phi \!\left( L \right) \right]A
+	\]
+\end{enumerate}
+
+% QUESTION 5
+\qs{2.3.5}{Evaluate (be careful if \( n = m \))
+\[
+	\int^{L}_{0} \sin\!\left(\frac{n \pi x}{L}\right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx \qquad \text{for }n > 0, m > 0  
+\]
+Use the trigonometic identity
+\[
+	\sin\!\left(a\right)\sin\!\left(b\right) = \frac{1}{2}\!\left[ \cos\!\left(a - b \right) - \cos\!\left(a + b\right) \right] 
+\]}
+From the identity, if \( n \neq m \), solve
+{\footnotesize
+\begin{align*}
+	\int^{L}_{0} \frac{1}{2}\!\left[ \cos\!\left(\frac{\!\left( n - m \right)\pi x}{L}\right) - \cos\!\left(\frac{\!\left( n + m \right)\pi x}{L}\right) \right] \, dx & = \frac{1}{2}\!\biggl[ \frac{L}{\!\left( n - m \right)\pi}\sin\!\left(\frac{\!\left( n - m \right)\pi x}{L}\right) - \\ 
+																					   & \qquad \frac{L}{\!\left( n + m \right)\pi}\sin\!\left(\frac{\!\left( n + m \right)\pi x}{L}\right) \biggr]\Big|^{L}_{0} \\
+	 & = 0 
+\end{align*}}
+which proves the orthogonality of sines when \( n \neq m \). In the case when \( n = m \), solve using the double angle identity:
+\begin{align*}
+	\int^{L}_{0} \sin^{2}\!\left(\frac{n \pi x}{L}\right) \, dx & = \int^{L}_{0} \frac{1}{2}\!\left( 1 - \cos\!\left(\frac{2n \pi x}{L}\right) \right) \, dx \\
+	 & = \frac{x}{2}\Big|^{L}_{0} - \frac{L}{4n \pi}\cos\!\left(\frac{2n \pi x}{L}\right)\Big|^{L}_{0} \\ 
+	 & = \frac{L}{2}
+\end{align*}
+Explaining the \( L / 2 \) factor that arises when calculating Fourier coefficients.
+
+\vspace{12pt}
+
+% QUESTION 6
+\qs{2.3.6}{Evaluate
+\[
+	\int^{L}_{0} \cos\!\left(\frac{n \pi x}{L}\right)\cos\!\left(\frac{m \pi x}{L}\right) \, dx \qquad \text{for } n \ge 0, m \ge 0  
+\]
+Use the trigonometric identity
+\[
+	\cos\!\left(a\right)\cos\!\left(b\right) = \frac{1}{2}\!\left[ \cos\!\left(a + b\right)+ \cos\!\left(a - b\right) \right] 
+\]
+(Be careful if \( a - b = 0 \) or \( a + b = 0 \).)}
+
+Suppose we pick \( n \) and \( m \) such that \( n - m \neq 0 \) and \( n + m \neq 0 \). Then
+solve
+{\footnotesize
+\begin{align*}
+	\int^{L}_{0} \frac{1}{2}\!\left[ \cos\!\left(\frac{\!\left( n + m \right)\pi x}{L}\right) + \cos\!\left(\frac{\!\left( n - m \right)\pi x}{L}\right) \right] \, dx & = \frac{1}{2}\!\biggl[ \frac{L}{\!\left( n + m \right)\pi}\sin\!\left(\frac{\!\left( n + m \right)\pi x}{L}\right) + \\
+																					   & \qquad \frac{L}{\!\left( n - m \right)\pi}\sin\!\left(\frac{\!\left( n - m \right)\pi x}{L}\right) \biggr]\Big|^{L}_{0} \\
+	 & = 0
+\end{align*}}
+which demonstrates the orthogonality of cosines. In the case when \( m = n \neq 0 \), then
+\begin{align*}
+	\int^{L}_{0} \cos^{2}\!\left(\frac{n \pi x}{L}\right) \, dx & = \int^{L}_{0} \frac{1}{2}\!\left[ 1 + \cos\!\left(\frac{2n \pi x}{L}\right) \right] \, dx \\
+	 & = \frac{x}{2}\Big|^{L}_{0} + \frac{L}{2n \pi}\sin\!\left(\frac{2n \pi x}{L}\right)\Big|^{L}_{0} \\
+	 & = \frac{L}{2}
+\end{align*}
+Again demonstrating that the squared norm of each nonzero cosine mode on \( \!\left[ 0,L \right] \) is \( L / 2 \). Now, in the special case when \( m = n = 0 \), both cosines are \( 1 \), and
+\[
+	\int^{L}_{0} \, dx = L  
+\]
+We are not yet at this point in the textbook, but it is this result that explains the \( a_{0} = \frac{1}{L}\int^{L}_{0} f \!\left( x \right) \, dx \) term in the Fourier cosine series.
+
+\newpage
+
+% QUESTION 7
+\qs{2.3.7}{Consider the following boundary value problem (if necessary, see Section 2.4.1):
+\[
+	\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2} \text{ with } \frac{\partial u}{\partial x}\!\left( 0,t \right) = 0, \frac{\partial u}{\partial x}\!\left( L,t \right) = 0, \text{ and } u \!\left( x,0 \right) = f \!\left( x \right)
+\]
+\begin{enumerate}[label=(\alph*)]
+	\item Give a one-sentence physical interpretation of this problem.
+	\item Solve by the method of separation of variables. First show that there are no separated solutions which exponentially grow in time. [\textit{Hint}: The answer is
+	\[
+		u \!\left( x,t \right) = A_{0} + \sum^{\infty}_{n=1} A_{n}e^{-\lambda_{n}kt}\cos\!\left(\frac{n \pi x}{L}\right) \biggr]
+	\]
+	What is \( \lambda_{n} \)?
+	\item Show that the initial condition, \( u \!\left( x,0 \right) = f \!\left( x \right) \), is satisfied if 
+	\[
+		f \!\left( x \right) = A_{0} + \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right) 
+	\]
+	\item Using Exercise 2.3.6, solve for \( A_{0} \) and \( A_{n} \) (\( n \ge 1 \)).
+	\item What happens to the temperature distribution as \( t \rightarrow \infty \)? Show that it approaches the steady-state temperature distribution (see Section 1.4).
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item The ends of the rod are insulated.
+	\item Let \( u \!\left( x,t \right) = \phi \!\left( x \right)G \!\left( t \right) \). Then
+	\begin{align*}
+		\frac{\partial u}{\partial t} & = \phi \!\left( x \right)\frac{d G}{d t} \\
+		k \frac{\partial^2 u}{\partial x^2} & = k \frac{d^2 \phi}{d x^2}G \!\left( t \right)
+	\end{align*}
+	Separating variables, derive
+	\[
+		\frac{1}{k G \!\left( t \right)}\frac{d G}{d t} = \frac{1}{\phi \!\left( x \right)}\frac{d^2 \phi}{d x^2} = -\lambda
+	\]
+	From the time equation, we get
+	\[
+		G \!\left( t \right) = ce^{-\lambda kt} 
+	\]
+	and from the spatial equation, we must solve by assuming different values of \( \lambda \). First, consider \( \lambda < 0 \), and let \( s = -\lambda \). Then \( s > 0 \). We solve
+	\[
+		\frac{d^2 \phi}{d x^2} = -\lambda \phi \!\left( x \right) 
+	\]
+	and find
+	\[
+		\phi \!\left( x \right) = c_{1}\cosh\!\left(\sqrt{s}x\right) + c_{2}\sinh\!\left(\sqrt{s}x\right) 
+	\]
+	Now, we must verify that we can find non-trivial solutions subject to the boundary conditions \( \partial \phi / \partial x \!\left( 0,t \right) = 0 \) and \( \partial \phi / \partial x \!\left( L,t \right) = 0 \). First, the spatial derivative
+	\[
+		\frac{\partial \phi}{\partial x} = c_{1}\sqrt{s}\sinh\!\left(\sqrt{s}x\right) + c_{2}\sqrt{s}\cosh\!\left(\sqrt{s}x\right) 
+	\]
+	And evaluating the boundary conditions, we find
+	\[
+		\frac{\partial \phi}{\partial x}\!\left( 0 \right) = c_{2}\sqrt{s} = 0 
+	\]
+	which implies \( c_{2} = 0 \). For the second,
+	\[
+		\frac{\partial \phi}{\partial x}\!\left( L \right) = c_{1}\sqrt{s}\sinh\!\left(\sqrt{s}L\right) = 0 
+	\]
+	which must imply \( c_{1} = 0 \); for \( \sinh\!\left(\sqrt{s}L\right) = 0 \), we would require \( \sqrt{s}L = 0 \), but that cannot be the case. Therefore, only the trivial solution remains. Now, \( G \!\left( t \right) = ce^{-\lambda kt} \) grows only when \( \lambda < 0 \), but since \( \lambda < 0 \) only admits the trivial solution, we have now established that there cannot be any non-trivial solution that exponentially grows in time.
+
+	In the case where \( \lambda = 0 \), we solve the ordinary differential equation to get
+	\[
+		\phi \!\left( x \right) = c_{1} + c_{2}x 
+	\]
+	and imposing the boundary conditions produces
+	\[
+		\frac{\partial \phi}{\partial x}\!\left( 0 \right) = \frac{\partial \phi}{\partial x}\!\left( L \right) = c_{2} = 0
+	\]
+	which implies constant \( \phi \!\left( x \right) \) and \( G \!\left( t \right) \) and thus, constant temperature throughout the rod. We will include this constant term in our solution shortly.
+
+	Lastly, when \( \lambda > 0 \), we have
+	\[
+		\phi \!\left( x \right) = c_{1}\cos\!\left(\sqrt{\lambda}x\right) + c_{2}\sin\!\left(\sqrt{\lambda}x\right) 
+	\]
+	which has spatial derivative
+	\[
+		\frac{\partial \phi}{\partial x} = -c_{1}\sqrt{\lambda}\sin\!\left(\sqrt{\lambda}x\right) + c_{2}\sqrt{\lambda}\cos\!\left(\sqrt{\lambda}x\right) 
+	\]
+	Imposing the boundary conditions yield
+	\[
+		\frac{\partial \phi}{\partial x}\!\left( 0 \right) = c_{2}\sqrt{\lambda} = 0 \implies c_{2} = 0, \qquad \frac{\partial \phi}{\partial x}\!\left( L \right) = -c_{1}\sqrt{\lambda}\sin\!\left(\sqrt{\lambda}L\right) = 0
+	\]
+	where in the second boundary condition, if we hold \( c_{1} \neq 0 \), a non-trivial solution emerges if we set 
+	\[
+		\lambda_{n} = \!\left( \frac{n \pi}{L} \right)^{2} 
+	\]
+	where \( n \) is any positive integer. Since the solution holds for any cosine mode \( n \), appealing to superposition, we can write our complete solution by combining the separated functions into a linear combination:
+	\[
+		u \!\left( x,t \right) = A_{0} + \sum^{\infty}_{n=1} A_{n}e^{-\lambda_{n}kt}\cos\!\left(\frac{n \pi x}{L}\right) 
+	\]
+	where \( A_{0} \) is our constant solution from the zero eigenvalue case, \( \lambda_{n} \) our indexed eigenvalue, and \( A_{n} \) arbitrary constants determined by the initial condition \( f \!\left( x \right) \).
+	\item From part (b), at \( t = 0 \), we have
+	\[
+		u \!\left( x,0 \right) = f \!\left( x \right) = A_{0} + \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right) 
+	\]
+	\item For \( A_{0} \), since \( L \) is the squared norm of cosine at \( n = m = 0 \), we simply write
+	\[
+		A_{0} = \frac{\int^{L}_{0} f \!\left( x \right)\cos\!\left(0\right) \, dx}{\int^{L}_{0} \, dx} = \frac{1}{L}\int^{L}_{0} f \!\left( x \right) \, dx  
+	\]
+	As for the remaining coefficients, we have
+	\[
+		A_{n} = \frac{\int^{L}_{0} f \!\left( x \right)\cos\!\left(\frac{n \pi x}{L}\right) \, dx}{\int^{L}_{0} \cos^{2}\!\left(\frac{n \pi x}{L}\right) \, dx} = \frac{2}{L}\int^{L}_{0} f \!\left( x \right)\cos\!\left(\frac{n \pi x}{L}\right) \, dx  
+	\]
+	\item In the limit, we can evaluate
+	\[
+		\lim\limits_{t \to \infty}u \!\left( x,t \right) = \lim\limits_{t \to \infty}\!\left[ A_{0} + \sum^{\infty}_{n=1} A_{n}e^{-\lambda_{n}kt}\cos\!\left(\frac{n \pi x}{L}\right) \right] = A_{0}
+	\]
+	as demonstrated in equation (1.4.21), the steady-state distribution in the case of insulated ends produces the average of the initial temperature distribution:
+	\[
+		A_{0} = \frac{1}{L}\int^{L}_{0} f \!\left( x \right) \, dx  
+	\]
+\end{enumerate}
+
+\newpage
+
+% QUESTION 8
+\qs{2.3.8}{Consider
+\[
+	\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2} - \alpha u
+\]
+This corresponds to a one-dimensional rod either with heat loss through the lateral sides with outside temperature \( 0^{\circ} \) (\( \alpha > 0 \), see Exercise 1.2.4) or with insulated lateral sides with a heat sink proportional to the temperature. Suppose that the boundary conditions are
+\[
+	u \!\left( 0,t \right) = 0 \text{ and } u \!\left( L,t \right) = 0 
+\]
+\begin{enumerate}[label=(\alph*)]
+	\item What are the possible equilibrium temperature distributions if \( \alpha > 0 \)?
+	\item Solve the time-dependent problem [\( u \!\left( x,0 \right) = f \!\left( x \right) \)] if \( \alpha > 0 \). Analyze the temperature for large time (\( t \rightarrow \infty \)) and compare part (a).
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item Let \( \partial u / \partial t = 0 \). Then isolating the second derivative, we solve
+	\[
+		\frac{d^2 u}{d x^2} = \frac{\alpha}{k}u 
+	\]
+	Let \( u = e^{rx} \). Then the characteristic polynomial \( r^{2} - \alpha / k = 0 \) emerges, producing roots \( r = \pm \sqrt{\alpha / k} \). The general solution is
+	\[
+		u \!\left( x \right) = c_{1}e^{\sqrt{\alpha / k}x} + c_{2}e^{-\sqrt{\alpha / k}x} 
+	\]
+	The boundary conditions produce the equations
+	\begin{align*}
+		u \!\left( 0 \right) & = c_{1} + c_{2} = 0 \\
+		u \!\left( L \right) & = c_{1}e^{\sqrt{\alpha / k}L} + c_{2}e^{-\sqrt{\alpha / k}L} = 0
+	\end{align*}
+	If you write out the matrix equation, it is easy to see that the two columns of the coefficient matrix are linearly independent; the first entries are both \( 1 \) while the second entries differ. Therefore only the trivial solution exists. More concretely, from the first equation we deduce \( c_{1} = -c_{2} \). Substitute into the second equation to get
+	\[
+		u \!\left( L \right) = c_{1}\!\left[ e^{\sqrt{\alpha / k}L} - e^{-\sqrt{\alpha / k}L} \right] = 0 
+	\]
+	The bracketed term is zero only when \( \alpha = 0 \), so that forces \( c_{1} = 0 \). Immediately from the first equation, it follows that \( c_{2} = 0 \) as well. Therefore \( u \!\left( x \right) = 0 \) is the only permissible temperature distribution at equilibrium.
+	\item Use the method of separation of variables. Let \( u \!\left( x,t \right) = \phi \!\left( x \right)G \!\left( t \right) \). Then after some substitution and division, derive
+	\[
+		\frac{1}{k G \!\left( t \right)}\frac{d G}{d t} = \frac{1}{\phi \!\left( x \right)}\frac{d^2 \phi}{d x^2} - \frac{\alpha}{k} = -\lambda 
+	\]
+	The time equation is derived similarly as before:
+	\[
+		G \!\left( t \right) = ce^{-\lambda kt} 
+	\]
+	The spatial equation, on the other hand, looks like
+	\[
+		\frac{d^2 \phi}{d x^2} = \!\left[ -\lambda + \frac{\alpha}{k} \right]\phi \!\left( x \right) 
+	\]
+	There is no difference in technique, we need only handle the additional \( \alpha / k \) term. To do so, consider first the case where \( \lambda < \alpha / k \). Then
+	\[
+		\phi \!\left( x \right) = c_{1}\cosh\!\left(\!\left( \sqrt{\frac{\alpha}{k} - \lambda}\right)x\right) + c_{2}\sinh\!\left(\!\left( \sqrt{\frac{\alpha}{k} - \lambda}\right)x\right) 
+	\]
+	Imposing the boundary conditions produces
+	\[
+		\phi \!\left( 0 \right) = c_{1} = 0, \qquad \phi \!\left( L \right) = c_{2}\sinh\!\left(\!\left( \sqrt{\frac{\alpha}{k} - \lambda} \right)L\right) = 0
+	\]
+	Since the argument of the \( \sinh \) term is positive, it follows that the term itself cannot be zero, forcing \( c_{2} = 0 \). Therefore only the trivial solution arises.
+
+	Next, consider \( \lambda = \alpha / k \). Then the right-hand side of the ordinary differential equation vanishes, and integrating twice for the general solution leads to
+	\[
+		\phi \!\left( x \right) = c_{1} + c_{2}x 
+	\]
+	The boundary conditions once again enable us to conclude that only the trivial solution is viable:
+	\[
+		\phi \!\left( 0 \right) = c_{1} = 0, \qquad \phi \!\left( L \right) = c_{2}L = 0 \implies c_{2} = 0
+	\]
+	Lastly, examine \( \lambda > \alpha / k \). Then we have general solution
+	\[
+		\phi \!\left( x \right) = c_{1}\cos\!\left(\!\left(\sqrt{\lambda - \frac{\alpha}{k}}\right)x\right) + c_{2}\sin\!\left(\!\left(\sqrt{\lambda - \frac{\alpha}{k}}\right)x\right) 
+	\]
+	Applying the boundary conditions yield
+	\[
+		\phi \!\left( 0 \right) = c_{1} = 0, \qquad \phi \!\left( L \right) = c_{2}\sin\!\left(\!\left( \sqrt{\lambda - \frac{\alpha}{k}} \right)L\right) = 0
+	\]
+	where in the second boundary condition, a non-trivial solution emerges by holding \( c_{2} \neq 0 \) and setting
+	\[
+		\lambda_{n} = \!\left( \frac{n \pi}{L} \right)^{2} + \frac{\alpha}{k} 
+	\]
+	for positive integers \( n \). This yields eigenfunctions
+	\[
+		\phi \!\left( x \right) = \sin\!\left(\frac{n \pi x}{L}\right) 
+	\]
+	By superposition and combining the spatial and temporal solutions, we derive the time-dependent temperature distribution
+	\begin{align*}
+		u \!\left( x,t \right) & = \sum^{\infty}_{n=1} B_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{-\!\left[ \!\left( n \pi / L \right)^{2} + \alpha / k \right]kt} \\
+				       & = e^{-\alpha t}\sum^{\infty}_{n=1} B_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{-k \!\left( n \pi / L \right)^{2}t} 
+	\end{align*}
+	where \( B_{n} \) is defined as 
+	\[
+		B_{n} = \frac{2}{L}\int^{L}_{0} f \!\left( x \right)\sin\!\left(\frac{n \pi x}{L}\right) \, dx  
+	\]
+	In the temporal limit, we can see that
+	\[
+		\lim\limits_{t \to \infty} u \!\left( x,t \right) = \lim\limits_{t \to \infty} e^{-\alpha t}\sum^{\infty}_{n=1} B_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{-k \!\left( n \pi / L \right)^{2}t} = 0
+	\]
+	which confirms our equilibrium result.
+\end{enumerate}
+
+% QUESTION 9
+\qs{2.3.9}{Redo Exercise 2.3.8 if \( \alpha < 0 \). [Be especially careful if \( -\alpha / k = \!\left( n \pi / L \right)^{2} \).]}
+
+\begin{enumerate}[label=(\alph*)]
+	\item When \( \alpha < 0 \), the roots of the characteristic polynomial are \( r = \pm i\sqrt{-\alpha / k} \). The general solution now changes to
+	\[
+		u \!\left( x \right) = c_{1}\cos\!\left(\sqrt{-\frac{\alpha}{k}}x\right) + c_{2}\sin\!\left(\sqrt{-\frac{\alpha}{k}}x\right)
+	\]
+	The boundary conditions produce the equations
+	\begin{align*}
+		u \!\left( 0 \right) & = c_{1} = 0 \\
+		u \!\left( L \right) & = c_{2}\sin\!\left(\sqrt{-\frac{\alpha}{k}}L\right) = 0
+	\end{align*}
+	where in the second equation, it is not the general case that the sine term is zero, so we must also have \( c_{2} = 0 \). Thus in the general case, \( u \!\left( x \right) = 0 \), once again, is the only permissible temperature distribution at equilibrium.
+
+	However, consider the case when \( -\alpha / k = \!\left( n \pi / L \right)^{2} \), where \( n \) is a positive integer. Then there exists a non-trivial solution, as the sine term goes to zero, and \( c_{2} \) is left as a free parameter (contingent on the initial temperature). We are left with \( u \!\left( x \right) = c_{2}\sin\!\left(n \pi x / L\right) \).
+	\item The derivation of the spatial equations proceeds exactly as in the case of positive \( \alpha \). The eigenvalues are also
+	\[
+		\lambda_{n} = \!\left( \frac{n \pi}{L} \right)^{2} + \frac{\alpha}{k} 
+	\]
+	However, since \( \alpha / k < 0 \), we reach an interesting conclusion: \( \lambda_{n} > 0 \) is no longer a guarantee.
+
+	Let us take a step back. What does \( \alpha < 0 \) physically represent? Previously, we interpreted the \( -\alpha u \) term as a heat sink. Reversing the coefficient sign turns this into a heat \textit{source}. We have three possibilities:
+	\begin{itemize}[label=\(\circ\)]
+		\item Net outward diffusion of heat energy exceeds internal generation of heat from the source, contributing to energy loss and decaying temperature over time.
+		\item Net outward diffusion of heat energy perfectly balances internal heat generation, contributing to constant energy and constant temperature distribution over time.
+		\item Net outward diffusion of heat energy is less than internal heat generation, contributing to energy growth and increasing temperature over time.
+	\end{itemize}
+	Consider the bracketed term \( \!\left( n \pi / L \right)^{2} + \alpha / k \) in the exponential:
+	\[
+		u \!\left( x,t \right) = \sum^{\infty}_{n=1} B_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{-k \!\left[ \!\left( n \pi / L \right)^{2} + \alpha / k \right]t} 
+	\]
+	A subtle point: we assume that \( \alpha / k \) is some fixed quantity. Therefore, its ordering relative to \( \!\left( n \pi / L \right)^{2} \) will depend on \( n \). Conceptually, we must treat each mode on a case-by-case matter. For each respective possibility and each mode, we have
+	\begin{itemize}[label=\(\circ\)]
+		\item Net outward diffusion of heat energy \( > \) internal heat generation: \( \!\left( n \pi / L \right)^{2} > -\alpha / k \), \( \lim\limits_{t \to \infty} u_{n} \!\left( x,t \right) = 0 \)
+		\item Net outward diffusion of heat energy \( = \) internal heat generation: \( \!\left( n \pi / L \right)^{2} = -\alpha / k \), \( \lim\limits_{t \to \infty} u_{n} \!\left( x,t \right) = B_{n}\sin\!\left(n \pi x / L\right) \)
+		\item Net outward diffusion of heat energy \( < \) internal heat generation: \( \!\left( n \pi / L \right)^{2} < -\alpha / k \), \( \lim\limits_{t \to \infty} u_{n} \!\left( x,t \right) = \infty \)
+	\end{itemize}
+	where \( u_{n}\!\left( x,t \right) \) corresponds to the \( n \)-th mode
+	\[
+		u_{n} \!\left( x,t \right) = B_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{-k \!\left[ \!\left( n \pi / L \right)^{2} + \alpha / k \right]t} 
+	\]
+	Observe that the limit of the case of equality is equivalent to the non-trivial solution derived in part (a): balancing of outward diffusion and internal generation leads to a steady-state temperature distribution.
+
+	Lastly, to find the limit of the \textit{entire} temperature distribution \( u \!\left( x,t \right) \), choose the smallest mode: \( n = 1 \). Since we fix \( \alpha \) and \( k \), at some point, \( \!\left( n \pi / L \right)^{2} \) will exceed \( -\alpha / k \), leading to temporal decay of those modes. What matters is \textit{where} \( \!\left( \pi / L \right)^{2} \) starts off \textit{in relation} to \( -\alpha / k \). If \( \!\left( \pi / L \right)^{2} > -\alpha / k \), then
+	\[
+		\lim\limits_{t \to \infty} u \!\left( x,t \right) = 0 
+	\]
+	Otherwise, in the cases when \( \!\left( \pi / L \right)^{2} = -\alpha / k \) and \( \!\left( \pi / L \right)^{2} < -\alpha / k \), we have, respectively
+	\[
+		\lim\limits_{t \to \infty} u \!\left( x,t \right) = B_{1}\sin\!\left(\frac{\pi x}{L}\right) \qquad \lim\limits_{t \to \infty} u \!\left( x,t \right) = \infty
+	\]
+	\textbf{Author's note:} I love this problem. It is one of those problems where struggling will confer enormous insight. Who knew that reversing the sign on \( \alpha \) would lend itself to such rich physics? My advice: reason through the conceptual physics first, before attempting to rush into mathematical manipulations. Thorough understanding of the physical system will provide the insight that very little manipulation is needed; subtle understanding of the behavior of each independent mode vis-\`a-vis the complete solution is essential.
+\end{enumerate}
+
+% QUESTION 10
+\qs{2.3.10}{For two- and three-dimensional vectors, the fundamental property of dot products, \( \pmb{A \cdot B = \abs{A}\abs{B}}\cos\!\left(\theta\right) \), implies that
+\begin{equation}
+	\pmb{\abs{A \cdot B} \le \abs{A}\abs{B}} \tag*{2.3.44}
+\end{equation}
+In this exercise, we generalize this to \( n \)-dimensional vectors and functions, in which case (2.3.44) is known as \textbf{Schwarz's inequality}. [The names of Cauchy and Buniakovsky are also associated with (2.3.44).]
+\begin{enumerate}[label=(\alph*)]
+	\item Show that \( \abs{\pmb{A} - \gamma \pmb{B}}^{2} \ge 0 \) implies (2.3.44), where \( \gamma = \pmb{A \cdot B / B \cdot B} \).
+	\item Express the inequality using both
+	\[
+		\pmb{A \cdot B} = \sum^{\infty}_{n=1} a_{n}b_{n} = \sum^{\infty}_{n=1} a_{n}c_{n}\frac{b_{n}}{c_{n}} 
+	\]
+	\item Generalize (2.3.44) to functions. [\textit{Hint}: Let \( \pmb{A \cdot B} \) mean the integral \( \int^{L}_{0} A \!\left( x \right) B \!\left( x \right) \, dx \).]
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item Compute
+	\begin{align*}
+		\abs{\pmb{A} - \gamma \pmb{B}}^{2} & = \!\left( \pmb{A} - \gamma \pmb{B} \right) \cdot \!\left( \pmb{A} - \gamma \pmb{B} \right) \\
+		 & = \pmb{A} \cdot \pmb{A} - 2 \gamma \pmb{A} \cdot \pmb{B} + \gamma^{2} \pmb{B} \cdot \pmb{B} \\ 
+		 & = \abs{\pmb{A}}^{2} - \frac{2 \!\left( \pmb{A} \cdot \pmb{B} \right)^{2}}{\abs{\pmb{B}}^{2}} + \frac{\!\left( \pmb{A} \cdot \pmb{B} \right)^{2}}{\abs{\pmb{B}}^{2}} \\
+		 & \ge 0
+	\end{align*}
+	Multiplying through by \( \abs{\pmb{B}}^{2} \), collecting the \( \!\left( \pmb{A} \cdot \pmb{B} \right)^{2} \) terms and adding to the other side of the inequality, we get
+	\[
+		\abs{\pmb{A}}^{2}\abs{\pmb{B}}^{2} \ge \!\left( \pmb{A} \cdot \pmb{B} \right)^{2}
+	\]
+	taking the positive root of both sides, we conclude the Schwarz inequality:
+	\[
+		\abs{\pmb{A}}\abs{\pmb{B}} \ge \abs{\pmb{A} \cdot \pmb{B}} 
+	\]
+	\item From the squared vector definition of the Schwarz inequality, to express in algebraic form, we equivalently derive
+	\begin{align*}
+		\!\left( \pmb{A} \cdot \pmb{B} \right)^{2} & = \!\left( \sum^{\infty}_{n=1} a_{n}b_{n} \right)^{2} \\
+		 & \le \!\left( \sum^{\infty}_{n=1} a^{2}_{n} \right) \!\left( \sum^{\infty}_{n=1} b^{2}_{n} \right) \\ 
+		 & = \abs{\pmb{A}}^{2}\abs{\pmb{B}}^{2} \\
+		\!\left( \pmb{A} \cdot \pmb{B} \right)^{2} & = \!\left( \sum^{\infty}_{n=1} a_{n}c_{n}\frac{b_{n}}{c_{n}} \right)^{2} \\
+				      & \le \!\left( \sum^{\infty}_{n=1} a^{2}_{n}c^{2}_{n} \right) \!\left( \sum^{\infty}_{n=1} \frac{b^{2}_{n}}{c^{2}_{n}} \right)
+	\end{align*}
+	The second inequality can be interpreted as a weighted inner product.
+	\item Similarly, we proceed from the squared vector definition of the Schwarz inequality, and derive in integral form
+	\[
+		\!\left( \int^{L}_{0} A \!\left( x \right) B \!\left( x \right) \, dx \right)^{2} \le \int^{L}_{0} A \!\left( x \right)^{2} \, dx \int^{L}_{0} B \!\left( x \right)^{2} \, dx    
+	\]
+\end{enumerate}
+
+% QUESTION 11
+\qs{2.3.11}{Solve the heat equation \( \displaystyle{\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2}} \) subject to the following conditions:
+\[
+	u \!\left( 0,t \right) = 0 \quad u \!\left( L,t \right) = 0 \quad u \!\left( x,0 \right) = f \!\left( x \right) 
+\]
+What happens as \( t \rightarrow \infty \)? [\textit{Hints}:
+\begin{enumerate}[label=(\arabic*)]
+	\item It is known that if \( u \!\left( x,t \right) = \phi \!\left( x \right)G \!\left( t \right) \), then \( \displaystyle{\frac{1}{kG}\frac{d G}{d t} = \frac{1}{\phi}\frac{\partial^2 \phi}{\partial x^2}} \).
+	\item Use formula sheet.]
+\end{enumerate}}
+
+Let \( u \!\left( x,t \right) = \phi \!\left( x \right)G \!\left( t \right) \). Then
+\begin{align*}
+	\frac{\partial u}{\partial t} & = \phi \!\left( x \right) \frac{d G}{d t} \\
+	k \frac{\partial^2 u}{\partial x^2} & = k\frac{d^2 \phi}{d x^2}G \!\left( t \right)
+\end{align*}
+Collecting similar variables and setting equal to a constant \( -\lambda \), derive
+\[
+	 \frac{1}{k G \!\left( t \right)}\frac{d G}{d t} = \frac{1}{\phi \!\left( x \right)}\frac{d^2 \phi}{d x^2} = -\lambda
+\]
+This produces time and spatial equations and we solve each individually. First the time equation:
+\[
+	G \!\left( t \right) = ce^{-\lambda kt} 
+\]
+And for the spatial equation, we consider three cases of \( \lambda \): above, below, or at zero. Try \( \lambda > 0 \). Then \( -\lambda < 0 \), and after substituting \( u = e^{rx} \), the characteristic polynomial yields complex roots. The ensuing linear combination of Euler equations can be rewritten as a linear combination of cosine and sine:
+\[
+	\phi \!\left( x \right) = c_{1}\cos\!\left(\sqrt{\lambda}x\right) + c_{2}\sin\!\left(\sqrt{\lambda}x\right) 
+\]
+Applying the boundary conditions, we find
+\begin{align*}
+	\phi \!\left( 0 \right) & = c_{1} = 0 \\
+	\phi \!\left( L \right) & = c_{2}\sin\!\left(\sqrt{\lambda}L\right) = 0
+\end{align*}
+where in the second boundary condition, if we assume \( c_{2} \neq 0 \) so as not to be left with a trivial solution, and set \( \lambda_{n} = \!\left( n \pi / L \right)^{2} \), then we have eigenvalues for the spatial function
+\[
+	\phi \!\left( x \right) = c_{2}\sin\!\left( \frac{n \pi x}{L}\right) 
+\]
+Now, assume \( \lambda = 0 \). Then the spatial solution is
+\[
+	\phi \!\left( x \right) = c_{1} + c_{2}x 
+\]
+With boundary conditions \( \phi \!\left( 0 \right) = c_{1} = 0 \) and \( \phi \!\left( L \right) = c_{2}L = 0 \) implying \( c_{2} = 0 \), we are left only with the trivial solution. Lastly, try \( \lambda < 0 \). Then set \( -\lambda = s \), which is positive. With positive roots of the characteristic polynomial, we can express the spatial solution as a linear combination of hyperbolic cosine and sine:
+\[
+	\phi \!\left( x \right) = c_{1}\cosh\!\left(\sqrt{s}x\right) + c_{2}\sinh\!\left(\sqrt{s}x\right) 
+\]
+The boundary conditions produce \( \phi \!\left( 0 \right) = c_{1} \) and \( \phi \!\left( L \right) = c_{2}\sinh\!\left(\sqrt{s}L\right) = 0 \). Since \( \sqrt{s}L \neq 0 \), it is impossible for the hyperbolic sine to be zero, forcing \( c_{2} = 0 \). Once more, the trivial solution is all that remains.
+
+Therefore we are only permitted eigenvalues \( \lambda_{n} > 0 \).
+
+Multiplying \( \phi \!\left( x \right) \) and \( G \!\left( t \right) \) and appealing to superposition, we have complete solution
+\[
+	u \!\left( x,t \right) = \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{-k \!\left( n \pi / L \right)^{2}t} 
+\]
+where the coefficients \( A_{n} \) are derived from the projection of the initial temperature \( f \!\left( x \right) \) onto each of the sine modes spanning the Hilbert space of orthogonal sines:
+\[
+	A_{n} = \frac{\displaystyle{\int^{L}_{0} f \!\left( x \right)\sin\!\left(\frac{n \pi x}{L}\right) \, dx}}{\displaystyle{\int^{L}_{0} \sin^{2}\!\left(\frac{n \pi x}{L}\right) \, dx}} = \frac{2}{L}\int^{L}_{0} f \!\left( x \right)\sin\!\left(\frac{n \pi x}{L}\right) \, dx 
+\]
+Lastly, in the temporal limit, we have
+\[
+	\lim\limits_{t \to \infty} u \!\left( x,t \right) = \lim\limits_{t \to \infty} \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{-k \!\left( n \pi / L \right)^{2}t} = 0 
+\]
+Physically, as we do not have insulation and the ends of the rod are assumed to be at zero temperature, the rod itself will eventually cool to the uniformly zero equilibrium temperature.
+
+\newpage
+\subsection{\textsf{2.4 - Worked Examples with the Heat Equation (Other Boundary Value Problems)}}
+
+% QUESTION 1
+\qs{2.4.1}{Solve the heat equation \( \partial u / \partial t = k \partial^{2}u / \partial x^{2} \), \( 0 < x < L \), \( t > 0 \), subject to
+	\begin{alignat*}{2}
+		\frac{\partial u}{\partial x}\!\left( 0,t \right) & = 0 & \qquad t > 0 \\
+		\frac{\partial u}{\partial x}\!\left( L,t \right) & = 0 & \qquad t > 0
+	\end{alignat*}
+\begin{enumerate}[label=(\alph*)]
+	\item \( \displaystyle{u \!\left( x,0 \right) = \begin{cases}
+		0 & x < L/2 \\
+		1 & x > L/2 \\
+	\end{cases}} \)
+	\item \( \displaystyle{u \!\left( x,0 \right) = 6 + 4 \cos\!\left(\frac{3 \pi x}{L}\right)} \)
+	\item \( \displaystyle{u \!\left( x,0 \right) = -2 \sin\!\left(\frac{\pi x}{L}\right)} \)
+	\item \( \displaystyle{u \!\left( x,0 \right) = -3 \cos\!\left(\frac{8 \pi x}{L}\right)} \)
+\end{enumerate}}
+
+For all solutions, use the general form
+\[
+	u \!\left( x,t \right) = A_{0} + \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right)e^{-\!\left( n \pi / L \right)^{2}kt} 
+\]
+where
+\[
+	u \!\left( x,0 \right) = A_{0} + \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right) 
+\]
+
+\begin{enumerate}[label=(\alph*)]
+	\item Multiply the initial temperature by \( \cos\!\left(m \pi x / L\right) \) and integrate from \( 0 \) to \( L \) to find
+	\begin{align*}
+		\int^{L}_{0} u \!\left( x,0 \right)\cos\!\left(\frac{m \pi x}{L}\right) \, dx & = \int^{L/2}_{0} 0 \cdot \cos\!\left(\frac{m \pi x}{L}\right) \, dx + \int^{L}_{L/2} 1 \cdot \cos\!\left(\frac{m \pi x}{L}\right) \, dx \\										      
+& = \int^{L}_{0} A_{0}\cos\!\left(\frac{m \pi x}{L}\right) \, dx + \int^{L}_{0} \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right)\cos\!\left(\frac{m \pi x}{L}\right) \, dx \\
+											      & = \begin{cases}
+	\displaystyle{A_{0}L} & m = 0 \\
+	\displaystyle{A_{m}\int^{L}_{0} \cos^{2}\!\left(\frac{m \pi x}{L}\right) \, dx} & m \ge 1
+    \end{cases}
+	\end{align*}
+	First isolate \( A_{0} \) by setting \( m = 0 \), and derive
+	\[
+		A_{0}L = L - \frac{L}{2} = \frac{L}{2} \quad \implies \quad A_{0} = \frac{1}{2} 
+	\]
+	Next, isolating \( A_{m} \), derive
+	\begin{align*}
+		A_{m} & = 0 + \frac{\displaystyle{\int^{L}_{L/2} \cos\!\left(\frac{m \pi x}{L}\right) \, dx}}{\displaystyle{\int^{L}_{0} \cos^{2}\!\left(\frac{m \pi x}{L}\right) \, dx}} \\
+		 & = -\frac{2}{m \pi}\sin\!\left(\frac{m \pi}{2}\right) \\
+		 & = \begin{cases}
+		 	0 & m \text{ even} \\
+			-\displaystyle{\frac{2}{m \pi}}\sin\!\left(\frac{m \pi}{2}\right) & m \text{ odd} \\
+		 \end{cases}
+	\end{align*}
+	Reindexing, the second case can be rewritten for all positive integers \( n \) as
+	\[
+		A_{n} = \!\left( -1 \right)^{n}\frac{2}{\!\left( 2n - 1 \right)\pi}  
+	\]
+	Substituting into the general form, we have temperature distribution
+	\[
+		u \!\left( x,t \right) = \frac{1}{2} + \sum^{\infty}_{n=1} \!\left( -1 \right)^{n}\frac{2}{\!\left( 2n - 1 \right)\pi} \cos\!\left(\frac{\!\left( 2n - 1 \right)\pi x}{L}\right)e^{-\!\left( \!\left( 2n - 1 \right)\pi / L \right)^{2}kt}
+	\]
+	\item The boundary conditions are satisfied, so we can conclude \( A_{0} = 6 \), \( n = 3 \), and \( A_{3} = 4 \).
+	\item In this case, the boundary conditions are not satisfied. Multiply by \( \cos\!\left(m \pi x / L\right) \) and integrate from \( 0 \) to \( L \) to derive
+	\begin{align*}
+		\int^{L}_{0} u \!\left( x,0 \right)\cos\!\left(\frac{m \pi x}{L}\right) \, dx & = -2\int^{L}_{0} \sin\!\left(\frac{\pi x}{L}\right)\cos\!\left(\frac{m \pi x}{L}\right) \, dx \\
+		 & = \int^{L}_{0} A_{0}\cos\!\left(\frac{m \pi x}{L}\right) \, dx + \int^{L}_{0} \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right)\cos\!\left(\frac{m \pi x}{L}\right) \, dx \\
+		 & = \begin{cases}
+		 	A_{0}L & m = 0 \\
+			\displaystyle{A_{m}\int^{L}_{0} \cos^{2}\!\left(\frac{m \pi x}{L}\right) \, dx} & m \ge 1 \\
+		 \end{cases}
+	\end{align*}
+	First suppose \( m = 0 \). Then \( A_{0} \) is
+	\[
+		A_{0} = -\frac{2}{L}\int^{L}_{0} \sin\!\left(\frac{\pi x}{L}\right) \, dx = -\frac{4}{\pi} 
+	\]
+	and for all other \( m \), we have
+	\begin{align*}
+		A_{m} & = -\frac{4}{L}\int^{L}_{0} \sin\!\left(\frac{\pi x}{L}\right)\cos\!\left(\frac{m \pi x}{L}\right) \, dx \\
+		 & = -\frac{2}{L}\int^{L}_{0} \!\left[ \sin\!\left(\frac{\!\left( 1 + m \right)\pi x}{L}\right) + \sin\!\left(\frac{\!\left( 1 - m \right)\pi x}{L}\right) \right] \, dx \\ 
+		 & = \frac{2}{L} \!\left[ \frac{L}{\!\left( 1 + m \right)\pi}\cos\!\left(\frac{\!\left( 1 + m \right)\pi x}{L}\right) + \frac{L}{\!\left( 1 - m \right)\pi}\cos\!\left(\frac{\!\left( 1 - m \right)\pi x}{L}\right) \right] \Big|^{L}_{0} \\
+		 & = \frac{2}{\pi}\!\left[ \frac{\cos\!\left(\!\left( 1 + m \right)\pi\right) - 1}{1 + m} + \frac{\cos\!\left(\!\left( 1 - m \right)\pi\right) - 1}{1 - m} \right] \\
+		 & = \begin{cases}
+		 	0 & m \text{ odd} \\
+			\displaystyle{-\frac{4}{\pi}\!\left[ \frac{1}{1 + m} + \frac{1}{1 - m} \right]} & m \text{ even}
+		 \end{cases}
+	\end{align*}
+	Note that the \( 1 - m \) term in the denominator shows up in the derivation, but since we eventually determined that the coefficient vanishes for all odd \( m \), we need not worry about a division by zero. Reindexing the second case, we have for positive integers \( n \)
+	\[
+		A_{n} = -\frac{8}{\pi}\!\left[ \frac{1}{\!\left( 1 + 2n \right)\!\left( 1 - 2n \right)} \right] = \frac{8}{\pi \!\left( 4n^{2} - 1 \right)}
+	\]
+	Therefore, the complete temperature distribution is 
+	\[
+		u \!\left( x,t \right) = -\frac{4}{\pi} + \sum^{\infty}_{n=1} \frac{8}{\pi \!\left( 4n^{2} - 1 \right)}\cos\!\left(\frac{2n \pi x}{L}\right)e^{-\!\left( 2n \pi / L \right)^{2}kt}
+	\]
+	\item Lastly, the boundary conditions are met, so we can simply assign \( A_{0} = 0 \), \( n = 8 \), and \( A_{8} = -3 \).
+\end{enumerate}
+
+% QUESTION 2
+\qs{2.4.2}{Solve
+\begin{align*}
+	\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2} \quad \text{with} \quad & \frac{\partial u}{\partial x}\!\left( 0,t \right) = 0 \\
+	 & u \!\left( L,t \right) = 0 \\ 
+	 & u \!\left( x,0 \right) = f \!\left( x \right)
+\end{align*}
+For this problem you may assume that no solutions of the heat equation exponentially grow in time. You may also guess appropriate orthogonality conditions for the eigenfunctions.}
+
+In the case of mixed boundary conditions, proceed normally: let \( u \!\left( x,t \right) = \phi \!\left( x \right)G \!\left( t \right) \). From the typical derivation, we have temporal solution \( G \!\left( t \right) = ce^{-\lambda kt} \). For the spatial solutions, begin with \( \lambda > 0 \). Then the characteristic polynomial produces imaginary roots, with general solution
+\[
+	\phi \!\left( x \right) = c_{1}\cos\!\left(\sqrt{\lambda}x\right) + c_{2}\sin\!\left(\sqrt{\lambda}x\right) 
+\]
+Imposing the boundary conditions yield
+\begin{align*}
+	\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2}\sqrt{\lambda} = 0, \implies c_{2} = 0 \\
+	\phi \!\left( L \right) & = c_{1}\cos\!\left(\sqrt{\lambda}L\right) = 0
+\end{align*}
+where we have a non-trivial solution if 
+\[
+	\lambda_{n} = \!\left[ \frac{\!\left( 2n - 1 \right)\pi}{2L} \right]^{2}
+\]
+Next, suppose \( \lambda = 0 \). Then
+\[
+	\phi \!\left( x \right) = c_{1} + c_{2}x 
+\]
+The boundary conditions give 
+\begin{align*}
+	\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2} = 0 \\
+	\phi \!\left( L \right) & = c_{1} = 0
+\end{align*}
+leaving us only with the trivial solution. Lastly, suppose \( \lambda < 0 \). Define \( s = -\lambda \), so \( s > 0 \). The characteristic polynomial gives positive roots, so we have a linear combination of hyperbolic cosine and sine for the solution:
+\[
+	\phi \!\left( x \right) = c_{1}\cosh\!\left(\sqrt{s}x\right) + c_{2}\sinh\!\left(\sqrt{s}x\right) 
+\]
+and applying the boundary conditions
+\begin{align*}
+	\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2}\sqrt{s} = 0 \implies c_{2} = 0 \\
+	\phi \!\left( L \right) & = c_{1}\cosh\!\left(\sqrt{s}L\right) = 0
+\end{align*}
+where the second boundary condition forces \( c_{1} = 0 \), as the hyperbolic cosine is never zero. Thus we get the trivial solution once more. So we are left with the eigenfunctions
+\[
+	\phi_{n}\!\left( x \right) = c_{1}\cos\!\left[\frac{\!\left( 2n - 1 \right)\pi x}{2L}\right] 
+\]
+And lastly, appealing to superposition and combining with the temporal solution, we have temperature distribution
+\[
+	u \!\left( x,t \right) = \sum^{\infty}_{n=1} A_{n}\cos\!\left[\frac{\!\left( 2n - 1 \right)\pi x}{2L}\right]e^{-\!\left[ \!\left( 2n - 1 \right)\pi / 2L \right]^{2}kt}
+\]
+where the Fourier coefficients must be derived from projecting \( f \!\left( x \right) \) onto the odd ``half-modes'' of cosine Hilbert space. We begin with
+\[
+	f \!\left( x \right) = \sum^{\infty}_{n=1} A_{n}\cos\!\left[\frac{\!\left( 2n - 1 \right)\pi x}{2L}\right] 
+\]
+Now, multiply both sides by \( \cos\!\left(\!\left( 2m - 1 \right)\pi x / 2L \right) \) and integrate from \( 0 \) to \( L \) to get
+\begin{align*}
+	\int^{L}_{0} f \!\left( x \right)\cos\!\left[\frac{\!\left( 2m - 1 \right)\pi x}{2L}\right] \, dx & = \int^{L}_{0} \sum^{\infty}_{n=1} A_{n}\cos\!\left[\frac{\!\left( 2n - 1 \right)\pi x}{2L}\right]\cos\!\left[\frac{\!\left( 2m - 1 \right)\pi x}{2L}\right] \, dx \\
+													  & = A_{m}\int^{L}_{0} \cos^{2}\!\left[\frac{\!\left( 2m - 1 \right)\pi x}{2L}\right] \, dx \\
+													  & = A_{m}\frac{L}{2} \\
+	\implies A_{m} & = \frac{2}{L}\int^{L}_{0} f \!\left( x \right)\cos\!\left[\frac{\!\left( 2m - 1 \right)\pi x}{2L}\right] \, dx 
+\end{align*}
+where the orthogonality condition still holds between differing values at the half-modes, enabling the truth of the second equality.
+
+\vspace{12pt}
+
+% QUESTION 3
+\qs{2.4.3}{Solve the eigenvalue problem
+\[
+	\frac{d^2 \phi}{d x^2} = -\lambda \phi 
+\]
+subject to
+\[
+	\phi \!\left( 0 \right) = \phi \!\left( 2 \pi \right) \quad \text{and} \quad \frac{d \phi}{d x}\!\left( 0 \right) = \frac{d \phi}{d x}\!\left( 2 \pi \right)
+\]}
+
+\underline{\( \lambda > 0 \):} We have general solution
+\[
+	\phi \!\left( x \right) = c_{1}\cos\!\left(\sqrt{\lambda}x\right) + c_{2}\sin\!\left(\sqrt{\lambda}x\right) 
+\]
+with boundary conditions
+\begin{alignat*}{3}
+	\phi \!\left( 0 \right) & = c_{1} && = c_{1}\cos\!\left(2\sqrt{\lambda}\pi\right) + c_{2}\sin\!\left(2\sqrt{\lambda}\pi\right) && = \phi \!\left( 2 \pi \right) \\
+	\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2}\sqrt{\lambda} && = -c_{1}\sqrt{\lambda}\sin\!\left(2 \sqrt{\lambda}\pi \right) + c_{2}\sqrt{\lambda}\cos\!\left(2 \sqrt{\lambda}\pi \right) && = \frac{d \phi}{d x}\!\left( 2 \pi \right)
+\end{alignat*}
+This system of equations is solved if we observe that \( \lambda_{n} = n^{2} \), for \( n = 0 \), \( 1 \), ... is an eigenvalue for a corresponding non-trivial solution, namely
+\[
+	\phi_{n}\!\left( x \right) = c_{1}\cos\!\left(nx\right) + c_{2}\sin\!\left(nx\right)
+\]
+More concretely, we can solve the matrix equation
+\[
+	\begin{bmatrix}
+		1 - \cos\!\left(2 \sqrt{\lambda}\pi \right) & -\sin\!\left(2 \sqrt{\lambda}\pi \right) \\
+		\sqrt{\lambda}\sin\!\left(2 \sqrt{\lambda}\pi \right) & \sqrt{\lambda}\!\left[ 1 - \cos\!\left(2 \sqrt{\lambda}\pi \right) \right]
+	\end{bmatrix}
+	\begin{bmatrix}
+		c_{1} \\
+		c_{2}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		0\\
+		0
+	\end{bmatrix}
+\]
+In order for the existence of a non-trivial solution, we must have a zero determinant, as that guarantees a non-trivial linear combination of the columns to yield the zero vector. Compute from the coefficient matrix
+\begin{align*}
+	\det & = \sqrt{\lambda}\!\left[ 1 - \cos\!\left(2 \sqrt{\lambda}\pi \right) \right]^{2} + \sqrt{\lambda}\sin^{2}\!\left(2 \sqrt{\lambda}\pi \right) \\
+	     & = \sqrt{\lambda}\!\left[ 1 - 2 \cos\!\left(2 \sqrt{\lambda}\pi \right) + \sin^{2}\!\left(2 \sqrt{\lambda}\pi \right) + \cos^{2}\!\left(2 \sqrt{\lambda}\pi \right) \right] \\
+	     & = \sqrt{\lambda}\!\left[ 2 - 2 \cos\!\left(2 \sqrt{\lambda}\pi \right) \right]
+\end{align*}
+where the equality is zero if and only if \( \lambda_{n} = n^{2} \) for \( n = 0 \), \( 1 \), .... Moreover, note that the entire coefficient matrix goes to rank zero, meaning that \( c_{1} \) and \( c_{2} \) are unconstrained. This leaves us with the aforementioned eigenfunctions \( \phi_{n} \).
+
+\underline{\( \lambda = 0 \):} We have general solution
+\[
+	\phi \!\left( x \right) = c_{1} + c_{2}x 
+\]
+with boundary conditions
+\begin{alignat*}{3}
+	\phi \!\left( 0 \right) & = c_{1} && = c_{1} + 2 c_{2}\pi && = \phi \!\left( 2 \pi \right) \\
+	\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2} && = c_{2} && = \frac{d \phi}{d x}\!\left( 2 \pi \right)
+\end{alignat*}
+The boundary conditions force \( c_{2} = 0 \), and \( c_{1} \) is a free-standing constant. Thus for eigenvalue \( \lambda_{0} = 0 \), we have corresponding eigenfunction
+\[
+	\phi_{0} = c_{1} 
+\]
+
+\underline{\( \lambda < 0 \):} Let \( s = -\lambda \) so \( s > 0 \). Then we have general solution
+\[
+	\phi \!\left( x \right) = c_{1}\cosh\!\left(\sqrt{s}x\right) + c_{2}\sinh\!\left(\sqrt{s}x\right) 
+\]
+with boundary conditions
+\begin{alignat*}{3}
+	\phi \!\left( 0 \right) & = c_{1} && = c_{1}\cosh\!\left(2 \sqrt{s}\pi \right) + c_{2}\sinh\!\left(2 \sqrt{s}\pi \right) && = \phi \!\left( 2 \pi \right) \\
+	\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2}\sqrt{s} && = c_{1}\sqrt{s}\sinh\!\left(2 \sqrt{s}\pi \right) + c_{2}\sqrt{s}\cosh\!\left(2 \sqrt{s}\pi \right) && = \frac{d \phi}{d x}\!\left( 2 \pi \right)
+\end{alignat*}
+that correspond to the matrix equation
+\[
+	\begin{bmatrix}
+		1 - \cosh\!\left(2 \sqrt{s}\pi \right) & \sinh\!\left(2 \sqrt{s}\pi \right) \\
+		-\sqrt{s}\sinh\!\left(2 \sqrt{s}\pi \right) & \sqrt{s}\!\left[ 1 - \cosh\!\left(2 \sqrt{s}\pi \right) \right]
+	\end{bmatrix}
+	\begin{bmatrix}
+		c_{1} \\
+		c_{2}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		0 \\
+		0
+	\end{bmatrix}
+\]
+Computing the determinant of the coefficient matrix produces
+\begin{align*}
+	\det & = \sqrt{s}\!\left[ 1 - \cosh\!\left(2 \sqrt{s}\pi \right) \right]^{2} + \sqrt{s}\sinh^{2}\!\left(2 \sqrt{s}\pi \right) \\
+	     & = \sqrt{s}\!\left[ 1 - 2 \cosh\!\left(2 \sqrt{s}\pi \right) + \sinh^{2}\!\left(2 \sqrt{s}\pi \right) + \cosh^{2}\!\left(2 \sqrt{s}\pi \right) \right] \\
+	     & = \sqrt{s}\!\left[ - 2 \cosh\!\left(2 \sqrt{s}\pi \right) + 2\cosh^{2}\!\left(2 \sqrt{s}\pi \right) \right] \\
+	     & = 2 \sqrt{s}\cosh\!\left(2 \sqrt{s}\pi \right)\!\left[ \cosh\!\left(2 \sqrt{s}\pi \right) - 1 \right]
+\end{align*}
+which vanishes only when \( 2 \sqrt{s}\pi = 0 \), but since we specified positive \( s \), we can only have the trivial solution: \( c_{1} = c_{2} = 0 \).
+
+\vspace{12pt}
+
+% QUESTION 4
+\qs{2.4.4}{Explicitly show that there are no negative eigenvalues for 
+\[
+	\frac{d^2 \phi}{d x^2} = -\lambda \phi \quad \text{subject to} \quad \frac{d \phi}{d x}\!\left( 0 \right) = 0 \quad \text{and} \quad \frac{d \phi}{d x}\!\left( L \right) = 0
+\]}
+
+Let \( \lambda < 0 \). Then let \( s = -\lambda \), so \( s > 0 \). We have general solution
+\[
+	\phi \!\left( x \right) = c_{1}\cosh\!\left(\sqrt{s}x\right) + c_{2}\sinh\!\left(\sqrt{s}x\right) 
+\]
+with boundary conditions
+\[
+	\frac{d \phi}{d x}\!\left( 0 \right) = c_{2}\sqrt{s} = 0 = c_{1}\sqrt{s}\sinh\!\left(\sqrt{s}L\right) + c_{2}\sqrt{s}\cosh\!\left(\sqrt{s}L\right) = \frac{d \phi}{d x}\!\left( L \right)
+\]
+writing as the matrix equation
+\[
+	\begin{bmatrix}
+		0 & \sqrt{s} \\
+		\sqrt{s}\sinh\!\left(\sqrt{s}L\right) & \sqrt{s}\cosh\!\left(\sqrt{s}L\right)
+	\end{bmatrix}
+	\begin{bmatrix}
+		c_{1}\\
+		c_{2}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		0\\
+		0
+	\end{bmatrix}
+\]
+From the coefficient matrix, calculate the determinant, which if zero, guarantees a non-trivial pair \( \left( c_{1}, c_{2} \right) \):
+\[
+	\det = -s\sinh\!\left(\sqrt{s}L\right) = 0 
+\]
+which holds true only when \( \sinh\!\left(\sqrt{s}L\right) = 0 \), but this is impossible as that holds only at \( \sqrt{s}L = 0 \), and we assumed \( s > 0 \). Therefore no negative eigenvalues exist for this eigenfunction and boundary conditions.
+
+\vspace{12pt}
+
+% QUESTION 5
+\qs{2.4.5}{This problem presents an alternative derivation of the heat equation for a thin wire. The equation for a circular wire of finite thickness is the two-dimensional heat equation (in polar coordinates). Show that this reduces to (2.4.25) if the temperature does not depend on \( r \) and if the wire is very thin.}
+
+The difficult part is in conceptualizing the problem. From section 1.5, recall that the polar heat equation can describe a disk or an annulus, depending on whether the lower bound for \( r \) is zero or not. In this scenario, imagine the annulus case, where the radial bounds \( a \) and \( b \) differ by some very small amount \( \delta \):
+\[
+	b - a = \delta << 1 
+\]
+It is this assumption that allows us to conclude that there is no radial variation in the temperature; put differently, \( r \) is constant. From (1.5.19), the two-dimensional heat equation in polar coordinates is
+\[
+	\frac{\partial u}{\partial t} = k \!\left( \frac{\partial^2 u}{\partial r^2} + \frac{1}{r}\frac{\partial u}{\partial r} + \frac{1}{r^{2}}\frac{\partial^2 u}{\partial \theta^2} \right) 
+\]
+Since temperature is independent of \( r \), we immediately see that the first two terms vanish. Now we are left with
+\[
+	\frac{\partial u}{\partial t} = \frac{k}{r^{2}}\frac{\partial^2 u}{\partial \theta^2} 
+\]
+Recall that the arc length \( s = r \theta \). The task will be to convert from \( \!\left( r,\theta \right) \)-coordinates to \( s \)-coordinates. First compute
+\[
+	\frac{\partial r}{\partial s} = 0, \qquad \frac{\partial \theta}{\partial s} = \frac{1}{r}, \qquad \frac{\partial^2 \theta}{\partial s^2} = -\frac{1}{r^{2}}\frac{\partial r}{\partial s} = 0
+\]
+where the first and last equalities arise from the result that \( r \) is constant. By the chain rule, derive (once again appealing to the premise of all radial derivatives vanishing)
+\begin{align*}
+	\frac{\partial u}{\partial s} & = \frac{\partial u}{\partial r}\frac{\partial r}{\partial s} + \frac{\partial u}{\partial \theta}\frac{\partial \theta}{\partial s} = \frac{\partial u}{\partial \theta}\frac{\partial \theta}{\partial s} \\
+	 & = \!\left( \frac{1}{r}\frac{\partial }{\partial \theta} \right)u \\
+	\frac{\partial^2 u}{\partial s^2} & = \frac{\partial }{\partial s}\!\left( \frac{\partial u}{\partial \theta}\frac{\partial \theta}{\partial s} \right) \\
+					  & = \frac{\partial^2 u}{\partial \theta^2}\!\left(  \frac{\partial \theta}{\partial s} \right)^{2} \\
+					  & = \!\left( \frac{1}{r^{2}}\frac{\partial^2 }{\partial \theta^2} \right)u
+\end{align*}
+Substituting back to the heat equation, make the final step to get
+\[
+	\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial s^2} 
+\]
+
+% QUESTION 6
+\qs{2.4.6}{Determine the equilibrium temperature distribution for the thin circular ring of Section 2.4.2:
+\begin{enumerate}[label=(\alph*)]
+	\item directly from the equilibrium problem (see Section 1.4)
+	\item by comparing the limit as \( t \rightarrow \infty \) of the time-dependent problem
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item Set \( \partial u / \partial t = 0 \), leaving us with
+	\[
+		\frac{\partial^2 u}{\partial x^2} = 0 
+	\]
+	Integrating twice gives us general solution
+	\[
+		u \!\left( x \right) = c_{1} + c_{2}x 
+	\]
+	Imposing the boundary conditions produces
+	\begin{alignat*}{3}
+		u \!\left( -L \right) & = c_{1} - c_{2}L && = c_{1} + c_{2}L && = u \!\left( L \right) \\
+		\frac{d u}{d x}\!\left( -L \right) & = c_{2} && = c_{2} && = \frac{d u}{d x}\!\left( L \right)
+	\end{alignat*}
+	which forces \( c_{2} = 0 \), leaving only
+	\[
+		u \!\left( x \right) = c_{1} 
+	\]
+	At equilibrium, the temperature in the ring is constant, with \( c_{1} \) determined by the initial temperature (due to the conservation of thermal energy), namely
+	\[
+		c_{1} = \frac{1}{2L}\int^{L}_{-L} f \!\left( x \right) \, dx  
+	\]
+	\item From equation (2.4.38)
+	\[
+		u \!\left( x,t \right) = a_{0} + \sum^{\infty}_{n=1} a_{n}\cos\!\left(\frac{n \pi x}{L}\right)e^{-\!\left( n \pi / L \right)^{2}kt} + \sum^{\infty}_{n=1} b_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{-\!\left( n \pi / L \right)^{2}kt} 
+	\]
+	Taking the temporal limit, it is simple to derive
+	\[
+		\lim\limits_{t \to \infty} u \!\left( x,t \right) = a_{0} 
+	\]
+	from which it follows that \( a_{0} = c_{1} \) from the previous part.
+\end{enumerate}
+
+% QUESTION 7
+\qs{2.4.7}{Solve the heat equation
+\[
+	\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2} 
+\]
+[\textit{Hints}: It is known that if \( u \!\left( x,t \right) = \phi \!\left( x \right)G \!\left( t \right) \), then \( \displaystyle{\frac{1}{kG}\frac{d G}{d t} = \frac{1}{\phi}\frac{d^2 \phi}{d x^2}} \). Appropriately assume \( \lambda > 0 \). Assume the eigenfunctions \( \phi_{n}\!\left( x \right) \) satisfy the following integral condition (orthogonality):
+\[
+	\int^{L}_{0} \phi_{n}\!\left( x \right)\phi_{m}\!\left( x \right) \, dx = 
+	\begin{cases}
+		0 & n \neq m \\
+		L/2 & n = m
+	\end{cases}
+\]
+subject to the following conditions:
+\begin{enumerate}[label=(\alph*)]
+	\item \( u \!\left( 0,t \right) = 0 \), \( u \!\left( L,t \right) = 0 \), \( u \!\left( x,0 \right) = f \!\left( x \right) \)
+	\item \( u \!\left( 0,t \right) = 0 \), \( \displaystyle{\frac{\partial u}{\partial x}\!\left( L,t \right) = 0} \), \( u \!\left( x,0 \right) = f \!\left( x \right) \)
+	\item \( \displaystyle{\frac{\partial u}{\partial x}\!\left( 0,t \right) = 0} \), \( u \!\left( L,t \right) = 0 \), \( u \!\left( x,0 \right) = f \!\left( x \right) \)
+	\item \( \displaystyle{\frac{\partial u}{\partial x}\!\left( 0,t \right) = 0} \), \( \displaystyle{\frac{\partial u}{\partial x}\!\left( L,t \right) = 0} \), \( u \!\left( x,0 \right) = f \!\left( x \right) \) and modify orthogonality condition [using Table 2.4.1.]
+\end{enumerate}}
+
+In all cases, the temporal solution is
+\[
+	G \!\left( t \right) = ce^{-\lambda kt} 
+\]
+and the spatial solution has general form
+\[
+	\phi \!\left( x \right) = c_{1}\cos\!\left(\sqrt{\lambda}x\right) + c_{2}\sin\!\left(\sqrt{\lambda}x\right) 
+\]
+\begin{enumerate}[label=(\alph*)]
+	\item Impose the boundary conditions
+	\begin{alignat*}{2}
+		\phi \!\left( 0 \right) & = c_{1} && = 0 \\
+		\phi \!\left( L \right) & = c_{2}\sin\!\left(\sqrt{\lambda}L\right) && = 0
+	\end{alignat*}
+	where a non-trivial solution corresponds to eigenvalues
+	\[
+		\lambda_{n} = \!\left( \frac{n \pi}{L} \right)^{2}, \quad n = 1, 2, ...
+	\]
+	Leaving us eigenfunctions
+	\[
+		\phi_{n}\!\left( x \right) = \sin\!\left(\frac{n \pi x}{L}\right)
+	\]
+	By superposition, we have temperature distribution
+	\[
+		u \!\left( x,t \right) = \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{-\!\left( n \pi / L \right)^{2}kt} 
+	\]
+	where \( A_{n} \) is
+	\[
+		A_{n} = \frac{2}{L}\int^{L}_{0} f \!\left( x \right)\sin\!\left(\frac{n \pi x}{L}\right) \, dx  
+	\]
+	\item Impose the boundary conditions
+	\begin{alignat*}{2}
+		\phi \!\left( 0 \right) & = c_{1} && = 0 \\
+		\frac{d \phi}{d x}\!\left( L \right) & = c_{2}\sqrt{\lambda}\cos\!\left(\sqrt{\lambda}L\right) && = 0
+	\end{alignat*}
+	where a non-trivial solution corresponds to
+	\[
+		\lambda_{n} = \!\left[ \frac{\!\left( 2n - 1 \right)\pi}{2L} \right]^{2}, \quad n = 1, 2, ...
+	\]
+	Leaving us eigenfunctions
+	\[
+		\phi_{n}\!\left( x \right) = \sin\!\left[\frac{\!\left( 2n - 1 \right)\pi x}{2L}\right] 
+	\]
+	By superposition, we have temperature distribution
+	\[
+		u \!\left( x,t \right) = \sum^{\infty}_{n=1} A_{n}\sin\!\left[\frac{\!\left( 2n - 1 \right)\pi x}{2L}\right]e^{-\!\left[ \!\left( 2n - 1 \right)\pi / 2L \right]^{2}kt} 
+	\]
+	where \( A_{n} \) is derived by projecting onto the Hilbert sine space of ``half-modes'' to get
+	\begin{align*}
+		\int^{L}_{0} f \!\left( x \right)\sin\!\left[\frac{\!\left( 2n - 1 \right)\pi x}{2L}\right] \, dx & = \int^{L}_{0} \sum^{\infty}_{n=1} A_{n}\sin\!\left[\frac{\!\left( 2n - 1 \right)\pi x}{2L}\right]\sin\!\left[\frac{\!\left( 2m - 1 \right)\pi x}{2L}\right] \, dx \\ 
+														  & = A_{m}\int^{L}_{0} \sin^{2}\!\left[\frac{\!\left( 2m - 1 \right)\pi x}{2L}\right] \, dx \\
+														  & = A_{m}\frac{L}{2} \\
+		\implies A_{m} & = \frac{2}{L}\int^{L}_{0} f \!\left( x \right)\sin\!\left[\frac{\!\left( 2m - 1 \right)\pi x}{2L}\right] \, dx 
+	\end{align*}
+	\item Impose the boundary conditions
+	\begin{alignat*}{2}
+		\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2}\sqrt{\lambda} && = 0 \implies c_{2} = 0 \\
+		\phi \!\left( L \right) & = c_{1}\cos\!\left(\sqrt{\lambda}L\right) && = 0
+	\end{alignat*}
+	where a non-trivial solution corresponds to eigenvalues
+	\[
+		\lambda_{n} = \!\left[ \frac{\!\left( 2n - 1 \right)\pi}{2L} \right]^{2}, \quad n = 1, 2, ...
+	\]
+	Leaving us eigenfunctions
+	\[
+		\phi_{n}\!\left( x \right) = \cos\!\left[\frac{\!\left( 2n - 1 \right)\pi x}{2L}\right]
+	\]
+	By superposition, we have temperature distribution
+	\[
+		u \!\left( x,t \right) = \sum^{\infty}_{n=1} A_{n}\cos\!\left[\frac{\!\left( 2n - 1 \right)\pi x}{2L}\right]e^{-\!\left[ \!\left( 2n - 1 \right) \pi / 2L \right]^{2}kt}
+	\]
+	where \( A_{n} \) is derived by projecting onto the Hilbert cosine space of ``half-modes'' to get
+	\begin{align*}
+		\int^{L}_{0} f \!\left( x \right)\cos\!\left[\frac{\!\left( 2n - 1 \right)\pi x}{2L}\right] \, dx & = \int^{L}_{0} \sum^{\infty}_{n=1} A_{n}\cos\!\left[\frac{\!\left( 2n - 1 \right)\pi x}{2L}\right]\cos\!\left[\frac{\!\left( 2m - 1 \right)\pi x}{2L}\right] \, dx  \\
+		 & = A_{m}\int^{L}_{0} \cos^{2}\!\left(\frac{\!\left( 2m - 1 \right)\pi x}{2L}\right) \, dx \\ 
+		 & = A_{m}\frac{L}{2} \\
+		\implies A_{m} & = \frac{2}{L}\int^{L}_{0} f \!\left( x \right)\cos\!\left[\frac{\!\left( 2m - 1 \right)\pi x}{2L}\right] \, dx
+	\end{align*}
+	\item Impose the boundary conditions
+	\begin{alignat*}{2}
+		\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2}\sqrt{\lambda} && = 0 \implies c_{2} = 0 \\
+		\frac{d \phi}{d x}\!\left( L \right) & = -c_{1}\sqrt{\lambda}\sin\!\left(\sqrt{\lambda}L\right) && = 0
+	\end{alignat*}
+	where a non-trivial solution corresponds to eigenvalues
+	\[
+		\lambda_{n} = \!\left( \frac{n \pi}{L} \right)^{2}, \quad n = 0, 1, ...
+	\]
+	Leaving us eigenfunctions
+	\[
+		\phi_{n}\!\left( x \right) = \cos\!\left(\frac{n \pi x}{L}\right) 
+	\]
+	By superposition, we have temperature distribution
+	\[
+		u \!\left( x,t \right) = \sum^{\infty}_{n=0} A_{n}\cos\!\left(\frac{n \pi x}{L}\right)e^{-\!\left( n \pi / L \right)^{2}kt}
+	\]
+	where the orthogonality conditions for \( A_{0} \) and \( A_{n} \), \( n \neq 0 \), slightly differ:
+	\[
+		A_{n} = 
+		\begin{cases}
+			\displaystyle{\frac{1}{L}\int^{L}_{0} f \!\left( x \right) \, dx} & n = 0 \\[12pt]
+			\displaystyle{\frac{2}{L}\int^{L}_{0} f \!\left( x \right)\cos\!\left(\frac{n \pi x}{L}\right) \, dx} & n \neq 0
+		\end{cases}
+	\]
+\end{enumerate}
+
+\newpage
+
+\subsection{\textsf{2.5 - Laplace's Equation: Solutions and Qualitative Properties}}
+% QUESTION 1
+\qs{2.5.1}{Solve Laplace's equation inside a rectangle \( 0 \le x \le L \), \( 0 \le y \le H \), with the following boundary conditions [\textit{Hint}: Separate variables. If there are two homogeneous boundary conditions in \( y \), let \( u \!\left( x,y \right) = h \!\left( x \right)\phi \!\left( y \right) \), and if there are two homogeneous boundary conditions in \( x \), let \( u \!\left( x,y \right) = \phi \!\left( x \right)h \!\left( y \right) \).]:
+\begin{enumerate}[label=(\alph*)]
+	\item \( \frac{\partial u}{\partial x}\!\left( 0,y \right) = 0 \), \( \frac{\partial u}{\partial x}\!\left( L,y \right) = 0 \), \( u \!\left( x,0 \right) = 0 \), \( u \!\left( x,H \right) = f \!\left( x \right) \)
+	\item \( \frac{\partial u}{\partial x}\!\left( 0,y \right) = g \!\left( y \right) \), \( \frac{\partial u}{\partial x}\!\left( L,y \right) = 0 \), \( u \!\left( x,0 \right) = 0 \), \( u \!\left( x,H \right) = 0 \)
+	\item \( \frac{\partial u}{\partial x}\!\left( 0,y \right) = 0 \), \( u \!\left( L,y \right) = g \!\left( y \right) \), \( u \!\left( x,0 \right) = 0 \), \( u \!\left( x,H \right) = 0 \)
+	\item \( u \!\left( 0,y \right) = g \!\left( y \right) \), \( u \!\left( L,y \right) = 0 \), \( \frac{\partial u}{\partial y}\!\left( x,0 \right) = 0 \), \( u \!\left( x,H \right) = 0 \)
+	\item \( u \!\left( 0,y \right) = 0 \), \( u \!\left( L,y \right) = 0 \), \( u \!\left( x,0 \right) - \frac{\partial u}{\partial y}\!\left( x,0 \right) = 0 \), \( u \!\left( x,H \right) = f \!\left( x \right) \)
+	\item \( u \!\left( 0,y \right) = f \!\left( y \right) \), \( u \!\left( L,y \right) = 0 \), \( \frac{\partial u}{\partial y}\!\left( x,0 \right) = 0 \), \( \frac{\partial u}{\partial y}\!\left( x,H \right) = 0 \)
+	\item \( \frac{\partial u}{\partial x}\!\left( 0,y \right) = 0 \), \( \frac{\partial u}{\partial x}\!\left( L,y \right) = 0 \), \( u \!\left( x,0 \right) = \displaystyle{\begin{cases}
+		0 & x > L/2 \\
+		1 & x < L/2
+	\end{cases}} \), \( \frac{\partial u}{\partial y}\!\left( x,H \right) = 0 \)
+	\item \( u \!\left( 0,y \right) = 0 \), \( u \!\left( L,y \right) = g \!\left( y \right) \), \( u \!\left( x,0 \right) = 0 \), \( u \!\left( x,H \right) = 0 \)
+\end{enumerate}}
+
+For this specific class of problem -- Sturm-Liouville -- over the given intervals, we will omit consideration of negative eigenvalues, and simply investigate the cases of \( \lambda \ge 0 \).
+
+\begin{enumerate}[label=(\alph*)]
+	\item Since the boundary conditions are homogeneous in \( x \), we have
+	\[
+		u \!\left( x,y \right) = \phi \!\left( x \right)h \!\left( y \right)
+	\]
+	Then we write the Laplacian as 
+	\[
+		\nabla^{2}u = h \!\left( y \right)\frac{d^2 \phi}{d x^2} + \phi \!\left( x \right)\frac{d^2 h}{d y^2} = 0	
+	\]
+	Separating variables and setting equal to the separation constant, derive
+	\[
+		\frac{1}{\phi \!\left( x \right)}\frac{d^2 \phi}{d x^2} = -\frac{1}{h \!\left( y \right)}\frac{d^2 h}{d y^2} = -\lambda
+	\]
+	where we choose the negative sign to ensure that we have oscillation in \( x \) (to satisfy the two homogeneous boundary conditions) and exponentials in \( y \). Now, to solve the eigenvalue problem, first consider the positive case:
+
+	\underline{\( \lambda > 0 \):} The general spatial solution is
+	\[
+		\phi \!\left( x \right) = c_{1}\cos\!\left(\sqrt{\lambda}x\right) + c_{2}\sin\!\left(\sqrt{\lambda}x\right) 
+	\]
+	Imposing the boundary conditions, derive
+	\begin{align*}
+		\frac{d \phi}{d x}\!\left( 0 \right) & = c_{2}\sqrt{\lambda} = 0 \implies c_{2} = 0 \\
+		\frac{d \phi}{d x}\!\left( L \right) & = -c_{1}\sqrt{\lambda}\sin\!\left(\sqrt{\lambda}L\right) = 0 
+	\end{align*}
+	where in the second boundary condition, a non-trivial solution corresponds to eigenvalues
+	\[
+		\lambda_{n} = \!\left( \frac{n \pi}{L} \right)^{2} 
+	\]
+	with eigenfunctions
+	\[
+		\phi \!\left( x \right) = \cos\!\left(\frac{n \pi x}{L}\right) 
+	\]
+	\underline{\( \lambda = 0 \):} The general spatial solution in this case is
+	\[
+		\phi \!\left( x \right) = c_{1} + c_{2}x 
+	\]
+	The boundary conditions are simply
+	\[
+		\frac{d \phi}{d x}\!\left( 0 \right) = \frac{d \phi}{d x}\!\left( L \right) = c_{2} = 0 
+	\]
+	Leaving us with \( \phi \!\left( x \right) = c_{1} \).
+
+	Now we move onto the \( y \)-equations. For the positive eigenvalues \( \lambda_{n} \) we derived, we have general solution
+
+	\underline{\( \lambda > 0 \):}
+	\[
+		h \!\left( y \right) = a_{1}\cosh\!\left(\frac{n \pi y}{L}\right) + a_{2}\sinh\!\left(\frac{n \pi y}{L}\right) 
+	\]
+	where the boundary conditions produce
+	\begin{align*}
+		h \!\left( 0 \right) & = a_{1} = 0 \\
+		h \!\left( H \right) & = a_{2}\sinh\!\left(\frac{n \pi H}{L}\right)
+	\end{align*}
+	which yields corresponding eigenfunction
+	\[
+		h \!\left( y \right) = \sinh\!\left(\frac{n \pi y}{L}\right) 
+	\]
+	Lastly, we examine the zero eigenvalue case.
+
+	\underline{\( \lambda = 0 \):}
+	\[
+		h \!\left( y \right) = a_{1} + a_{2}y 
+	\]
+	with boundary conditions
+	\begin{align*}
+		h \!\left( 0 \right) & = a_{1} = 0 \\
+		h \!\left( H \right) & = a_{2}H
+	\end{align*}
+	leaving us with eigenfunction
+	\[
+		h \!\left( y \right) = a_{2}y 
+	\]
+	We summarize our equations in the table below. For the following problems, I will simply list the eigenfunctions derived from the boundary conditions in such tables for the sake of brevity, unless special considerations warrant a more detailed derivation.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda = 0 \) & \( \lambda = \left( \dfrac{n \pi}{L} \right)^{2} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+			\( \phi(x) \) & \( c_{1} \) & \( \cos\!\left(\dfrac{n \pi x}{L}\right) \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			\( h(y) \) & \( a_{2}y \) & \( \sinh\!\left(\dfrac{n \pi y}{L}\right) \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Combining solutions and using superposition, the full temperature distribution is
+	\[
+		u \!\left( x,y \right) = A_{0}y + \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right)\sinh\!\left(\frac{n \pi y}{L}\right) 
+	\]
+	To identify the coefficients we rely on the non-homogeneous boundary condition: \( u \!\left( x,H \right) = f \!\left( x \right) \). At that point, we have
+	\[
+		f \!\left( x \right) = u \!\left( x,H \right) = A_{0}H + \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right)\sinh\!\left(\frac{n \pi H}{L}\right) 
+	\]
+	First we consider the case when \( n > 0 \), i.e. for the positive eigenvalues. Here is the key point: \textbf{we must project our boundary condition \( \pmb{f \!\left( x \right)} \) onto each of the directions of the Hilbert space spanned by the orthogonal eigenbasis corresponding to the non-zero eigenvalues. The coefficients \( \pmb{A_{m}} \) correspond to the ``coordinates'' of \( \pmb{f \!\left( x \right)} \) as projected on that specific direction in the Hilbert space}. By orthogonality, multiply all terms by \( \cos\!\left(m \pi x / L\right) \) and integrate from \( 0 \) to \( L \) to get
+	\begin{align*}
+		\int^{L}_{0} f \!\left( x \right)\cos\!\left(\frac{m \pi x}{L}\right) \, dx & = \int^{L}_{0} A_{0}H \cos\!\left(\frac{m \pi x}{L}\right) \, dx \\
+											    & \qquad + \int^{L}_{0} A_{m}\cos^{2}\!\left(\frac{m \pi x}{L}\right)\sinh\!\left(\frac{m \pi H}{L}\right) \, dx
+	\end{align*}
+	This in turn allows us to compute \( A_{m} \):
+	\[
+		A_{m} = \frac{2}{L \sinh\!\left(m \pi H / L\right)}\int^{L}_{0} f \!\left( x \right)\cos\!\left(\frac{m \pi x}{L}\right) \, dx
+	\]
+	Lastly, to compute \( A_{0} \), we analogously project the boundary condition onto the eigenfunctions corresponding to the zero eigenvalue. Truly, we deal with only a singular eigenfunction: the constant, which we can reduce to \( 1 \). Another way to conceptualize this is accounting for all of the basis vectors of the Hilbert space in \( x \)
+	\[
+		 \left\{\, \cos\!\left(\frac{n \pi x}{L}\right) \, \Big| \, n \in \mathbb{N} \cup \!\left\{ 0 \right\} \, \right\} 
+	\]
+	where in the \( n > 0 \) case we considered the subspace spanned by 
+	\[
+		\!\left\{ \cos\!\left(n \pi x / L\right) \, \mid \, n > 0 \right\}	 
+	\]
+	and in the \( n = 0 \) case we account for the basis vector \( \!\left\{ 1 \right\} \). With that out of the way, calculate
+	\[
+		\int^{L}_{0} f \!\left( x \right) \, dx = \int^{L}_{0} A_{0}H \, dx + \int^{L}_{0} \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right)\sinh\!\left(\frac{n \pi H}{L}\right) \, dx
+	\]
+	Observe that most conveniently, the entirety of the second term vanishes due to the orthogonality condition in the cosine function against the constant eigenfunction \( 1 \). This leaves us with
+	\[
+		A_{0} = \frac{1}{HL}\int^{L}_{0} f \!\left( x \right) \, dx
+	\]
+	\item With boundary conditions homogeneous in \( y \), we have
+	\[
+		u \!\left( x,y \right) = h \!\left( x \right)\phi \!\left( y \right) 
+	\]
+	The Laplacian is then
+	\[
+		\nabla^{2}u = \phi \!\left( y \right)\frac{d^2 h}{d x^2} + h \!\left( x \right)\frac{d^2 \phi}{d y^2} = 0 
+	\]
+	Separating variables and setting equal to the separation constant, derive
+	\[
+		\frac{1}{h \!\left( x \right)}\frac{d^2 h}{d x^2} = -\frac{1}{\phi \!\left( y \right)}\frac{d^2 \phi}{d y^2} = \lambda 
+	\]
+	where the positive sign is chosen to ensure oscillation in \( y \) and exponentials in \( x \). The eigenfunctions and corresponding eigenvalues are
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \displaystyle{\lambda = \!\left( \frac{n \pi}{H} \right)^{2} > 0} \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+			\( \phi \!\left( y \right) \) & \( \displaystyle{\sin\!\left(\frac{n \pi y}{H}\right)} \) \\	
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			\( h \!\left( x \right) \) & \( \displaystyle{\sinh\!\left(\frac{n \pi}{H}\!\left( x - L \right)\right)} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	By superposition, we have temperature distribution
+	\[
+		u \!\left( x,y \right) = \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi y}{H}\right)\sinh\!\left(\frac{n \pi}{H}\!\left( x - L \right)\right) 
+	\]
+	To derive the coefficients \( A_{n} \), first differentiate with respect to \( x \) and examine the point \( \!\left( 0,y \right) \), where the non-homogeneous condition is realized
+	\[
+		\frac{\partial u}{\partial x}\!\left( 0,y \right) = \sum^{\infty}_{n=1} A_{n}\!\left( \frac{n \pi}{H} \right)\sin\!\left(\frac{n \pi y}{H}\right)\cosh\!\left(-\frac{n \pi L}{H}\right) = g \!\left( y \right) 
+	\]
+	Then multiplying the right equality by \( \sin\!\left(m \pi y / H\right) \), integrating from \( 0 \) to \( H \), and isolating the coefficient produces
+	\[
+		A_{m} = \frac{2}{m \pi \cosh\!\left(m \pi L / H\right)}\int^{H}_{0} g \!\left( y \right)\sin\!\left(\frac{m \pi y}{H}\right) \, dy  
+	\]
+	where we appeal to the evenness of the hyperbolic cosine function to change the argument sign to positive.
+	\item Once again we are homogeneous in \( y \), so we define
+	\[
+		u \!\left( x,y \right) = h \!\left( x \right)\phi \!\left( y \right) 
+	\]
+	with corresponding Laplacian
+	\[
+		\nabla^{2}u = \phi \!\left( y \right)\frac{d^2 h}{d x^2} + h \!\left( x \right)\frac{d^2 \phi}{d y^2} = 0 
+	\]
+	Separating variables and setting equal to the separation constant, derive
+	\[
+		\frac{1}{h \!\left( x \right)}\frac{d^2 h}{d x^2} = -\frac{1}{\phi \!\left( y \right)}\frac{d^2 \phi}{d y^2} = \lambda 
+	\]
+	where the separation constant sign is chosen to ensure oscillation in \( y \). The eigenfunctions and corresponding eigenvalues are
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{n} = \displaystyle{\!\left( \frac{n \pi}{H} \right)^{2}} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( \phi \!\left( y \right) \) & \( \displaystyle{\sin\!\left(\frac{n \pi y}{H}\right)} \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( h \!\left( x \right) \) & \( \displaystyle{\cosh\!\left(\frac{n \pi x}{H}\right)} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	By superposition, we have complete temperature distribution
+	\[
+		u \!\left( x,y \right) = \sum^{\infty}_{n=1} A_{n}\cosh\!\left(\frac{n \pi x}{H}\right)\sin\!\left(\frac{n \pi y}{H}\right) 
+	\]
+	where \( A_{n} \) is determined by evaluating at \( \!\left( L,y \right) \):
+	\[
+		u \!\left( L,y \right) = \sum^{\infty}_{n=1} A_{n}\cosh\!\left(\frac{n \pi L}{H}\right)\sin\!\left(\frac{n \pi y}{H}\right) = g \!\left( y \right)
+	\]
+	and then multiplying by \( \sin\!\left(m \pi y / H\right) \) and integrating from \( 0 \) to \( H \) to derive
+	\[
+		A_{m} = \frac{2}{H \cosh\!\left(m \pi L / H\right)}\int^{H}_{0} g \!\left( y \right)\sin\!\left(\frac{m \pi y}{H}\right) \, dy  
+	\]
+	\item Homogeneity of the boundary conditions in \( y \) produces
+	\[
+		u \!\left( x,y \right) = h \!\left( x \right)\phi \!\left( y \right) 
+	\]
+	The Laplacian is
+	\[
+		\nabla^{2}u = \phi \!\left( y \right)\frac{d^2 h}{d x^2} + h \!\left( x \right)\frac{d^2 \phi}{d y^2} = 0 
+	\]
+	Separating variables and setting equal to the separation constant, derive
+	\[
+		\frac{1}{h \!\left( x \right)}\frac{d^2 h}{d x^2} = -\frac{1}{\phi \!\left( y \right)}\frac{d^2 \phi}{d y^2} = \lambda 
+	\]
+	where the sign of the separation constant ensures oscillation in \( y \) and exponentials in \( x \). The eigenfunctions and corresponding eigenvalues are
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{n} = \displaystyle{\!\left[ \frac{\!\left( 2n - 1 \right)\pi}{2H} \right]^{2}} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+			\( \phi \!\left( y \right) \) & \( \displaystyle{\cos\!\left[\frac{\!\left( 2n - 1 \right)\pi y}{2H}\right]} \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			\( h \!\left( x \right) \) & \( \displaystyle{\sinh\!\left[\frac{\!\left( 2n - 1 \right)\pi \!\left( x - L \right)}{2H}\right]} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	By superposition, we have temperature distribution
+	\[
+		u \!\left( x,y \right) = \sum^{\infty}_{n=1} A_{n}\sinh\!\left[\frac{\!\left( 2n - 1 \right)\pi \!\left( x - L \right)}{2H}\right]\cos\!\left[\frac{\!\left( 2n - 1 \right)\pi y}{2H}\right]
+	\]
+	where the Fourier coefficient is derived as:
+	\[
+		A_{m} = -\frac{2}{H \sinh\!\left[\!\left( 2m - 1 \right)\pi L / 2H\right]}\int^{H}_{0} g \!\left( y \right)\cos\!\left[\frac{\!\left( 2m - 1 \right)\pi y}{2H}\right] \, dy 
+	\]
+	\item We switch to homogeneity of the boundary conditions in \( x \), so we define
+	\[
+		u \!\left( x,y \right) = \phi \!\left( x \right)h \!\left( y \right) 
+	\]
+	which has Laplacian
+	\[
+		\nabla^{2}u = h \!\left( y \right)\frac{d^2 \phi}{d x^2} + \phi \!\left( x \right)\frac{d^2 h}{d y^2} = 0 
+	\]
+	Separating variables and setting equal to the separation constant, derive
+	\[
+		\frac{1}{\phi \!\left( x \right)}\frac{d^2 \phi}{d x^2} = -\frac{1}{h \!\left( y \right)}\frac{d^2 h}{d y^2} = -\lambda 
+	\]
+	which guarantees oscillation in \( x \) and exponentials in \( y \). The eigenfunctions and corresponding eigenvalues are
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{n} = \displaystyle{\!\left( \frac{n \pi}{L} \right)^{2}} \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( \phi \!\left( x \right) \) & \( \displaystyle{\sin\!\left(\frac{n \pi x}{L}\right)} \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( h \!\left( y \right) \) & \( \displaystyle{\!\left( \frac{n \pi}{L} \right)\cosh\!\left(\frac{n \pi y}{L}\right) + \sinh\!\left(\frac{n \pi y}{L} \right)} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	By superposition, we have temperature distribution
+	\[
+		u \!\left( x,y \right) = \sum^{\infty}_{n=1} A_{n}h_{n}\!\left( y \right)\sin\!\left(\frac{n \pi x}{L}\right)
+	\]
+	where
+	\[
+		h_{n}\!\left( y \right) = \!\left( \frac{n \pi}{L} \right)\cosh\!\left(\frac{n \pi y}{L}\right) + \sinh\!\left(\frac{n \pi y}{L}\right)
+	\]
+	and the Fourier coefficient is derived as 
+	\[
+		A_{m} = \frac{2}{L h_{m}\!\left( H \right)}\int^{L}_{0} f \!\left( x \right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx 
+	\]
+	\item Homogeneity of the boundary conditions in \( y \) yields
+	\[
+		u \!\left( x,y \right) = h \!\left( x \right)\phi \!\left( y \right) 
+	\]
+	with corresponding Laplacian
+	\[
+		\nabla^{2}u = \phi \!\left( y \right)\frac{d^2 h}{d x^2} + h \!\left( x \right)\frac{d^2 \phi}{d y^2} = 0 
+	\]
+	Separating variables and setting equal to the separation constant, derive
+	\[
+		\frac{1}{h \!\left( x \right)}\frac{d^2 h}{d x^2} = -\frac{1}{\phi \!\left( y \right)}\frac{d^2 \phi}{d y^2} = \lambda 
+	\]
+	which ensures oscillation in \( y \) and exponentials in \( x \). The eigenfunctions and corresponding eigenvalues are
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{0} = 0 \) & \( \lambda_{n} = \displaystyle{\!\left( \frac{n \pi}{H} \right)^{2}} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( \phi \!\left( y \right) \) & \( c \) & \( \displaystyle{\cos\!\left(\frac{n \pi y}{H}\right)} \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( h \!\left( x \right) \) & \( \displaystyle{1 - \frac{x}{L}} \) & \( \displaystyle{\sinh\!\left[\frac{n \pi}{H}\!\left( x - L \right)\right]} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	By superposition, we have solution
+	\[
+		u \!\left( x,y \right) = A_{0}\!\left( 1 - \frac{x}{L} \right) + \sum^{\infty}_{n=1} A_{n}\sinh\!\left[\frac{n \pi}{H}\!\left( x - L \right)\right]\cos\!\left(\frac{n \pi y}{H}\right)
+	\]
+	where the Fourier coefficients are given by
+	\[
+		A_{m} =
+		\begin{cases}
+			\displaystyle{\frac{1}{H}\int^{H}_{0} f \!\left( y \right) \, dy}, & m = 0 \\
+			\displaystyle{-\frac{2}{H \sinh\!\left(m \pi L / H\right)}\int^{H}_{0} f \!\left( y \right)\cos\!\left(\frac{m \pi y}{H}\right) \, dy}, & m > 0 
+		\end{cases}
+	\]
+	\item Our boundary conditions are homogeneous in \( x \), which gives us
+	\[
+		u \!\left( x,y \right) = \phi \!\left( x \right)h \!\left( y \right)
+	\]
+	which has corresponding Laplacian
+	\[
+		\nabla^{2}u = h \!\left( y \right)\frac{d^2 \phi}{d x^2} + \phi \!\left( x \right)\frac{d^2 h}{d y^2} = 0
+	\]
+	Separating variables and setting equal to the separation constant, find
+	\[
+		\frac{1}{\phi \!\left( x \right)}\frac{d^2 \phi}{d x^2} = -\frac{1}{h \!\left( y \right)}\frac{d^2 h}{d y^2} = -\lambda 
+	\]
+	which guarantees oscillation in \( x \) and exponentials in \( y \). The eigenfunctions and corresponding eigenvalues are
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{0} = 0 \) & \( \lambda_{n} = \displaystyle{\!\left( \frac{n \pi}{L} \right)^{2}} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( \phi \!\left( x \right) \) & \( c_{1} \) & \( \displaystyle{\cos\!\left(\frac{n \pi x}{L}\right)} \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( h \!\left( y \right) \) & \( a_{1} \) & \( \displaystyle{\cosh\!\left[\frac{n \pi}{L}\!\left( y - H \right)\right]} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	which combine and with superposition produce
+	\[
+		u \!\left( x,y \right) = A_{0} + \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right)\cosh\!\left[\frac{n \pi}{L}\!\left( y - H \right)\right]
+	\]
+	where 
+	\[
+	A_{0} = \frac{1}{2}, \quad A_{m} = \frac{2}{m \pi \cosh\!\left(m \pi H / L\right)}\sin\!\left(\frac{m \pi}{2}\right)
+	\]
+	Note that the derivation proceeds analogously to the problem posed in (a), where the presence of non-trivial eigenfunctions corresponding to \( \lambda_{0} = 0 \) indicates two different projections of the boundary condition onto the eigenbases associated with the zero and non-zero eigenvalues.
+	\item We end this first set of exercises with homogeneity of the boundary conditions in \( y \), giving us form
+	\[
+		u \!\left( x,y \right) = h \!\left( x \right)\phi \!\left( y \right) 
+	\]
+	The corresponding Laplacian is
+	\[
+		\nabla^{2}u = \phi \!\left( y \right)\frac{d^2 h}{d x^2} + h \!\left( x \right)\frac{d^2 \phi}{d y^2} = 0
+	\]
+	Separating variables and setting equal to the separation constant, derive
+	\[
+		\frac{1}{h \!\left( x \right)}\frac{d^2 h}{d x^2} = -\frac{1}{\phi \!\left( y \right)}\frac{d^2 \phi}{d y^2} = \lambda 
+	\]
+	which ensures oscillation in \( y \) and exponentials in \( x \). The eigenfunctions and corresponding eigenvalues are
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{n} = \displaystyle{\!\left( \frac{n \pi}{H} \right)^{2}} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( \phi \!\left( y \right) \) & \( \displaystyle{\sin\!\left(\frac{n \pi y}{H}\right)} \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( h \!\left( x \right) \) & \( \displaystyle{\sinh\!\left(\frac{n \pi x}{H}\right)} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	By superposition, we have temperature distribution
+	\[
+		u \!\left( x,y \right) = \sum^{\infty}_{n=1} A_{n}\sinh\!\left(\frac{n \pi x}{H}\right)\sin\!\left(\frac{n \pi y}{H}\right) 
+	\]
+	with Fourier coefficient
+	\[
+		A_{m} = \frac{2}{H \sinh\!\left(m \pi L / H\right)}\int^{H}_{0} g \!\left( y \right)\sin\!\left(\frac{m \pi y}{H}\right) \, dy  
+	\]
+\end{enumerate}
+
+% QUESTION 2
+\qs{2.5.2}{Consider \( u \!\left( x,y \right) \) satisfying Laplace's equation inside a rectangle (\( 0 < x < L \), \( 0 < y < H \)) subject to the boundary conditions
+\begin{alignat*}{2}
+	 && \frac{\partial u}{\partial x}\!\left( 0,y \right) = 0, & \qquad \frac{\partial u}{\partial y}\!\left( x,0 \right) = 0 \\
+	 && \frac{\partial u}{\partial x}\!\left( L,y \right) = 0, & \qquad \frac{\partial u}{\partial y}\!\left( x,H \right) = f \!\left( x \right)
+\end{alignat*}
+\begin{enumerate}[label=(\alph*)]
+	\item \textit{Without} solving this problem, briefly explain the physical condition under which there is a solution to this problem.
+	\item Solve this problem by the method of separation of variables. Show that the method works only under the condition of part (a). [\textit{Hint}: You  may use (2.5.16) without derivation.]
+	\item The solution [part (b)] has an arbitrary constant. Determine it by consideration of the time-dependent heat equation (1.5.11) subject to the initial condition
+	\[
+		u \!\left( x,y,0 \right) = g \!\left( x,y \right) 
+	\]
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item Conceptually, net heat flow through the boundary must be zero in order for the steady-state to exist, namely the solvability condition
+	\[
+		\oint \nabla u \cdot \pmb{\hat{n}} \, ds = \int^{L}_{0} \frac{\partial u}{\partial y}\!\left( x,H \right) \, dx = \int^{L}_{0} f \!\left( x \right) \, dx = 0
+	\]
+	\item The boundary conditions are homogeneous in \( x \), so we separate variables as 
+	\[
+		u \!\left( x,y \right) = \phi \!\left( x \right)h \!\left( y \right) 
+	\]
+	The corresponding Laplacian at equilibrium is
+	\[
+		\nabla^{2}u = h \!\left( y \right)\frac{d^2 \phi}{d x^2} + \phi \!\left( x \right)\frac{d^2 h}{d y^2} = 0
+	\]
+	And separating variables and setting equal to the separation constant produces
+	\[
+		\frac{1}{\phi \!\left( x \right)}\frac{d^2 \phi}{d x^2} = -\frac{1}{h \!\left( y \right)}\frac{d^2 h}{d y^2} = -\lambda 
+	\]
+	which guarantees oscillation in \( x \) and exponentials in \( y \). The eigenfunctions and corresponding eigenvalues are
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{0} = 0 \) & \( \lambda_{n} = \displaystyle{\!\left( \frac{n \pi}{L} \right)^{2}} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( \phi \!\left( x \right) \) & \( 1 \) & \( \displaystyle{\cos\!\left(\frac{n \pi x}{L}\right)} \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( h \!\left( y \right) \) & \( 1 \) & \( \displaystyle{\cosh\!\left(\frac{n \pi y}{L}\right)} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	By superposition, we have temperature distribution
+	\[
+		u \!\left( x,y \right) = A_{0} + \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right)\cosh\!\left(\frac{n \pi y}{L}\right) 
+	\]
+	where the Fourier coefficients for the eigenbases with non-zero eigenvalues are given by
+	\[
+		A_{m} = \frac{2}{m \pi \sinh\!\left(m \pi H / L\right)}\int^{L}_{0} f \!\left( x \right)\cos\!\left(\frac{m \pi x}{L}\right) \, dx  
+	\]
+	However, in the case of multiplying through by the constant eigenfunction \( \phi \!\left( x \right) = 1 \) and integrating, we find
+	\begin{align*}
+		\int^{L}_{0} \frac{\partial u}{\partial y}\!\left( x,H \right) \, dx & = \sum^{\infty}_{n=1} A_{n}\!\left( \frac{n \pi}{L} \right)\sinh\!\left(\frac{n \pi H}{L}\right)\int^{L}_{0} \cos\!\left(\frac{n \pi x}{L}\right) \, dx \\
+										     & = \int^{L}_{0} f \!\left( x \right) \, dx \\ 
+										     & = 0    
+	\end{align*}
+	Which is consistent with the solvability condition in part (a). The other insight here is that \( A_{0} \) \textit{is undetermined from the boundary conditions}, and in equilibrium, \textit{any} value of \( A_{0} \) is consistent with all four boundary conditions.
+	\item Where we do determine \( A_{0} \) is from the initial condition. First, recall that one plan of approach for the time-dependent case is to compute the rate of change of the total energy, namely
+	\begin{align*}
+		\frac{\partial E}{\partial t} = \iint c \rho \frac{\partial u}{\partial t} \, dA & = K_{0}\iint \nabla \cdot \nabla u \, dA \\
+		 & = \oint \nabla u \cdot \pmb{\hat{n}} \, ds \\
+		 & = \int^{L}_{0} f \!\left( x \right) \, dx \\
+		 & = 0
+	\end{align*}
+	where we use the divergence theorem and the solvability condition in the second and third lines, respectively. We have now established that \textbf{energy is conserved}.
+
+	What next? This implies
+	\[
+		\iint u \!\left( x,y,0 \right) \, dA = \iint u \!\left( x,y \right) \, dA = \iint g \!\left( x,y \right) \, dA 
+	\]
+	which conceptually translates to initial energy equals to energy at equilibrium. We may simply integrate
+	\begin{align*}
+		\int^{H}_{0} \int^{L}_{0} \!\left[ A_{0} + \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right)\cosh\!\left(\frac{n \pi y}{L}\right) \right] \, dx \, dy & = A_{0}HL \\
+		 & = \iint g \!\left( x,y \right) \, dA
+	\end{align*}
+	implying
+	\[
+		A_{0} = \frac{1}{HL}\iint g \!\left( x,y \right) \, dA 
+	\]
+	Observe that physically, the transient modes carry net-zero energy, which is the interpretation of the entire summation vanishing by the area integral.
+\end{enumerate}
+
+% QUESTION 3
+\qs{2.5.3}{Solve Laplace's equation \textit{outside} a circular disk (\( r \ge a \)) subject to the boundary condition [\textit{Hint}: In polar coordinates,
+\[
+	\nabla^{2}u = \frac{1}{r}\frac{\partial }{\partial r}\!\left( r \frac{\partial u}{\partial r} \right) + \frac{1}{r^{2}}\frac{\partial^2 u}{\partial \theta^2} = 0 
+\]
+it is known that if \( u \!\left( r,\theta \right) = \phi \!\left( \theta \right)G \!\left( r \right) \), then \( \frac{r}{G}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = -\frac{1}{\phi}\frac{d^2 \phi}{d \theta^2} \).]:
+\begin{enumerate}[label=(\alph*)]
+	\item \( u \!\left( a,\theta \right) = \ln\!\left(2\right) + 4 \cos\!\left(3 \theta\right) \)
+	\item \( u \!\left( a,\theta \right) = f \!\left( \theta \right) \)
+\end{enumerate}}
+
+By separable variables, let 
+\[
+	u \!\left( r,\theta \right) = \phi \!\left( \theta \right)G \!\left( r \right) 
+\]
+Which produces the equation
+\[
+	\frac{r}{G}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = -\frac{1}{\phi}\frac{d^2 \phi}{d \theta^2} = \lambda 
+\]
+
+First assume \( \lambda > 0 \) and examine the angular eqution. The periodicity conditions
+\begin{align*}
+	\phi \!\left( -\pi \right) & = \phi \!\left( \pi \right) \\
+	\frac{d \phi}{d \theta}\!\left( -\pi \right) & = \frac{d \phi}{d \theta}\!\left( \pi \right)
+\end{align*}
+must be satisfied. Since we have oscillation in \( \theta \), derive general form
+\[
+	\phi \!\left( \theta \right) = c_{1}\cos\!\left(\sqrt{\lambda}\theta\right) + c_{2}\sin\!\left(\sqrt{\lambda}\theta\right) 
+\]
+Enforcing the first boundary condition produces
+\[
+	\phi \!\left( -\pi \right) = c_{1}\cos\!\left(\sqrt{\lambda}\pi\right) - c_{2}\sin\!\left(\sqrt{\lambda}\pi\right) = c_{1}\cos\!\left(\sqrt{\lambda}\pi\right) + c_{2}\sin\!\left(\sqrt{\lambda}\pi\right) = \phi \!\left( \pi \right)
+\]
+implying
+\[
+	2c_{2}\sin\!\left(\sqrt{\lambda}\pi\right) = 0
+\]
+The second:
+\begin{align*}
+	\frac{d \phi}{d \theta}\!\left( -\pi \right) & = c_{1}\sqrt{\lambda}\sin\!\left(\sqrt{\lambda}\pi\right) + c_{2}\sqrt{\lambda} \cos\!\left(\sqrt{\lambda} \pi\right) \\
+	\frac{d \phi}{d \theta}\!\left( \pi \right) & = -c_{1}\sqrt{\lambda}\sin\!\left(\sqrt{\lambda}\pi\right) + c_{2}\sqrt{\lambda}\cos\!\left(\sqrt{\lambda}\pi\right)
+\end{align*}
+implying
+\[
+	2c_{1}\sqrt{\lambda}\sin\!\left(\sqrt{\lambda}\pi\right) = 0 
+\]
+Combined, the boundary conditions suggest that either \( c_{1} = c_{2} = 0 \) or \( \lambda = n^{2} \). Since we desire a non-trivial solution, this is what produces our eigenvalues.
+
+From the radial equation, we seek to solve
+\[
+	\frac{r}{G}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = n^{2} 
+\]
+where, when rearranging and evaluating terms, we have the equidimensional equation
+\[
+	r^{2}\frac{d^2 G}{d r^2} + r \frac{d G}{d r} - n^{2}G = 0 
+\]
+Which is solved by supposing \( G \!\left( r \right) = r^{p} \), solving for \( p \), and deriving \( p = \pm n \). Therefore the general radial solution is
+\[
+	G \!\left( r \right) = a_{1}r^{n} + a_{2}r^{-n} 
+\]
+Now, here is where some physical intuition comes in. We are considering the area \textit{beyond} \( r = a \). Originally, we had to guarantee that \( \abs{G \!\left( 0 \right)} < \infty \); that is, we bound \( G \!\left( r \right) \) at the origin to be finite. In this case, since we consider the distribution of heat far from the origin, it is reasonable to suggest that the boundary condition in this case be 
+\[
+	\abs{G \!\left( \infty \right)} < \infty
+\]
+Imposing this boundary condition implies
+\[
+	G \!\left( \infty \right) = a_{1}r^{n} + a_{2}r^{-n} < \infty \quad \implies \quad a_{1} = 0 
+\]
+Repeat the process for \( \lambda = 0 \). For the angular equation, derive
+\[
+	\phi \!\left( \theta \right) = c_{1} + c_{2}\theta 
+\]
+where the periodicity conditions suggest \( c_{2} = 0 \), leaving us with the constant eigenfunction. In the radial equation, we are left to solve
+\[
+	\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = 0 
+\]
+which has solution
+\[
+	G \!\left( r \right) = b_{1} + b_{2}\ln\!\left(r\right) 
+\]
+Similarly, we apply the limiting condition \( \abs{G \!\left( \infty \right)} < \infty \), forcing \( b_{2} = 0 \), and leaving us once again with the constant eigenfunction. The complete set of eigenfunctions and corresponding eigenvalues is thus
+\begin{center}
+	\renewcommand{\arraystretch}{1.8}
+	\setlength{\arraycolsep}{10pt}
+	\begin{tabular}{|c||c|c|}
+		\hline
+		\rule[-1.2em]{0pt}{3em}
+		 & \( \lambda_{0} = 0 \) & \( \lambda_{n} = n^{2} > 0 \) \\
+		\hline\hline
+		\rule[-1.2em]{0pt}{3em}
+				\( \phi \!\left( \theta \right) \) & \( 1 \) & \( \sin\!\left(n \theta\right) \), \( \cos\!\left(n \theta\right) \) \\
+		\hline
+		\rule[-1.2em]{0pt}{3em}
+				\( G \!\left( r \right) \) & \( 1 \) & \( r^{-n} \) \\
+		\hline
+	\end{tabular}
+\end{center}
+Therefore, combining the radial and angular solutions and appealing to superposition gives us general temperature distribution
+\[
+	u \!\left( r,\theta \right) = \sum^{\infty}_{n=0} A_{n}r^{-n}\cos\!\left(n \theta\right) + \sum^{\infty}_{n=1} B_{n}r^{-n}\sin\!\left(n \theta\right)
+\]
+\begin{enumerate}[label=(\alph*)]
+	\item 
+	\begin{align*}
+		u \!\left( a,\theta \right) & = \sum^{\infty}_{n=0} A_{n}a^{-n}\cos\!\left(n \theta\right) + \sum^{\infty}_{n=1} B_{n}a^{-n}\sin\!\left(n \theta\right) \\
+					    & = \ln\!\left(2\right) + 4 \cos\!\left(3 \theta\right)
+	\end{align*}
+	implies 
+	\[
+		A_{0} = \ln\!\left(2\right), \quad A_{3} = 4a^{3}, \quad A_{n \neq 0,3} = 0, \quad B_{n} = 0
+	\]
+	\item 
+	\[
+		u \!\left( a,\theta \right) = \sum^{\infty}_{n=0} A_{n}a^{-n}\cos\!\left(n \theta\right) + \sum^{\infty}_{n=1} B_{n}a^{-n}\sin\!\left(n \theta\right) = f \!\left( \theta \right) 
+	\]
+	To calculate the Fourier coefficients, go case-by-case. For \( A_{0} \), multiply through by \( \phi \!\left( \theta \right) = 1 \) and integrate from \( -\pi \) to \( \pi \) to get
+	\[
+		A_{0} = \frac{1}{2 \pi}\int^{\pi}_{-\pi} f \!\left( \theta \right) \, d \theta
+	\]
+	For \( A_{n} \) and \( B_{n} \), use orthogonality and integrate over the angular bounds to get
+	\begin{align*}
+		A_{n} & = \frac{1}{\pi}\int^{\pi}_{-\pi} f \!\left( \theta \right)\cos\!\left(n \theta\right) \, d \theta \\
+		B_{n} & = \frac{1}{\pi}\int^{\pi}_{-\pi} f \!\left( \theta \right)\sin\!\left(n \theta\right) \, d \theta
+	\end{align*}
+\end{enumerate}
+
+% QUESTION 4
+\qs{2.5.4}{}
+
+\end{document}
