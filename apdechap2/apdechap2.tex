@@ -2047,7 +2047,8 @@ it is known that if \( u \!\left( r,\theta \right) = \phi \!\left( \theta \right
 \begin{enumerate}[label=(\alph*)]
 	\item \( u \!\left( a,\theta \right) = \ln\!\left(2\right) + 4 \cos\!\left(3 \theta\right) \)
 	\item \( u \!\left( a,\theta \right) = f \!\left( \theta \right) \)
-\end{enumerate}}
+\end{enumerate}
+You may assume that \( u \!\left( r,\theta \right) \) remains finite as \( r \rightarrow \infty \).}
 
 By separable variables, let 
 \[
@@ -2165,6 +2166,305 @@ Therefore, combining the radial and angular solutions and appealing to superposi
 \end{enumerate}
 
 % QUESTION 4
-\qs{2.5.4}{}
+\qs{2.5.4}{For Laplace's equation inside a circular disk (\( r \le a \)), using (2.5.45) and (2.5.47), show that
+\[
+	u \!\left( r,\theta \right) = \frac{1}{\pi}\int^{\pi}_{-\pi} f \!\left( \overline{\theta} \right)\!\left[ -\frac{1}{2} + \sum^{\infty}_{n=0}\!\left( \frac{r}{a} \right)^{n}\cos\!\left(n \!\left( \theta - \overline{\theta} \right) \right) \right] \, d \overline{\theta}  
+\]
+Using \( \cos\!\left(z\right) = \operatorname{Re}\!\left[ e^{iz} \right] \), sum the resulting geometric series to obtain Poisson's integral formula.}
+
+Using the formulae for the Fourier coefficients, substitute into the solution to the polar Laplacian. Note that we define a dummy variable of integration \( \overline{\theta} \) for the coefficient formulae:
+\begin{align*}
+	u \!\left( r,\theta \right) & = \frac{1}{2 \pi}\int^{\pi}_{-\pi} f \!\left( \overline{\theta} \right) \, d \overline{\theta} + \sum^{\infty}_{n=1} \frac{1}{\pi}\!\left( \frac{r}{a} \right)^{n}\cos\!\left(n \theta\right)\int^{\pi}_{-\pi} f \!\left( \overline{\theta} \right)\cos\!\left(n \overline{\theta}\right) \, d \overline{\theta} \\
+	 & \qquad + \sum^{\infty}_{n=1} \frac{1}{\pi}\!\left( \frac{r}{a} \right)^{n}\sin\!\left(n \theta\right)\int^{\pi}_{-\pi} f \!\left( \overline{\theta} \right)\sin\!\left(n \overline{\theta}\right) \, d \overline{\theta}
+\end{align*}
+Now, the advantage of defining this dummy variable is to be able to move the \( \theta \) functions inside of the integrals, and exploiting the angle sum and difference trigonometric identities to simplify. Do this and combine terms to derive
+\[
+	u \!\left( r,\theta \right) = \frac{1}{\pi}\int^{\pi}_{-\pi} f \!\left( \overline{\theta} \right)\!\left[ \frac{1}{2} + \sum^{\infty}_{n=1} \!\left( \frac{r}{a} \right)^{n}\!\left( \cos\!\left(n \theta\right)\cos\!\left(n \overline{\theta}\right) + \sin\!\left(n \theta\right)\sin\!\left(n \overline{\theta}\right) \right) \right] \, d \overline{\theta}  
+\]
+The morass of trigonometic terms can be combined into \( \cos\!\left(n \!\left( \theta - \overline{\theta} \right)\right) \), giving us
+\[
+	u \!\left( r,\theta \right) = \frac{1}{\pi}\int^{\pi}_{-\pi} f \!\left( \overline{\theta} \right)\!\left[ \frac{1}{2} + \sum^{\infty}_{n=1} \!\left( \frac{r}{a} \right)^{n}\cos\!\left(n \!\left( \theta - \overline{\theta} \right)\right) \right] \, d \overline{\theta} 
+\]
+And lastly, adding one to the second of the bracketed terms and subtracting from the first allows us to readjust the summation index to commence from \( n = 0 \), as desired:
+\[
+	u \!\left( r,\theta \right) = \frac{1}{\pi}\int^{\pi}_{-\pi} f \!\left( \overline{\theta} \right)\!\left[ -\frac{1}{2} + \sum^{\infty}_{n=0} \!\left( \frac{r}{a} \right)^{n}\cos\!\left(n \!\left( \theta - \overline{\theta} \right)\right) \right] \, d \overline{\theta}  
+\]
+To derive Poisson's integral formula, first isolate the summation and rewrite as 
+\[
+	\sum^{\infty}_{n=0} \!\left( \frac{r}{a} \right)^{n}\cos\!\left(n \!\left( \theta - \overline{\theta} \right)\right) = \operatorname{Re}\!\left[ \sum^{\infty}_{n=0} \!\left( \frac{re^{in \!\left( \theta - \overline{\theta} \right)}}{a} \right)^{n} \right]
+\]
+Since the modulus \( \abs{r / a} < 1 \), we apply the geometric series formula to derive
+\[
+	\sum^{\infty}_{n=0} \!\left( \frac{re^{in \!\left( \theta - \overline{\theta} \right)}}{a} \right)^{n} = \frac{1}{1 - \frac{r}{a}e^{i \!\left( \theta - \overline{\theta} \right)}}
+\]
+Now, the complex conjugate of the denominator is
+\[
+	1 - \frac{r}{a}e^{-i \!\left( \theta - \overline{\theta} \right)} 
+\]
+Multiplying the numerator and denominator with this complex conjugate and explicitly writing out the trigonometric functions, calculate the \textit{real} part as
+\[
+	\frac{a^{2} - ar \cos\!\left(\theta - \overline{\theta}\right)}{a^{2} + r^{2} - 2ar \cos\!\left(\theta - \overline{\theta}\right)} 
+\]
+We still have the \( -1/2 \) term to deal with. Summing together, find
+\[
+	-\frac{1}{2} + \frac{a^{2} - ar \cos\!\left(\theta - \overline{\theta}\right)}{a^{2} + r^{2} - 2ar \cos\!\left(\theta - \overline{\theta}\right)} = \frac{a^{2} - r^{2}}{2 \left[ a^{2} + r^{2} - 2ar \cos\!\left(\theta - \overline{\theta}\right) \right]}
+\]
+For the finale, look back to \( u \!\left( r,\theta \right) \). Replace the bracketed term with our result to derive Poisson's integral formula:
+\[
+	u \!\left( r,\theta \right) = \frac{1}{2 \pi}\int^{\pi}_{-\pi} f \!\left( \overline{\theta} \right)\frac{a^{2} - r^{2}}{a^{2} + r^{2} - 2ar \cos\!\left(\theta - \overline{\theta}\right)} \, d \overline{\theta} 
+\]
+
+% QUESTION 5
+\qs{2.5.5}{Solve Laplace's equation inside the quarter-circle of radius \( 1 \) (\( 0 \le \theta \le \pi / 2 \), \( 0 \le r \le 1 \)) subject to the boundary conditions [\textit{Hint}: In polar coordinates,
+\[
+	\nabla^{2}u = \frac{1}{r}\frac{\partial }{\partial r}\!\left( r \frac{\partial u}{\partial r} \right) + \frac{1}{r^{2}}\frac{\partial^2 u}{\partial \theta^2} = 0 
+\]
+it is known that if \( u \!\left( r,\theta \right) = \phi \!\left( \theta \right)G \!\left( r \right) \), then \( \frac{r}{G}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = -\frac{1}{\phi}\frac{d^2 \phi}{d \theta^2} \).]:
+\begin{enumerate}[label=(\alph*)]
+	\item \( \frac{\partial u}{\partial \theta}\!\left( r,0 \right) = 0 \), \quad \( u \!\left( r,\frac{\pi}{2} \right) = 0 \), \quad \( u \!\left( 1,\theta \right) = f \!\left( \theta \right) \)
+	\item \( \frac{\partial u}{\partial \theta}\!\left( r,0 \right) = 0 \), \quad \( \frac{\partial u}{\partial \theta}\!\left( r, \frac{\pi}{2} = 0 \right) \), \quad \( u \!\left( 1,\theta \right) = f \!\left( \theta \right) \)
+	\item \( u \!\left( r,0 \right) = 0 \), \quad \( u \!\left( r,\frac{\pi}{2} \right) = 0 \), \quad \( \frac{\partial u}{\partial r}\!\left( 1,\theta \right) = f \!\left( \theta \right) \)
+	\item \( \frac{\partial u}{\partial \theta}\!\left( r,0 \right) = 0 \), \quad \( \frac{\partial u}{\partial \theta}\!\left( r,\frac{\pi}{2} \right) = 0 \), \quad \( \frac{\partial u}{\partial r}\!\left( 1,\theta \right) = g \!\left( \theta \right) \)
+\end{enumerate}
+Show that the solution [part (d)] exists only if \( \int^{\pi / 2}_{0} g \!\left( \theta \right) \, d \theta = 0 \). Explain this condition physically.}
+
+\begin{enumerate}[label=(\alph*)]
+	\item Since the boundary conditions in \( \theta \) are homogeneous, we set separation constant
+	\[
+		\frac{r}{G}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = -\frac{1}{\phi}\frac{d^2 \phi}{d \theta^2} = \lambda 
+	\]
+	\underline{\( \lambda > 0 \):}
+
+	Our angular equation is
+	\[
+		\phi \!\left( \theta \right) = c_{1}\cos\!\left(\sqrt{\lambda}\theta\right) + c_{2}\sin\!\left(\sqrt{\lambda}\theta\right)
+	\]
+	which is subject to the boundary conditions
+	\begin{align*}
+		\frac{d \phi}{d \theta}\!\left( 0 \right) & = c_{2}\sqrt{\lambda} = 0 \quad \implies \quad c_{2} = 0 \\
+		\phi \!\left( \frac{\pi}{2} \right) & = c_{1}\cos\!\left(\frac{\sqrt{\lambda}\pi}{2}\right) = 0
+	\end{align*}
+	We derive eigenvalues
+	\[
+		\lambda_{n} = \!\left( 2n - 1 \right)^{2}, \quad n = 1, 2, ...
+	\]
+	which gives angular eigenfunction
+	\[
+		\phi \!\left( \theta \right) = \cos\!\left[\!\left( 2n - 1 \right)\theta\right]
+	\]
+	For the radial equation, we end up with the equidimensional equation
+	\[
+		r^{2}\frac{d^2 G}{d r^2} + r \frac{d G}{d r} - \!\left( 2n - 1 \right)^{2}G = 0
+	\]
+	Substitute \( G = r^{p} \) and solve the characteristic polynomial
+	\[
+		 p \!\left( p - 1 \right) + p - \!\left( 2n - 1 \right)^{2} = 0 \quad \implies \quad p = \pm \!\left( 2n - 1 \right)
+	\]
+	Leaving us with radial equation
+	\[
+		G \!\left( r \right) = a_{1}r^{p} + a_{2}r^{-p}
+	\]
+	Now, we must impose the bounding condition that \( \abs{G \!\left( 0 \right) < \infty} \). This forces \( a_{2} = 0 \), as otherwise \( G \) would diverge to infinity. Then our radial eigenfunction is
+	\[
+		G \!\left( r \right) = r^{2n - 1}
+	\]
+	\underline{\( \lambda = 0 \):}
+
+	We have angular equation
+	\[
+		\phi \!\left( \theta \right) = c_{1} + c_{2}\theta 
+	\]
+	with boundary conditions
+	\begin{align*}
+		\frac{d \phi}{d \theta}\!\left( 0 \right) & = c_{2} = 0 \\
+		\phi \!\left( \frac{\pi}{2} \right) & = c_{1} = 0
+	\end{align*}
+	meaning no mode can exist for \( n = 0 \). We summarize our eigenfunctions and corresponding eigenvalues as 
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{n} = \!\left( 2n - 1 \right)^{2} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+			\( \phi \!\left( \theta \right) \) & \( \cos\!\left[\!\left( 2n - 1 \right)\theta\right] \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			\( G \!\left( r \right) \) & \( r^{2n - 1} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	By superposition, we have temperature distribution
+	\[
+		u \!\left( r,\theta \right) = \sum^{\infty}_{n=1} A_{n}r^{2n - 1}\cos\!\left[\!\left( 2n - 1 \right)\theta\right] 
+	\]
+	where \( A_{n} \) is given by first setting
+	\[
+		u \!\left( 1,\theta \right) = \sum^{\infty}_{n=1} A_{n}\cos\!\left[\!\left( 2n - 1 \right)\theta\right] = f \!\left( \theta \right)
+	\]
+	and then appealing to orthogonality of the eigenfunctions to derive
+	\[
+		A_{m} = \frac{\int^{\pi / 2}_{0} f \!\left( \theta \right)\cos\!\left[\!\left( 2m - 1 \right)\theta\right] \, d \theta}{\int^{\pi / 2}_{0} \cos^{2}\!\left[\!\left( 2m - 1 \right)\theta\right] \, d \theta} = \frac{4}{\pi}\int^{\pi / 2}_{0} f \!\left( \theta \right)\cos\!\left[\!\left( 2m - 1 \right)\theta\right] \, d \theta 
+	\]
+	\item With boundary conditions homogeneous in \( \theta \), write
+	\[
+		\frac{r}{G}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = -\frac{1}{\phi}\frac{d^2 \phi}{d \theta^2} = \lambda
+	\]
+	which produces eigenfunctions with corresponding eigenvalues
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{0} = 0 \) & \( \lambda_{n} = \!\left( 2n \right)^{2} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( \phi \!\left( \theta \right) \) & \( 1 \) & \( \cos\!\left(2n \theta\right) \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( G \!\left( r \right) \) & \( 1 \) & \( r^{2n} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	By superposition, the temperature distribution is
+	\[
+		u \!\left( r,\theta \right) = \sum^{\infty}_{n=0} A_{n}r^{2n}\cos\!\left(2n \theta\right) 
+	\]
+	with Fourier coefficients
+	\begin{align*}
+		A_{0} & = \frac{2}{\pi}\int^{\pi / 2}_{0} f \!\left( \theta \right) \, d \theta \\
+		A_{m} & = \frac{4}{\pi}\int^{\pi / 2}_{0} f \!\left( \theta \right)\cos\!\left(2m \theta\right) \, d \theta
+	\end{align*}
+	\item Given that the boundary conditions in \( \theta \) are homogeneous, we set separation constant
+	\[
+		\frac{r}{G}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = -\frac{1}{\phi}\frac{d^2 \phi}{d \theta^2} = \lambda
+	\]
+	which produce eigenfunctions and corresponding eigenvalues
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{n} = \!\left( 2n \right)^{2} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( \phi \!\left( \theta \right) \) & \( \sin\!\left(2n \theta\right) \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( G \!\left( r \right) \) & \( r^{2n} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	By superposition, we have temperature distribution
+	\[
+		u \!\left( r,\theta \right) = \sum^{\infty}_{n=1} A_{n}r^{2n}\sin\!\left(2n \theta\right)
+	\]
+	with Fourier coefficients
+	\[
+		A_{m} = \frac{2}{m\pi}\int^{\pi / 2}_{0} f \!\left( \theta \right)\sin\!\left(2m \theta\right) \, d \theta  
+	\]
+	\item Homogeneity in \( \theta \) from the boundary conditions enables us to set separation constant
+	\[
+		\frac{r}{G}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = -\frac{1}{\phi}\frac{d^2 \phi}{d \theta^2} = \lambda 
+	\]
+	and since the boundary conditions in \( \theta \) are exactly as those of part (b), we have temperature distribution
+	\[
+		u \!\left( r,\theta \right) = \sum^{\infty}_{n=0} A_{n}r^{2n}\cos\!\left(2n \theta\right) 
+	\]
+	For \( A_{n} \), \( n > 0 \), we appeal to cosine orthogonality to derive
+	\[
+		A_{m} = \frac{2}{m \pi}\int^{\pi / 2}_{0} g \!\left( \theta \right)\cos\!\left(2m \theta\right) \, d \theta  
+	\]
+	In the case when we multiply through by the constant eigenfunction and integrate, however, we find
+	\[
+		\int^{\pi / 2}_{0} \frac{\partial u}{\partial r}\!\left( 1,\theta \right) \, d \theta = \int^{\pi / 2}_{0} \sum^{\infty}_{n=1} 2 A_{n}n \cos\!\left(2n \theta\right) \, d \theta = \int^{\pi / 2}_{0} g \!\left( \theta \right) \, d \theta = 0 
+	\]
+	Which forces our solvability condition, or that net flux is zero. Note that \( A_{0} \) is undetermined (as in the case of exercise 2.5.2); it will remain so unless we have an initial condition to determine it.
+\end{enumerate}
+
+\newpage
+
+% QUESTION 6
+\qs{2.5.6}{Solve Laplace's equation inside a semicircle of radius \( a \) (\( 0 < r < a \), \( 0 < \theta < \pi \)) subject to the boundary conditions [\textit{Hint}: In polar coordinates,
+\[
+	\nabla^{2}u = \frac{1}{r}\frac{\partial }{\partial r}\!\left( r \frac{\partial u}{\partial r} \right) + \frac{1}{r^{2}}\frac{\partial^2 u}{\partial \theta^2} = 0 
+\]
+it is known that if \( u \!\left( r,\theta \right) = \phi \!\left( \theta \right)G \!\left( r \right) \), then \( \frac{r}{G}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = -\frac{1}{\phi}\frac{d^2 \phi}{d \theta^2} \).]:
+\begin{enumerate}[label=(\alph*)]
+	\item \( u = 0 \) on the diameter and \( u \!\left( a,\theta \right) = g \!\left( \theta \right) \)
+	\item the diameter is insulated and \( u \!\left( a,\theta \right) = g \!\left( \theta \right) \)
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item The two boundary conditions in \( \theta \) are
+	\[
+		u \!\left( r,0 \right) = u \!\left( r,\pi \right) = 0 
+	\]
+	The eigenfunctions and corresponding eigenvalues are
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{n} = n^{2} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( \phi \!\left( \theta \right) \) & \( \sin\!\left(n \theta\right) \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( G \!\left( r \right) \) & \( r^{n} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	By superposition, the temperature distribution is
+	\[
+		u \!\left( r,\theta \right) = \sum^{\infty}_{n=1} A_{n}r^{n}\sin\!\left(n \theta\right) 
+	\]
+	where the Fourier coefficients are
+	\[
+		A_{m}a^{m} = \frac{2}{\pi}\int^{\pi}_{0} g \!\left( \theta \right)\sin\!\left(m \theta\right) \, d \theta  
+	\]
+	\item Now, the two boundary conditions in \( \theta \) are
+	\[
+		\frac{\partial u}{\partial \theta}\!\left( r,0 \right) = \frac{\partial u}{\partial \theta}\!\left( r,\pi \right) = 0
+	\]
+	\newpage
+	The eigenfunctions and eigenvalues switch to
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{0} = 0 \) & \( \lambda_{n} = n^{2} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( \phi \!\left( \theta \right) \) & \( 1 \) & \( \cos\!\left(n \theta\right) \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( G \!\left( r \right) \) & \( 1 \) & \( r^{n} \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	And the temperature distribution superposes to become
+	\[
+		u \!\left( r,\theta \right) = A_{0} + \sum^{\infty}_{n=1} A_{n}r^{n}\cos\!\left(n \theta\right) 
+	\]
+	with Fourier coefficients
+	\begin{align*}
+		A_{0} & = \frac{1}{\pi}\int^{\pi}_{0} g \!\left( \theta \right) \, d \theta \\
+		A_{m}a^{m} & = \frac{2}{\pi}\int^{\pi}_{0} g \!\left( \theta \right)\cos\!\left(m \theta\right) \, d \theta
+	\end{align*}
+\end{enumerate}
+
+% QUESTION 11
+\qs{2.5.11}{Do Exercise 1.5.8.}
+
+See solution manual for Chapter 1.
 
 \end{document}
