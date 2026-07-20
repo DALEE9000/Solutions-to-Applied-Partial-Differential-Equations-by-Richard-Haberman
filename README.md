@@ -13,7 +13,7 @@ This solutions manual is a personal project developed as part of a self-directed
 Compile with `pdflatex` or `latexmk`:
 
 ```bash
-latexmk -pdf main.tex
+latexmk -pdf -interaction=nonstopmode -outdir=build apde/apde.tex
 ```
 
 ## Disclaimer
