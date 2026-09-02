@@ -2463,4 +2463,783 @@ it is known that if \( u \!\left( r,\theta \right) = \phi \!\left( \theta \right
 
 See solution manual for Chapter 1.
 
+\vspace{12pt}
+
+% QUESTION 12
+\qs{2.5.12}{\begin{enumerate}[label=(\alph*)]
+	\item Using the divergence theorem, determine an alternative expression for \( \iiint u \nabla^{2}u \, dx \, dy \, dz \).
+	\item Using part (a), prove that the solution of Laplace's equation \( \nabla^{2}u = 0 \) (with \( u \) given on the boundary) is unique.
+	\item Modify part (b) if \( \nabla u \cdot \pmb{\hat{n}} = 0 \) on the boundary.
+	\item Modify part (b) if \( \nabla u \cdot \pmb{\hat{n}} + hu = 0 \) on the boundary. Show that Newton's law of cooling corresponds to \( h > 0 \).
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item The strategy is to equate the integrand to some form of \( \nabla \cdot A \):
+	\[
+		u \nabla^{2}u = \nabla \cdot A 
+	\]
+	To do so, observe that
+	\[
+		\nabla \cdot \!\left( u \nabla u \right) = \abs{\nabla u}^{2} + u \nabla^{2}u
+	\]
+	Implying \( u \nabla^{2}u = \nabla \cdot \!\left( u \nabla u \right) - \abs{\nabla u}^{2} \). By the divergence theorem,
+	\begin{align*}
+		\iiint_{R} u \nabla^{2}u \, dx \, dy \, dz & = \iiint_{R} \!\left( \nabla \cdot \!\left( u \nabla u \right) - \abs{\nabla u}^{2} \right) \, dx \, dy \, dz \\
+		 & = \oiint u \nabla u \cdot \pmb{\hat{n}} \, dS - \iiint_{R} \abs{\nabla u}^{2} \, dV
+	\end{align*}
+	which is called \textbf{Green's first identity}.
+	\item Suppose both \( u \) and \( v \) solve Laplace's equation and satisfy the same boundary condition. Define \( w \equiv u - v \). By superposition,
+	\[
+		\nabla^{2}w = \nabla^{2}u - \nabla^{2}v = 0 
+	\]
+	which enables us to write
+	\[
+		\oiint w \nabla w \cdot \pmb{\hat{n}} \, dS - \iiint_{R} \abs{\nabla w}^{2} \, dV = 0 
+	\]
+	On the boundary, we know that \( u = v \) as they satisfy the same boundary condition, so it must be the case that \( w = 0 \) and the surface integral vanishes. This leaves us with
+	\[
+		\iiint_{R} \abs{\nabla w}^{2} \, dV = 0 
+	\]
+	which forces \( \abs{\nabla w}^{2} = 0 \) and consequently, \( \nabla w = 0 \). Therefore \( w \) is a constant. But since we have determined that \( w = 0 \) on the boundary, it must be true that \( w = 0 \) \textit{everywhere}, proving \( u = v \).
+	\item In particular, we change the boundary condition to \( \nabla u \cdot \pmb{\hat{n}} = 0 \), and suppose another solution \( v \) also satisfies that boundary condition. Similarly define \( w \equiv u - v \). Then it must follow by linearity that \( \nabla w \cdot \pmb{\hat{n}} = 0 \), and we have
+	\[
+		\iiint_{R} \abs{\nabla w}^{2} \, dV = 0 
+	\]
+	Ergo, once more, \( \nabla w = 0 \). We can deduce that \( w \) is at most a constant. Unlike in part (b), we have insufficient information to ascertain if \( w = 0 \), so we leave our conclusion at that.
+	\item Assume solutions \( u \) and \( v \) and consider \( w \) as above. Our new boundary condition produces
+	\[
+		\oiint hw^{2} \, dS + \iiint_{R} \abs{\nabla w}^{2} \, dV = 0
+	\]
+	Now, suppose \( h > 0 \). Then it must be that \( hw^{2} \ge 0 \) and additionally, we know \( \abs{\nabla w}^{2} \ge 0 \). Now, since both integrands are non-negative but their sum must be zero, equality persists only when \textbf{both integrands are zero}, requiring \( w = 0 \) on the boundary. Since we also have that \( \nabla w = 0 \), then we know \( w \) is constant, proving that \( w = 0 \) everywhere.\footnote{Alternatively, by the maximum principle, \( w = 0 \) \textit{everywhere} inside the volume, and \( u = v \) everywhere.} In the case where \( h = 0 \), part (d) reduces to part (c), and for \( h < 0 \), we can lay no claim on even the constancy of \( w \), for the two integrals can simply balance each other out (assuming non-zero \( w \)).
+
+	In the statement of Newton's law of cooling:
+	\[
+		-\nabla u \cdot \pmb{\hat{n}} = h \!\left( u - u_{b} \right) 
+	\]
+	where \( u \) is the temperature at the surface, \( u_{b} \) the outside temperature, and \( h = H / K_{0} \), we can intuitively see that \( u > u_{b} \) corresponds to a cooler outside temperature than on the surface. Then it follows that \( -K_{0}\nabla u \cdot \pmb{\hat{n}} > 0 \). The sign across the equality stays consistent only when \( h > 0 \).
+\end{enumerate}
+
+% QUESTION 13
+\qs{2.5.13}{Prove that the temperature satisfying Laplace's equation cannot attain its minimum in the interior.}
+
+If \( u \) is non-constant and a solution to Laplace's equation, then so is \( -u \). From the maximum principle, if \( -u \) cannot attain its maximum value in the interior, then \( u \) cannot attain its minimum value in the interior. Physically, suppose \( u \) was the minimum temperature in the interior at a point \( P \). Then by diffusion, the temperature at point \( P \) would rise, and cease to be the minimum, contradicting the steady-stateness of \( P \).
+
+\vspace{12pt}
+
+% QUESTION 14
+\qs{2.5.14}{Show that the ``backward'' heat equation
+\[
+	\frac{\partial u}{\partial t} = -k \frac{\partial^2 u}{\partial x^2} 
+\]
+subject to \( u \!\left( 0,t \right) = u \!\left( L,t \right) = 0 \) and \( u \!\left( x,0 \right) = f \!\left( x \right) \), is \textit{not} well posed. [\textit{Hint:} Show that if the data are changed an arbitrarily small amount, for example,
+\[
+	f \!\left( x \right) \rightarrow f \!\left( x \right) + \frac{1}{n}\sin\!\left(\frac{n \pi x}{L}\right) 
+\]
+for large \( n \), then the solution \( u \!\left( x,t \right) \) changes by a large amount.]}
+
+The solution to the backwards heat equation becomes
+\[
+	u \!\left( x,t \right) = \sum^{\infty}_{n=1} B_{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{k \!\left( n \pi / L \right)^{2}t} 
+\]
+where
+\[
+	B_{m} = \frac{2}{L}\int^{L}_{0} f \!\left( x \right)\sin\!\left(\frac{m \pi x}{L}\right) \, dx
+\]
+The strategy here is to appeal to linearity and subtract from \( u \!\left( x,t \right) \) the perturbed solution, \( u^{*}\!\left( x,t \right) \). Consider the coefficients generated by the perturbed initial condition \( B^{*}_{m} \):
+\[
+	B^{*}_{m} = \frac{2}{L}\int^{L}_{0} \!\left[ f \!\left( x \right) + \frac{1}{n}\sin\!\left(\frac{n \pi x}{L}\right) \right]\sin\!\left(\frac{m \pi x}{L}\right) \, dx  
+\]
+Taking the difference \( B_{m} - B^{*}_{m} \), compute
+\begin{align*}
+	B_{m} - B^{*}_{m} & = -\frac{2}{L}\int^{L}_{0} \frac{1}{n}\sin\!\left(\frac{m \pi x}{L}\right)\sin\!\left(\frac{n \pi x}{L}\right) \, dx \\
+	 & = \begin{cases}
+		 -\displaystyle{\frac{1}{n}}, & m = n \\
+	 	0, & m \neq n 
+	 \end{cases}
+\end{align*}
+Substituting into our difference of solutions (letting \( m = n \), with terms for which \( m \neq n \) vanishing by orthogonality), find
+\[
+	u \!\left( x,t \right) - u^{*}\!\left( x,t \right) = -\frac{1}{n}\sin\!\left(\frac{n \pi x}{L}\right)e^{k \!\left( n \pi / L \right)^{2}t} 
+\]
+Fix \( t \). As \( n \rightarrow \infty \), the exponential vastly outpaces the \( 1 / n \) term, demonstrating that the difference between the perturbed and unperturbed solutions also goes to infinity, ascertaining that the backwards heat equation is not well posed.
+
+\vspace{12pt}
+
+% QUESTION 15
+\qs{2.5.15}{Solve Laplace's equation inside a semi-infinite strip (\( 0 < x < \infty \), \( 0 < y < H \)) subject to the boundary conditions [\textit{Hint}: In Cartesian coordinates, \( \nabla^{2}u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0 \), inside a semi-infinite strip (\( 0 \le y \le H \) and \( 0 \le x < \infty \)), it is known that if \( u \!\left( x,y \right) = F \!\left( x \right) G \!\left( y \right) \), then \( \frac{1}{F}\frac{d^2 F}{d x^2} = -\frac{1}{G}\frac{d^2 G}{d y^2} \).]:
+\begin{enumerate}[label=(\alph*)]
+	\item \( \frac{\partial u}{\partial y}\!\left( x,0 \right) = 0 \), \quad \( \frac{\partial u}{\partial y}\!\left( x,H \right) = 0 \), \quad \( u \!\left( 0,y \right) = f \!\left( y \right) \)
+	\item \( u \!\left( x,0 \right) = 0 \), \quad \( u \!\left( x,H \right) = 0 \), \quad \( u \!\left( 0,y \right) = f \!\left( y \right) \)
+	\item \( u \!\left( x,0 \right) = 0 \), \quad \( u \!\left( x,H \right) = 0 \), \quad \( \frac{\partial u}{\partial x}\!\left( 0,y \right) = f \!\left( y \right) \)
+	\item \( \frac{\partial u}{\partial y}\!\left( x,0 \right) = 0 \), \quad \( \frac{\partial u}{\partial y}\!\left( x,H \right) = 0 \), \quad \( \frac{\partial u}{\partial x}\!\left( 0,y \right) = f \!\left( y \right) \)
+\end{enumerate}
+Show that the solution [part (d)] exists only if \( \int^{H}_{0} f \!\left( y \right) \, dy = 0 \).}
+
+For each problem, it is implied that the boundary condition as \( x \rightarrow \infty \) must be \( \abs{F \!\left( \infty \right)} < \infty \).
+
+\begin{enumerate}[label=(\alph*)]
+	\item We wish for our eigenfunctions to oscillate in \( y \) and have exponentials in \( x \), so from the definition of \( u \!\left( x,y \right) \) in the problem statement and the separation of variables thereafter, we set equal to
+	\[
+		\frac{1}{F}\frac{d^2 F}{d x^2} = -\frac{1}{G}\frac{d^2 G}{d y^2} = \lambda 
+	\]
+	Our eigenfunctions and corresponding eigenvalues are
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda = 0 \) & \( \lambda = \left( \dfrac{n \pi}{H} \right)^{2} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+			\( F \!\left( x \right) \) & \( 1 \) & \( e^{-n \pi x / H} \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			\( G \!\left( y \right) \) & \( 1 \) & \( \cos\!\left(\dfrac{n \pi y}{H}\right) \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Observe that in the case of \( F \!\left( x \right) \), we have basis functions spanning the solution space, \( e^{\sqrt{\lambda_{n}}x} \) and \( e^{-\sqrt{\lambda_{n}}x} \). The boundedness condition forces \( e^{\sqrt{\lambda_{n}}x} \) to drop out of the solution. We use the exponentials as the basis functions rather than the hyperbolic sine and cosine, as both diverge with \( x \), so neither alone can satisfy the boundedness condition. The complete solution is given by
+	\[
+		u \!\left( x,y \right) = A_{0} + \sum^{\infty}_{n=1} A_{n}e^{-n \pi x / H} \cos\!\left(\frac{n \pi y}{H}\right)
+	\]
+	with coefficients given by
+	\[
+		A_{n} = \begin{cases}
+			\displaystyle{\frac{1}{H}\int^{H}_{0} f \!\left( y \right) \, dy}, & n = 0 \\[10pt]
+			\displaystyle{\frac{2}{H}\int^{H}_{0} f \!\left( y \right)\cos\!\left(\frac{n \pi y}{H}\right) \, dy}, & n \ge 1 
+		\end{cases} 
+	\]
+	Observe that \( \lim\limits_{x \to \infty} u \!\left( x,y \right) = A_{0} \), which is simply the mean of the boundary condition \( f \!\left( y \right) \).
+	\item Once again, we have oscillation in \( y \), so we set the sign of the eigenvalue as 
+	\[
+		\frac{1}{F}\frac{d^2 F}{d x^2} = -\frac{1}{G}\frac{d^2 G}{d y^2} = \lambda 
+	\]
+	Our eigenfunctions to our eigenvalue are
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\setlength{\arraycolsep}{10pt}
+		\begin{tabular}{|c||c|}
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+			 & \( \lambda_{n} = \!\left( \dfrac{n \pi}{H} \right)^{2} > 0 \) \\
+			\hline\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( F \!\left( x \right) \) & \( e^{-n \pi x / H} \) \\
+			\hline
+			\rule[-1.2em]{0pt}{3em}
+					\( G \!\left( y \right) \) & \( \sin\!\left(\dfrac{n \pi y}{H}\right) \) \\
+			\hline
+		\end{tabular}
+	\end{center}
+	which form complete solution
+	\[
+		u \!\left( x,y \right) = \sum^{\infty}_{n=1} A_{n}e^{-n \pi x / H}\sin\!\left(\frac{n \pi y}{H}\right) 
+	\]
+	with coefficients
+	\[
+		A_{n} = \frac{2}{H}\int^{H}_{0} f \!\left( y \right)\sin\!\left(\frac{n \pi y}{H}\right) \, dy, \quad n \ge 1
+	\]
+	Notice that we have no \( A_{0} \), as when \( \lambda = 0 \), we receive only the trivial solution, so it turns out that \( \lambda = 0 \) is not an eigenvalue at all. Thus \( n = 0 \) fails to be a mode in this problem.
+	\item Barring the non-homogeneous boundary condition, all other boundary conditions from part (b) persist here, leaving us with complete solution
+	\[
+		u \!\left( x,y \right) = \sum^{\infty}_{n=1} A_{n}e^{-n \pi x / H}\sin\!\left(\frac{n \pi y}{H}\right) 
+	\]
+	The only difference is in differentiating \( u \!\left( x,y \right) \), setting equal to the boundary condition:
+	\[
+		\frac{\partial u}{\partial x}\!\left( 0,y \right) = \sum^{\infty}_{n=1} A_{n}\!\left( -\frac{n \pi}{H} \right)\sin\!\left(\frac{n \pi y}{H}\right) = f \!\left( y \right) 
+	\]and appealing to orthogonality to integrate and deriving
+	\[
+		A_{n} = -\frac{2}{n \pi}\int^{H}_{0} f \!\left( y \right)\sin\!\left(\frac{n 
+	\pi y}{H}\right) \, dy  
+	\]
+	\item Similarly, since the boundary conditions in \( y \) and the boundedness condition in \( x \) apply here as in part (a), we retain solution
+	\[
+		u \!\left( x,y \right) = A_{0} + \sum^{\infty}_{n=1} A_{n}e^{-n \pi x / H} \cos\!\left(\frac{n \pi y}{H}\right)
+	\]
+	Differentiating and applying the boundary condition, we find
+	\[
+		\frac{\partial u}{\partial x}\!\left( 0,y \right) = \sum^{\infty}_{n=1} A_{n}\!\left( -\frac{n \pi}{H} \right)\cos\!\left(\frac{n \pi y}{H}\right) = f \!\left( y \right) 
+	\]
+	which gives coefficients
+	\[
+		A_{n} = -\frac{2}{n \pi}\int^{H}_{0} f \!\left( y \right)\cos\!\left(\frac{n \pi y}{H}\right) \, dy  
+	\]
+	Several interesting aspects to note here. One, we see that \( A_{0} \) is annihilated completely in the differentiation. As such, \( A_{0} \) faces no constraint, and any arbitrary value would satisfy all of the boundary conditions. 
+
+	Moreover, observe that the boundary conditions in \( y \) leave the top and bottom of the strip completely insulated. Physically, we can see that there could not be any heat flow \textit{out} of the strip at the far end, as the modes of \( u \!\left( x,y \right) \) exponentially decay as \( x \rightarrow \infty \). Therefore, we must mandate that the \textbf{net heat flow through the boundary at \( \pmb{x = 0} \) must be zero for a steady state to exist}, for otherwise, we would not have a net zero change in energy in the strip. Thus the requirement
+	\[
+		\int^{H}_{0} f \!\left( y \right) \, dy = 0
+	\]
+	in which case \( A_{0} \) takes on an arbitrary value, and otherwise no solution exists.
+\end{enumerate}
+
+% QUESTION 16
+\qs{2.5.16}{Consider Laplace's equation inside a rectangle \( 0 \le x \le L \), \( 0 \le y \le H \), with the boundary conditions
+\[
+	\frac{\partial u}{\partial x}\!\left( 0,y \right) = 0, \quad \frac{\partial u}{\partial x}\!\left( L,y \right) = g \!\left( y \right), \quad \frac{\partial u}{\partial y}\!\left( x,0 \right) = 0, \quad \frac{\partial u}{\partial y}\!\left( x,H \right) = f \!\left( x \right)
+\]
+\begin{enumerate}[label=(\alph*)]
+	\item What is the solvability condition and its physical interpretation?
+	\item Show that \( u \!\left( x,y \right) = A \!\left( x^{2} - y^{2} \right) \) is a solution if \( f \!\left( x \right) \) and \( g \!\left( y \right) \) are constants [under the conditions of part (a)].
+	\item Under the conditions of part (a), solve the general case [nonconstant \( f \!\left( x \right) \) and \( g \!\left( y \right) \)]. \textit{Hints}: Use part (b) and the fact that \( f \!\left( x \right) = f_{\text{av}} + \!\left[ f \!\left( x \right) - f_{\text{av}} \right] \), where \( f_{\text{av}} = \frac{1}{L}\int^{L}_{0} f \!\left( x \right) \, dx \).]
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item The solvability condition is
+	\[
+		\int^{H}_{0} g \!\left( y \right) \, dy + \int^{L}_{0} f \!\left( x \right) \, dx = 0  
+	\]
+	which physically ensures that there is zero net heat flux across the boundary, and thereby permitting the steady state to exist.
+	\item Let \( f \!\left( x \right) \equiv f \) and \( g \!\left( y \right) \equiv g \) be constants, then
+	\[
+		\int^{H}_{0} g \, dy + \int^{L}_{0} f \, dx = gH + fL = 0  
+	\]
+	First, ensure that our solution solves Laplace's equation:
+	\[
+		\nabla^{2}u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 2A - 2A = 0 
+	\]
+	Second, the boundary conditions are satisfied only if:
+	\begin{alignat*}{3}
+		& \frac{\partial u}{\partial x}\!\left( 0,y \right) && = 2A \cdot 0 && = 0 \\
+		& \frac{\partial u}{\partial x}\!\left( L,y \right) && = 2A \cdot L && = g \\ 
+		& \frac{\partial u}{\partial y}\!\left( x,0 \right) && = -2A \cdot 0 && = 0 \\
+		& \frac{\partial u}{\partial y}\!\left( x,H \right) && = -2A \cdot H && = f
+	\end{alignat*}
+	Now, from the boundary conditions, we can derive two expressions for \( A \):
+	\[
+		A = \frac{g}{2L}, \quad A = -\frac{f}{2H}
+	\]
+	The test is to determine if these are, in fact, describing the same \( A \). Our strategy arises from rewriting our solvability condition by subtracting \( fL \) and dividing by \( 2HL \):
+	\[
+		\frac{g}{2L} = -\frac{f}{2H}
+	\]
+	which precisely demonstrates uniqueness of \( A \), and thus uniqueness of \( u \!\left( x,y \right) \) up to an additive constant.
+\item The key insight here is to apply superposition: \textbf{instead of dealing with all nonhomogeneous boundary conditions simultaneously, we can separate the problem so that we only have to deal with one at a time}. 
+
+	In the first case, let \( \partial u / \partial x = 0 \) at \( x = 0 \) and \( x = L \). The boundary conditions in \( y \) are now
+	\begin{align*}
+		\frac{\partial u}{\partial y}\!\left( x,0 \right) & = 0 \\
+		\frac{\partial u}{\partial y}\!\left( x,H \right) & = f \!\left( x \right) - f_{\text{av}}
+	\end{align*}
+	Our \textbf{solvability condition}, which expresses the physical condition of net zero heat flux across the boundary, then becomes
+	\[
+		\int^{L}_{0} \!\left[ f \!\left( x \right) - f_{\text{av}} \right] \, dx = 0
+	\]
+	Then our eigenvalue problem leads to oscillation in \( x \), and we can derive
+	\[
+		u_{f}\!\left( x,y \right) = A_{0} + \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right)\cosh\!\left(\frac{n \pi y}{L}\right) 
+	\]
+	Differentiating in \( y \), we find
+	\[
+		\frac{\partial u_{f}}{\partial y}\!\left( x,y \right) = \sum^{\infty}_{n=1} A_{n}\!\left( \frac{n \pi}{L} \right)\cos\!\left(\frac{n \pi x}{L}\right)\sinh\!\left(\frac{n \pi y}{L}\right) 
+	\]
+	and evaluate
+	\begin{align*}
+		\frac{\partial u_{f}}{\partial y}\!\left( x,0 \right) & = 0 \\
+		\frac{\partial u_{f}}{\partial y}\!\left( x,H \right) & = \sum^{\infty}_{n=1} A_{n}\!\left( \frac{n \pi}{L} \right)\cos\!\left(\frac{n \pi x}{L}\right)\sinh\!\left(\frac{n \pi H}{L}\right) = f \!\left( x \right) - f_{\text{av}}
+	\end{align*}
+	Then by orthogonality, in the case of \( n \ge 1 \), the coefficients are
+	\[
+		A_{n} = \frac{2}{n \pi \sinh\!\left(n \pi H / L\right)}\int^{L}_{0} \!\left[ f \!\left( x \right) - f_{\text{av}} \right]\cos\!\left(\frac{n \pi x}{L}\right) \, dx
+	\]
+	And in the case when \( n = 0 \), we see that \( A_{0} \) can be any arbitrary constant, and we observe the consistency of the solvability condition:
+	\[
+		\frac{1}{L}\int^{L}_{0} \!\left[ f \!\left( x \right) - f_{\text{av}} \right] \, dx = f_{\text{av}} - f_{\text{av}} = 0
+	\]
+	Analogously, solve the \( g \!\left( y \right) \) piece which has boundary conditions
+	\begin{align*}
+		\frac{\partial u}{\partial x}\!\left( 0,y \right) & = 0 \\
+		\frac{\partial u}{\partial x}\!\left( L,y \right) & = g \!\left( y \right) - g_{\text{av}} \\ 
+		\frac{\partial u}{\partial y}\!\left( x,0 \right) & = 0 \\
+		\frac{\partial u}{\partial y}\!\left( x,H \right) & = 0
+	\end{align*}
+	which has solution
+	\[
+		u_{g}\!\left( x,y \right) = B_{0} + \sum^{\infty}_{n=1} B_{n}\cos\!\left(\frac{n \pi y}{H}\right)\cosh\!\left(\frac{n \pi x}{H}\right) 
+	\]
+	where \( B_{0} \) is an arbitrary constant and
+	\[
+		B_{n} = \frac{2}{n \pi \sinh\!\left( n \pi L / H\right)}\int^{H}_{0} \!\left[  g \!\left( y \right) - g_{\text{av}} \right]\cos\!\left(\frac{n \pi y}{H}\right) \, dy  
+	\]
+	Now using the solution from part (b) in the case of constant \( f \) and \( g \), we may sum the solutions to find our final answer:
+	\begin{align*}
+		u \!\left( x,y \right) & = u_{b} + u_{f} + u_{g} \\
+		 & = A \!\left( x^{2} - y^{2} \right) + C + \sum^{\infty}_{n=1} A_{n}\cos\!\left(\frac{n \pi x}{L}\right)\cosh\!\left(\frac{n \pi y}{L}\right) \\ 
+		 & \qquad + \sum^{\infty}_{n=1} B_{n}\cos\!\left(\frac{n \pi y}{H}\right)\cosh\!\left(\frac{n \pi x}{H}\right)
+	\end{align*}
+	where \( C = A_{0} + B_{0} \) is itself an arbitrary constant, and from the solvability condition in part (a) and the derivation of \( A \) in part (b), we need only set the constants \( f = f_{\text{av}} \) and \( g = g_{\text{av}} \) to get \( A = g_{\text{av}} / 2L = -f_{\text{av}} / 2L \).
+\end{enumerate}
+
+% QUESTION 17
+\qs{2.5.17}{Show that the mass density \( \rho \!\left( x,t \right) \) satisfies \( \frac{\partial \rho}{\partial t} + \nabla \cdot \!\left( \rho \pmb{u} \right) = 0 \) due to conservation of mass.}
+
+Express conservation of mass as 
+\[
+	M \equiv \int_{R} \rho \!\left( x,t \right) \, dV  
+\]
+where \( R \) is a fixed volume. Recall our derivation of the heat equation in which we balanced the rate of change of energy with the total flux and sum of internal sources (eq. 1.5.1). \textbf{This is the exact same principle, but with mass}. Conceptually, the rate of change of mass in a volume is determined by the mass flux density, or mass density advected in and out of the boundary. Derive (note there are no sources by conservation)
+\[
+	\frac{d }{d t} \int_{R} \rho \, dV = \int_{R} \frac{\partial \rho}{\partial t} \, dV = -\oint \!\left( \rho\pmb{u} \right) \cdot \pmb{\hat{n}} \, dS
+\]
+From the divergence theorem, the surface integral becomes
+\[
+	-\oint \!\left( \rho\pmb{u} \right) \cdot \pmb{\hat{n}} \, dS = -\int_{R} \nabla \cdot \!\left( \rho \pmb{u} \right) \, dV 
+\]
+which allows us to balance the equation as 
+\[
+	\int_{R} \!\left[ \frac{\partial \rho}{\partial t} + \nabla \cdot \!\left( \rho \pmb{u} \right) \right] \, dV = 0
+\]
+and since this equality holds for any arbitrary region \( R \), it follows that the integrand itself is zero, producing
+\[
+	\frac{\partial \rho}{\partial t} + \nabla \cdot \!\left( \rho \pmb{u} \right) = 0 
+\]
+Our equation is the famous \textbf{continuity equation}.
+
+\vspace{12pt}
+
+% QUESTION 18
+\qs{2.5.18}{If the mass density is constant, using the result of Exercise 2.5.17, show that \( \nabla \cdot \pmb{u} = 0 \).}
+
+For constant \( \rho \), we have \( \partial \rho / \partial t = 0 \) and \( \nabla \rho = \pmb{0} \). Then
+\[
+	\frac{\partial \rho}{\partial t} + \nabla \cdot \!\left( \rho \pmb{u} \right) = \rho \!\left( \nabla \cdot \pmb{u} \right) + \pmb{u} \cdot \nabla \rho = \rho \!\left( \nabla \cdot \pmb{u} \right) = 0
+\]
+implying that \( \nabla \cdot \pmb{u} = 0 \) as \( \rho > 0 \), always.
+
+\vspace{12pt}
+
+% QUESTION 19
+\qs{2.5.19}{Show that the streamlines are parallel to the fluid velocity.}
+
+Definitionally, streamlines (\( \psi = \) constant) are level curves. We know that the gradient is perpendicular to level curves; to prove that the fluid velocity is parallel to the streamlines, we can equivalently demonstrate that
+\[
+	\pmb{u} \cdot \nabla \psi = 0
+\]
+Define \( \pmb{u} \equiv \!\left( u,v \right) \). Since \( \nabla \psi = \!\left( \partial \psi / \partial x, \partial \psi / \partial y \right) \), we can use the definitions of the stream functions (Haberman eq. 2.5.49)
+\[
+	u = \frac{\partial \psi}{\partial y}, \quad v = -\frac{\partial \psi}{\partial x}
+\]
+and compute our dot product as 
+\[
+	\pmb{u} \cdot \nabla \psi = \frac{\partial \psi}{\partial y}\frac{\partial \psi}{\partial x} - \frac{\partial \psi}{\partial x}\frac{\partial \psi}{\partial y} = 0 
+\]
+establishing orthogonality between \( \pmb{u} \) and \( \nabla \psi \), and thus parallelism between \( \pmb{u} \) and the level curves of \( \psi \).
+
+\vspace{12pt}
+
+% QUESTION 20
+\qs{2.5.20}{Show that anytime there is a stream function, \( \nabla \times \pmb{u} = -\pmb{\hat{k}} \nabla^{2}\psi \).}
+
+Define \( \pmb{u} \equiv \!\left( u,v,0 \right) = \!\left( \partial \psi / \partial y, -\partial \psi / \partial x, 0 \right) \), where there is no vertical component to otherwise planar flow, and the \( u \) and \( v \) components are independent of \( z \). Compute
+\begin{align*}
+	\nabla \times \pmb{u} & = \begin{vmatrix}
+		\pmb{\hat{i}} & \pmb{\hat{j}} & \pmb{\hat{k}} \\
+		\frac{\partial }{\partial x} & \frac{\partial }{\partial y} & \frac{\partial }{\partial z} \\
+		\frac{\partial \psi}{\partial y} & -\frac{\partial \psi}{\partial x} & 0
+	\end{vmatrix} \\
+			      & = -\pmb{\hat{i}}\frac{\partial v}{\partial z} + \pmb{\hat{j}}\frac{\partial u}{\partial z} - \pmb{\hat{k}}\!\left( \frac{\partial }{\partial x}\!\left( \frac{\partial \psi}{\partial x} \right) + \frac{\partial }{\partial y}\!\left( \frac{\partial \psi}{\partial y} \right) \right) \\
+			      & = -\pmb{\hat{k}}\!\left( \frac{\partial^2 \psi}{\partial x^2} + \frac{\partial^2 \psi}{\partial y^2} \right) \\
+			      & = -\pmb{\hat{k}}\nabla^{2}\psi
+\end{align*}
+
+% QUESTION 21
+\qs{2.5.21}{From \( u = \frac{\partial \psi}{\partial y} \) and \( v = -\frac{\partial \psi}{\partial x} \), derive \( u_{r} = \frac{1}{r}\frac{\partial \psi}{\partial \theta} \), \( u_{\theta} = -\frac{\partial \psi}{\partial r} \).}
+
+In two-dimensional polar coordinates, we rotate our \( u \),\( v \)-coordinates by \( \theta \). We can represent this matrix rotation as 
+\[
+	\begin{bmatrix}
+		\cos\!\left(\theta\right) & \sin\!\left(\theta\right) \\
+		-\sin\!\left(\theta\right) & \cos\!\left(\theta\right)
+	\end{bmatrix}
+	\begin{bmatrix}
+		u \\
+		v
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		u \cos\!\left(\theta\right) + v \sin\!\left(\theta\right) \\
+		-u \sin\!\left(\theta\right) + v \cos\!\left(\theta\right)
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		u_{r} \\
+		u_{\theta}
+	\end{bmatrix}
+\]
+Next, from the chain rule and the coordinate conversions \( x = r \cos\!\left(\theta\right) \) and \( y = r \sin\!\left(\theta\right) \), we achieve the desired results:
+\begin{align*}
+	\frac{\partial \psi}{\partial \theta} & = \frac{\partial \psi}{\partial x}\frac{\partial x}{\partial \theta} + \frac{\partial \psi}{\partial y}\frac{\partial y}{\partial \theta} \\
+					      & = -\frac{\partial \psi}{\partial x}r \sin\!\left(\theta\right) + \frac{\partial \psi}{\partial y}r \cos\!\left(\theta\right) \\
+					      & = r \!\left[ v \sin\!\left(\theta\right) + u \cos\!\left(\theta\right) \right] \\
+					      & = ru_{r} \\
+	\frac{\partial \psi}{\partial r} & = \frac{\partial \psi}{\partial x}\frac{\partial x}{\partial r} + \frac{\partial \psi}{\partial y}\frac{\partial y}{\partial r} \\ 
+					 & = \frac{\partial \psi}{\partial x}\cos\!\left(\theta\right) + \frac{\partial \psi}{\partial y}\sin\!\left(\theta\right) \\
+					 & = -v \cos\!\left(\theta\right) + u \sin\!\left(\theta\right) \\
+					 & = -u_{\theta}
+\end{align*}
+remembering that \( u = \partial \psi / \partial y \) and \( v = -\partial \psi / \partial x \).
+
+\vspace{12pt}
+
+% QUESTION 22
+\qs{2.5.22}{Show the drag force is zero for a uniform flow past a cylinder including circulation.}
+
+The \( x \)-component of the force (drag) is
+\[
+	F_{x} = \frac{1}{2}\rho \int^{2 \pi}_{0} \!\left[ -\frac{c_{1}}{r} - U \!\left( 1 + \frac{a^{2}}{r^{2}} \right)\sin\!\left(\theta\right) \right]^{2}\cos\!\left(\theta\right)a \, d \theta  
+\]
+At the surface of the cylinder, where the drag force is applied, we have \( r = a \). This simplifies the expression to be 
+\[
+	F_{x} = \frac{1}{2}\rho \int^{2 \pi}_{0} \!\left[ -\frac{c_{1}}{a} - 2U \sin\!\left(\theta\right) \right]^{2}\cos\!\left(\theta\right)a \, d \theta  
+\]
+Solving and appealing to the symmetries of the integrand, we derive
+\[
+	F_{x} = \frac{1}{2}\rho \int^{2 \pi}_{0} \!\left[ \frac{c^{2}_{1}}{a^{2}} + \frac{4c_{1}U}{a}\sin\!\left(\theta\right) + 4U^{2}\sin^{2}\!\left(\theta\right) \right]\cos\!\left(\theta\right)a \, d \theta = 0
+\]
+which we can quickly discern by observing that the integrals of \( \cos\!\left(\theta\right) \), \( \sin\!\left(\theta\right)\cos\!\left(\theta\right) \), and \( \sin^{2}\!\left(\theta\right)\cos\!\left(\theta\right) \) all vanish over \( \!\left[ 0,2 \pi \right] \).
+
+\vspace{12pt}
+
+% QUESTION 23
+\qs{2.5.23}{Consider the velocity \( u_{\theta} \) at the cylinder. Where do the maximum and minimum occur?}
+
+We have at \( r = a \)
+\[
+	u_{\theta}\!\left( a,\theta \right) = -\frac{c_{1}}{a} - 2U \sin\!\left(\theta\right) 
+\]
+Optimizing, deduce
+\[
+	\frac{d u_{\theta}}{d \theta} = -2U \cos\!\left(\theta\right) = 0 \quad \iff \quad \theta = \frac{\pi}{2}, \frac{3 \pi}{2} 
+\]
+As for where the minimum and maximum velocities occur, we have a series of cases that are dependent on the sign of \( U \). The table below conveys the corresponding angles for each:
+\begin{center}
+	\renewcommand{\arraystretch}{1.8}
+	\setlength{\arraycolsep}{10pt}
+	\begin{tabular}{|c||c|c|}
+		\hline
+		\rule[-1.2em]{0pt}{3em}
+		& \( U > 0 \) & \( U < 0 \) \\
+		\hline\hline
+		\rule[-1.2em]{0pt}{3em}
+		Max of \( u_{\theta} \) & \( \theta = \displaystyle{\frac{3 \pi}{2}} \) & \( \theta = \displaystyle{\frac{\pi}{2}} \) \\
+		\hline
+		\rule[-1.2em]{0pt}{3em}
+		Min of \( u_{\theta} \) & \( \theta = \displaystyle{\frac{\pi}{2}} \) & \( \theta = \displaystyle{\frac{3 \pi}{2}} \) \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\vspace{12pt}
+
+% QUESTION 24
+\qs{2.5.24}{Consider the velocity \( u_{\theta} \) at the cylinder. If the circulation is negative, show that the velocity will be larger above the cylinder than below.}
+
+With negative circulation, we have \( c_{1} > 0 \) (ensuring \( -2 \pi c_{1} < 0 \)) in 
+\[
+	u_{\theta} = -\frac{c_{1}}{a} - 2U \sin\!\left(\theta\right) 
+\]
+Assuming we also have \( U > 0 \), \( \abs{u_{\theta}\!\left( \pi / 2 \right)} > \abs{u_{\theta}\!\left( 3 \pi / 2 \right)} \). Therefore velocity is larger above the cylinder than below.
+
+\vspace{12pt}
+
+% QUESTION 25
+\qs{2.5.25}{A stagnation point is a place where \( \pmb{u} = 0 \). For what values of the circulation does a stagnation point exist on the cylinder?}
+
+On the cylinder, the \( r \)-component evaluates to
+\[
+	u_{r}\!\left( a,\theta \right) = U \!\left( 1 - \frac{a^{2}}{a^{2}} \right)\cos\!\left(\theta\right) = 0
+\]
+So now it remains to determine when \( u_{\theta} \) is zero:
+\[
+	u_{\theta}\!\left( a,\theta \right) = -\frac{c_{1}}{a} - 2U \sin\!\left(\theta\right) = 0
+\]
+for which equality is satisfied when 
+\[
+	\sin\!\left(\theta\right) = -\frac{c_{1}}{2aU}
+\]
+We know that \( 0 \le \abs{\sin\!\left(\theta\right)} \le 1 \), meaning that a solution will only exist if 
+\[
+	0 \le \!\left| \frac{c_{1}}{2aU} \right| \le 1 
+\]
+Using our expression for circulation
+\[
+	\int^{2 \pi}_{0} u_{\theta}r \, d \theta = -2 \pi c_{1} 
+\]
+we substitute for \( c_{1} \) and conclude
+\[
+	0 \le \frac{1}{4 \pi a}\!\left| \frac{1}{U}\int^{2 \pi}_{0} u_{\theta}r \, d \theta \right| \le 1
+\]
+
+\newpage
+% QUESTION 26
+\qs{2.5.26}{For what values of \( \theta \) will \( u_{r} = 0 \) off the cylinder? For these \( \theta \), where (for what values of \( r \)) will \( u_{\theta} = 0 \) also?}
+
+Assume negative circulation with \( c_{1}, U > 0 \). Our task is to find \( \theta \) such that
+\[
+	u_{r} = U \!\left( 1 - \frac{a^{2}}{r^{2}} \right)\cos\!\left(\theta\right) = 0
+\]
+for \( r \neq a \). Immediately we can discern that these \( \theta \) are \( \displaystyle{\frac{\pi}{2}} \) and \( \displaystyle{\frac{3 \pi}{2}} \). The two expressions we get for \( u_{\theta} \) and their corresponding quadratic and roots are
+
+\begin{center}
+	\renewcommand{\arraystretch}{1.8}
+	\setlength{\arraycolsep}{10pt}
+	\begin{tabular}{|c||c|c|}
+		\hline
+		\rule[-1.2em]{0pt}{3em}
+		& \( \theta = \pi / 2 \) & \( \theta = 3 \pi / 2 \) \\
+		\hline\hline
+		\rule[-1.2em]{0pt}{3em}
+		\( u_{\theta}\!\left( r, \theta \right) = 0 \)
+		& \( \displaystyle{-\frac{c_{1}}{r} - U \!\left( 1 + \frac{a^{2}}{r^{2}} \right) = 0} \)
+		& \( \displaystyle{-\frac{c_{1}}{r} + U \!\left( 1 + \frac{a^{2}}{r^{2}} \right) = 0} \) \\
+		\hline
+		\rule[-1.2em]{0pt}{3em}
+		Quadratic
+		& \( \displaystyle{r^{2} + \frac{c_{1}}{U}r + a^{2} = 0} \)
+		& \( \displaystyle{r^{2} - \frac{c_{1}}{U}r + a^{2} = 0} \) \\
+		\hline
+		\rule[-1.2em]{0pt}{3em}
+		Roots
+		& \( \displaystyle{\frac{-c_{1} / U \pm \sqrt{c^{2}_{1} / U^{2} - 4a^{2}}}{2}} \)
+		& \( \displaystyle{\frac{c_{1} / U \pm \sqrt{c^{2}_{1} / U^{2} - 4a^{2}}}{2}} \) \\
+		\hline
+	\end{tabular}
+\end{center}
+
+Now, two constraints we must impose are for \( r \) to be real and positive. The first constraint follows only when the discriminant satisfies
+\[
+	1 \le \!\left( \frac{c_{1}}{2aU} \right)^{2} 
+\]
+which, when compared to the inequality established in the previous problem, is the \textit{complement} range of values for \( \abs{c_{1} / 2aU} \).
+
+In the second constraint, we observe that for \( \theta = \pi / 2 \), since \( c_{1} / U > \sqrt{c^{2}_{1} / U^{2} - 4a^{2}} \), the roots corresponding to that quadratic \textit{are never positive}. Therefore we must reject the \( \theta = \pi / 2 \) solution altogether. This leaves us with \( \theta = 3 \pi / 2 \).
+
+Lastly, we have two roots -- two stagnation points. We care about the stagnation point that is \textit{off} the cylinder, namely for \( r > a \). Using the inequality derived from the discriminant, one direct way we can ascertain which root satisfies this condition is by observing that
+\[
+	a^{2} \le \!\left( \frac{c_{1}}{2U} \right)^{2} \quad \implies \quad a \le \frac{c_{1}}{2U}
+\]
+which we can do since all terms are positive. Now, it is apparent that
+\[
+	\frac{c_{1}}{2U} \le \frac{c_{1}}{2U} + \frac{1}{2}\sqrt{\!\left( \frac{c_{1}}{U} \right)^{2} - 4a^{2}} 
+\]
+which conveys to us that the first root is the stagnation point that falls outside of the cylinder, and therefore the value of \( r \) we have been searching for. The other lies inside of the cylinder, and can be ignored.
+
+In the special case of equality, namely where
+\[
+	 a = \frac{c_{1}}{2U}
+\]
+then the point lies on the cylinder itself. 
+
+\vspace{12pt}
+
+% QUESTION 27
+\qs{2.5.27}{Show that \( \psi = \alpha \frac{\sin\!\left(\theta\right)}{r} \) satisfies Laplace's equation. Show that the streamlines are circles. Graph the streamlines.}
+
+The task is to demonstrate that
+\[
+	\nabla^{2}\psi = \frac{1}{r}\frac{\partial }{\partial r}\!\left( r \frac{\partial \psi}{\partial r} \right) + \frac{1}{r^{2}}\frac{\partial^2 \psi}{\partial \theta^2} = 0 
+\]
+From the derivatives 
+\[
+	\frac{\partial \psi}{\partial r} = -\alpha \frac{\sin\!\left(\theta\right)}{r^{2}}, \quad \frac{\partial }{\partial r}\!\left( r \frac{\partial \psi}{\partial r} \right) = \frac{\partial }{\partial r}\!\left( -\alpha \frac{\sin\!\left(\theta\right)}{r} \right) = \alpha \frac{\sin\!\left(\theta\right)}{r^{2}}, \quad \frac{\partial^2 \psi}{\partial \theta^2} = -\alpha \frac{\sin\!\left(\theta\right)}{r} 
+\]
+we can substitute and conclude
+\[
+	\frac{1}{r}\!\left( \alpha \frac{\sin\!\left(\theta\right)}{r^{2}} \right) - \frac{1}{r^{2}}\!\left( \alpha \frac{\sin\!\left(\theta\right)}{r} \right) = 0 
+\]
+To ascertain that \( \psi \) is a circle, first we set equal to a constant: call it \( C \). Multiply through by \( r^{2} \) and convert to Cartesian to derive
+\[
+	\alpha r \sin\!\left(\theta\right) = Cr^{2} \quad \implies \quad \alpha y = C \!\left( x^{2} + y^{2} \right) 
+\]
+Through some algebraic manipulation and completing the square, we have the circle equation
+\[
+	x^{2} + \!\left( y - \frac{\alpha}{2C} \right)^{2} = \frac{\alpha^{2}}{4C^{2}} 
+\]
+with radius \( R = \alpha / 2C \) and center \( \!\left( 0,R \right) \). Below are graphs of a family of these circles, with \( \alpha = 1 \) and \( R = \pm 1/4 \), \( \pm 1/2 \), \( \pm 1 \), and \( \pm 2 \).
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+	\draw[->, gray] (-2.4,0) -- (2.4,0) node[right] {\( x \)};
+	\draw[->, gray] (0,-4.2) -- (0,4.2) node[above] {\( y \)};
+	\foreach \R in {0.25, 0.5, 1, 2} {
+		\draw[thick] (0,\R) circle (\R);
+		\draw[thick] (0,-\R) circle (\R);
+	}
+	\fill (0,0) circle (1.5pt);
+\end{tikzpicture}
+\end{center}
+
+% QUESTION 28
+\qs{2.5.28}{Solve Laplace's equation inside a rectangle:
+\[
+	\nabla^{2}u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0 
+\]
+subject to the boundary conditions
+\begin{alignat*}{3}
+	u \!\left( 0,y \right) & = g \!\left( y \right) & \qquad u \!\left( x,0 \right) & = 0 \\
+	u \!\left( L,y \right) & = 0 & \qquad u \!\left( x,H \right) & = 0
+\end{alignat*}}
+
+Let \( u \!\left( x,y \right) = \phi \!\left( x \right) G \!\left( y \right) \). Substitute into Laplace's equation to find
+\[
+	G \!\left( y \right)\frac{d^2 \phi}{d x^2} + \phi \!\left( x \right)\frac{d^2 G}{d y^2} = 0 
+\]
+Divide through by \( \phi \!\left( x \right)G \!\left( y \right) \) and subtract the \( y \) term to find
+\[
+	\frac{1}{\phi \!\left( x \right)}\frac{d^2 \phi}{d x^2} = -\frac{1}{G \!\left( y \right)}\frac{d^2 G}{d y^2} 
+\]
+Since our boundary conditions are homogeneous in \( y \), we want the eigenfunctions in that variable to oscillate, so we set both \( x \) and \( y \) terms equal to \( \lambda \):
+\[
+	\frac{1}{\phi \!\left( x \right)}\frac{d^2 \phi}{d x^2} = -\frac{1}{G \!\left( y \right)}\frac{d^2 G}{d y^2} = \lambda
+\]
+Suppose that \( \lambda > 0 \). Solve the \( y \) equation first. It is a simple second-order ordinary differential equation solved by
+\[
+	G \!\left( y \right) = c_{1}\cos\!\left(\sqrt{\lambda}y\right) + c_{2}\sin\!\left(\sqrt{\lambda}y\right) 
+\]
+Apply the boundary conditions in \( y \). We find
+\begin{align*}
+	G \!\left( 0 \right) & = c_{1} = 0 \\
+	G \!\left( H \right) & = c_{2}\sin\!\left(\sqrt{\lambda}H\right) = 0
+\end{align*}
+and for a nontrivial solution to emerge, we can require
+\[
+	\lambda_{n} = \!\left( \frac{n \pi}{H} \right)^{2}, \quad n = 1, 2, ...
+\]
+which comprise our eigenvalues for this eigenfunction problem. Speaking of which, for \( \lambda > 0 \), we have corresponding eigenfunction
+\[
+	G \!\left( y \right) = \sin\!\left(\frac{n \pi y}{H}\right) 
+\]
+In the case where \( \lambda = 0 \), integrate the second derivative twice to find solution
+\[
+	G \!\left( y \right) = c_{1} + c_{2}y 
+\]
+Apply boundary conditions to see that only the trivial solution exists:
+\begin{align*}
+	G \!\left( 0 \right) & = c_{1} = 0 \\
+	G \!\left( H \right) & = c_{2}H = 0 \quad \implies \quad c_{2} = 0
+\end{align*}
+And finally, suppose \( \lambda < 0 \). Then define \( s = -\lambda \), which is positive. Solve
+\[
+	\frac{1}{G \!\left( y \right)}\frac{d^2 G}{d y^2} = s 
+\]
+which has solution
+\[
+	G \!\left( y \right) = c_{1}\cosh\!\left(\sqrt{s}y\right) + c_{2}\sinh\!\left(\sqrt{s}y\right) 
+\]
+Applying the boundary conditions yields
+\begin{align*}
+	G \!\left( 0 \right) & = c_{1} = 0 \\
+	G \!\left( H \right) & = c_{2}\sinh\!\left(\sqrt{s}H\right) = 0 \quad \implies \quad c_{2} = 0
+\end{align*}
+which merely produces the trivial solution yet again, enabling us to conclude that in this case, we only have positive eigenvalues. Next we solve the \( x \) problem with
+\[
+	\phi \!\left( x \right) = a_{1}\cosh\!\left[\frac{n \pi}{H}\!\left( x - L \right)\right] + a_{2}\sinh\!\left[\frac{n \pi}{H}\!\left( x - L \right)\right]
+\]
+Impose the zero boundary condition in \( x \) to derive our eigenfunction
+\[
+	\phi \!\left( L \right) = a_{1} = 0 \quad \implies \quad \phi \!\left( x \right) = \sinh\!\left[ \frac{n \pi}{H}\!\left( x - L \right) \right]
+\]
+Reassembling the product \( \phi \!\left( x \right)G \!\left( y \right) \) and taking the linear combination of all possible solutions, we have
+\[
+	u \!\left( x,y \right) = \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi y}{H}\right)\sinh\!\left[\frac{n \pi}{H}\!\left( x - L \right)\right]
+\]
+To determine the coefficients \( A_{n} \), evaluate at \( x = 0 \) and multiply both sides by \( \sin\!\left(m \pi y / H\right) \) to find
+\[
+	u \!\left( 0,y \right) = \sum^{\infty}_{n=1} A_{n}\sin\!\left(\frac{n \pi y}{H}\right)\sin\!\left(\frac{m \pi y}{H}\right)\sinh\!\left[\frac{n \pi}{H}\!\left( - L \right)\right] = g \!\left( y \right)\sin\!\left(\frac{m \pi y}{H}\right)
+\]
+Integrate both sides over \( \!\left[ 0,H \right] \), and by orthogonality, all \( n \neq m \) terms will be eliminated, leaving us with
+\[
+	A_{m}\sinh\!\left[\frac{m \pi}{H}\!\left( -L \right)\right]\underbrace{\int^{H}_{0} \sin^{2}\!\left(\frac{m \pi y}{H}\right) \, dy}_{H / 2} = \int^{H}_{0} g \!\left( y \right)\sin\!\left(\frac{m \pi y}{H}\right) \, dy  
+\]
+Lastly, isolate \( A_{m} \) to get
+\[
+	A_{m} = \frac{2}{H \sinh\!\left(m \pi \!\left( -L \right) / H\right)} \int^{H}_{0} g \!\left( y \right)\sin\!\left(\frac{m \pi y}{H}\right) \, dy  
+\]
+
+% QUESTION 29
+\qs{2.5.29}{Solve Laplace's equation inside a circle of radius \( a \),
+\[
+	\nabla^{2}u = \frac{1}{r}\frac{\partial }{\partial r}\!\left( r \frac{\partial u}{\partial r} \right) + \frac{1}{r^{2}}\frac{\partial^2 u}{\partial \theta^2} = 0, 
+\]
+subject to the boundary condition
+\[
+	u \!\left( a,\theta \right) = f \!\left( \theta \right) 
+\]}
+Let \( u \!\left( r,\theta \right) = \phi \!\left( \theta \right)G \!\left( r \right) \). We require periodic boundary conditions in \( \theta \) that ensure continuity of \( \phi \!\left( \theta \right) \); they are
+\begin{align*}
+	\phi \!\left( -\pi \right) & = \phi \!\left( \pi \right) \\
+	\frac{d \phi}{d \theta}\!\left( -\pi \right) & = \frac{d \phi}{d \theta}\!\left( \pi \right)
+\end{align*}
+Now substitute \( \phi \!\left( \theta \right) G \!\left( r \right) \) into Laplace's equation:
+\[
+	\nabla^{2}u = \frac{\phi \!\left( \theta \right)}{r}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) + \frac{G \!\left( r \right)}{r^{2}}\frac{d^2 \phi}{d \theta^2} = 0
+\]
+Divide through by \( \displaystyle{\frac{1}{r^{2}}}\phi \!\left( \theta \right)G \!\left( r \right) \) and subtract the \( \theta \) equation to get
+\[
+	\frac{r}{G \!\left( r \right)}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = -\frac{1}{\phi \!\left( \theta \right)}\frac{d^2 \phi}{d \theta^2} = \lambda
+\]
+where, since we require oscillation in \( \theta \) to satisfy the periodic boundary conditions, we set equal to \( \lambda \). So let's solve that eigenvalue problem; its solution is (assuming \( \lambda > 0 \))
+\[
+	\phi \!\left( \theta \right) = c_{1}\cos\!\left(\sqrt{\lambda}\theta\right) + c_{2}\sin\!\left(\sqrt{\lambda}\theta\right)
+\]
+Imposing the boundary conditions produces
+\begin{align*}
+	\phi \!\left( -\pi \right) & = c_{1}\cos\!\left(\sqrt{\lambda}\pi\right) - c_{2}\sin\!\left(\sqrt{\lambda}\pi\right) \\
+	\phi \!\left( \pi \right) & = c_{1}\cos\!\left(\sqrt{\lambda}\pi\right) + c_{2}\sin\!\left(\sqrt{\lambda}\pi\right) \\ 
+	\implies 0 & = 2c_{2}\sin\!\left(\sqrt{\lambda}\pi\right) \\
+	\frac{d \phi}{d \theta}\!\left( -\pi \right) & = c_{1}\sqrt{\lambda}\sin\!\left(\sqrt{\lambda}\pi\right) + c_{2}\sqrt{\lambda}\cos\!\left(\sqrt{\lambda}\pi\right) \\
+	\frac{d \phi}{d \theta}\!\left( \pi \right) & = -c_{1}\sqrt{\lambda}\sin\!\left(\sqrt{\lambda}\pi\right) + c_{2}\sqrt{\lambda}\cos\!\left(\sqrt{\lambda}\pi\right) \\
+	\implies 0 & = c_{1}\sqrt{\lambda}\sin\!\left(\sqrt{\lambda}\pi\right)
+\end{align*}
+where a nontrivial solution exists when
+\[
+	\lambda_{n} = n^{2}, \quad n = 1, 2, ...
+\]
+Thus our eigenfunctions are
+\[
+	\phi \!\left( \theta \right) = \sin\!\left(n \theta\right), \cos\!\left(n \theta\right) 
+\]
+Next we solve the \( r \) equation (first assuming \( \lambda > 0 \)), which we now write as 
+\[
+	\frac{r}{G}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = n^{2} \quad \implies \quad r^{2}\frac{d^2 G}{d r^2} + r \frac{d G}{d r} - n^{2}G = 0 
+\]
+to make its equidimensional form more apparent. One more boundedness condition is needed: require \( \abs{u \!\left( 0,\theta \right)} < \infty \), and particularly, \( \abs{G \!\left( 0 \right)} < \infty \). In other words, \( u \) must be finite at the origin. Let \( G \!\left( r \right) = r^{p} \). Solve as 
+\[
+	p \!\left( p - 1 \right)r^{p} + p r^{p} - n^{2} r^{p} = 0 \quad \implies \quad p^{2} - n^{2} = 0 \quad \implies \quad p = \pm n 
+\]
+which leaves us with solution
+\[
+	G \!\left( r \right) = a_{1}r^{n} + a_{2}r^{-n} 
+\]
+Applying the boundedness condition, we can conclude that \( a_{2} = 0 \) and eigenfunction
+\[
+	G \!\left( r \right) = r^{n} 
+\]
+In the second case where \( \lambda = 0 \), we endeavor to solve
+\[
+	\frac{r}{G}\frac{d }{d r}\!\left( r \frac{d G}{d r} \right) = 0 
+\]
+Dividing by \( r / G \) and integrating twice, derive solution
+\[
+	G \!\left( r \right) = b_{1} + b_{2}\ln\!\left(r\right) 
+\]
+and applying the boundedness condition once more forces \( b_{2} = 0 \), leaving the constant eigenfunction.
+
+Taking the product of the eigenfunctions and assembling their linear combination, we have solution
+\[
+	u \!\left( r,\theta \right) = C + \sum^{\infty}_{n=1} A_{n}r^{n}\cos\!\left(n \theta\right) + \sum^{\infty}_{n=1} B_{n}r^{n}\sin\!\left(n \theta\right), \quad -\pi \le \theta \le \pi
+\]
+For our last (non-homogeneous!) boundary condition, set \( r = a \) and write
+\[
+	u \!\left( a,\theta \right) = C + \sum^{\infty}_{n=1} A_{n}a^{n}\cos\!\left(n \theta\right) + \sum^{\infty}_{n=1} B_{n}a^{n}\sin\!\left(n \theta\right) = f \!\left( \theta \right)
+\]
+Multiply through first by \( \cos\!\left(m \theta\right) \), integrate. Repeat with \( \sin\!\left(m \theta\right) \) and integrate. Lastly, for the constant term, no multiplication -- simply integrate over \( \!\left[ -\pi,\pi \right] \). Orthogonality produces for us the coefficients
+\begin{align*}
+	C & = \frac{1}{2 \pi}\int^{\pi}_{-\pi} f \!\left( \theta \right) \, d \theta \\
+	A_{n}a^{n} & = \frac{1}{\pi}\int^{\pi}_{-\pi} f \!\left( \theta \right)\cos\!\left(n \theta\right) \, d \theta \\ 
+	B_{n}a^{n} & = \frac{1}{\pi}\int^{\pi}_{-\pi} f \!\left( \theta \right)\sin\!\left(n \theta\right) \, d \theta 
+\end{align*}
+
+
 \end{document}
