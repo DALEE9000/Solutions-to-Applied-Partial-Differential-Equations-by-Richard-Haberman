@@ -5193,7 +5193,788 @@ Multiply through first by \( \cos\!\left(m \theta\right) \), integrate. Repeat w
 \subsection{\textsf{3.2 - Statement of Convergence Theorem}}
 
 % QUESTION 1
-\qs{}{}
+\qs{3.2.1}{For the following functions, sketch the Fourier series of \( f \!\left( x \right) \) (on the interval \( -L \le x \le L \). Compare \( f \!\left( x \right) \) to its Fourier series:
+\begin{enumerate}[label=(\alph*)]
+	\item \( f \!\left( x \right) = 1 \)
+	\item \( f \!\left( x \right) = x^{2} \)
+	\item \( f \!\left( x \right) = 1 + x \)
+	\item \( f \!\left( x \right) = e^{x} \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		x & x < 0 \\
+		2x & x > 0 
+	\end{cases} \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		0 & x < 0 \\
+		1 + x & x > 0 
+	\end{cases} \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		x & x < L / 2 \\
+		0 & x > L / 2 
+	\end{cases} \)
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item \includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex1a.pdf}
+	\item \includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex1b.pdf}
+	\item \includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex1c.pdf}
+	\item \includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex1d.pdf}
+	\item \includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex1e.pdf}
+	\item \includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex1f.pdf}
+	\item \includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex1g.pdf}
+\end{enumerate}
+
+% QUESTION 2
+\qs{3.2.2}{For the following functions, sketch the Fourier series of \( f \!\left( x \right) \) (on the interval \( -L \le x \le L \) and determine the Fourier coefficients:
+\begin{enumerate}[label=(\alph*)]
+	\item \( f \!\left( x \right) = x \)
+	\item \( f \!\left( x \right) = e^{-x} \)
+	\item \( f \!\left( x \right) = \displaystyle{\sin\!\left(\frac{\pi x}{L}\right)} \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		0 & x < 0 \\
+		x & x > 0 
+	\end{cases} \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		1 & \abs{x} < L / 2 \\
+		0 & \abs{x} > L / 2 
+	\end{cases} \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		0 & x < 0 \\
+		1 & x > 0 
+	\end{cases} \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		1 & x < 0 \\
+		2 & x > 0 
+	\end{cases} \)
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item Since \( f \!\left( x \right) \) is odd, we only have non-zero coefficients for the Fourier sine series:
+	\begin{align*}
+		b_{n} & = \frac{1}{L}\int^{L}_{-L} x \sin\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		 & = \frac{1}{L}\!\left[ -\frac{L}{n \pi}x \cos\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{-L} + \frac{L}{n \pi}\int^{L}_{-L} \cos\!\left(\frac{n \pi x}{L}\right) \, dx \right] \\ 
+		 & = -\frac{2L}{n \pi}\cos\!\left(n \pi\right) \\
+		 & = \frac{2L}{n \pi}\!\left( -1 \right)^{n + 1}
+	\end{align*}
+	\begin{center}
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex2a.pdf}
+	\end{center}
+	\item \begin{align*}
+		a_{0} & = \frac{1}{2L}\int^{L}_{-L} e^{-x} \, dx \\
+		 & = \frac{1}{2L}\!\left( e^{L} - e^{-L} \right) \\
+		 & = \frac{1}{L}\sinh\!\left(L\right) \\
+		a_{n} & = \frac{1}{L}\int^{L}_{-L} e^{-x}\cos\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		      & = \frac{1}{L}\left[\frac{e^{-x}\left(\frac{n\pi}{L}\sin\!\left(\frac{n \pi x}{L}\right) - \cos\!\left(\frac{n \pi x}{L}\right)\right)}{1+\frac{n^2\pi^2}{L^2}}\right]^{L}_{-L} \\
+      & = \frac{(-1)^n\left(e^{L}-e^{-L}\right)}{L\left(1+\frac{n^2\pi^2}{L^2}\right)} \\
+      & = \frac{2(-1)^n L\sinh\!\left( L \right)}{L^2+n^2\pi^2} \\
+		b_{n} & = \frac{1}{L}\int^{L}_{-L} e^{-x}\sin\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		      & = -\frac{1}{L}\left[\frac{e^{-x}\left(\sin\!\left(\frac{n \pi x}{L}\right) + \frac{n\pi}{L}\cos\!\left(\frac{n \pi x}{L}\right)\right)}{1+\frac{n^2\pi^2}{L^2}}\right]^{L}_{-L} \\
+      		      & = \frac{n\pi(-1)^n\left(e^{L}-e^{-L}\right)}{L^2\left(1+\frac{n^2\pi^2}{L^2}\right)} \\
+      		      & = \frac{2(-1)^n\, n\pi \sinh\!\left(L\right)}{L^2+n^2\pi^2}
+	\end{align*}
+	\begin{center}
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex2b.pdf}
+	\end{center}
+	\item Since \( f \!\left( x \right) \) is odd, \( a_{0} = 0 \). By orthogonality, \( a_{n} = 0 \) for all \( n \), and \( b_{n} = 0 \), \( n \neq 1 \). We are left with
+	\begin{align*}
+		b_{1} & = \frac{1}{L}\int^{L}_{-L} \sin^{2}\!\left(\frac{\pi x}{L}\right) \, dx \\
+		 & = 1
+	\end{align*}
+	\begin{center}
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex2c.pdf}
+	\end{center}
+	\item \begin{align*}
+		a_{0} & = \frac{1}{2L}\int^{L}_{0} x \, dx \\
+		 & = \frac{L}{4} \\
+		a_{n} & = \frac{1}{L}\int^{L}_{0} x \cos\!\left(\frac{n \pi x}{L}\right) \, dx \\
+      & = \frac{1}{L}\left[\frac{L}{n\pi}\,x\sin\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{0} - \frac{L}{n\pi}\int^{L}_{0} \sin\!\left(\frac{n \pi x}{L}\right) \, dx\right] \\
+      & = \frac{1}{L}\cdot\frac{L^2}{n^2\pi^2}\cos\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{0} \\
+      & = \frac{L}{n^2\pi^2}\left((-1)^n - 1\right) \\
+		b_{n} & = \frac{1}{L}\int^{L}_{0} x \sin\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		      & = \frac{1}{L}\left[ -\frac{L}{n \pi}\,x \cos\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{0} + \frac{L}{n \pi}\int^{L}_{0} \cos\!\left(\frac{n \pi x}{L}\right) \, dx \right] \\
+      & = \frac{1}{L}\left[ -\frac{L^2(-1)^n}{n \pi} + \frac{L^2}{n^2 \pi^2}\sin\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{0} \right] \\
+      & = \frac{L(-1)^{n+1}}{n\pi}
+	\end{align*}
+	\begin{center}
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex2d.pdf}
+	\end{center}
+	\item Since \( f \!\left( x \right) \) is even, the \( b_{n} \) coefficients vanish.
+	\begin{align*}
+		a_{0} & = \frac{1}{2L}\int^{L/2}_{-L/2}  \, dx \\
+		 & = \frac{1}{2} \\ 
+		a_{n} & = \frac{1}{L}\int^{L/2}_{-L/2} \cos\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		      & = \frac{1}{n \pi}\sin\!\left(\frac{n \pi x}{L}\right)\Big|^{L/2}_{-L/2} \\
+		      & = \frac{2}{n \pi}\sin\!\left(\frac{n \pi}{2}\right) \\
+		a_{2m - 1} & = \frac{2}{\!\left( 2m - 1 \right)\pi}\!\left( -1 \right)^{m + 1}
+	\end{align*}
+	where in the last line we change the index to reflect the fact that \( a_{n} = 0 \) for even \( n \).
+	\begin{center}
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex2e.pdf}
+	\end{center}
+	\item One intuitive observation is to see that \( f \!\left( x \right) \) is equal to
+	\[
+		f \!\left( x \right) = \frac{1}{2} + \frac{1}{2}\text{sgn}\!\left( x \right)
+	\]
+	which adds an odd function to a constant, rendering the \( a_{n} \) coefficients for \( n \ge 1 \) zero.
+	\begin{align*}
+		a_{0} & = \frac{1}{2L}\int^{L}_{0}  \, dx \\
+		 & = \frac{1}{2} \\ 
+		b_{n} & = \frac{1}{L}\int^{L}_{0} \sin\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		      & = -\frac{1}{n \pi}\cos\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{0} \\
+      & = \frac{1 - (-1)^n}{n \pi}
+	\end{align*}
+	\begin{center}
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex2f.pdf}
+	\end{center}
+	\item Here, the step function \( f \!\left( x \right) \) differs from the previous example only by an upward vertical shift of 1. We can equivalently write
+	\[
+		f \!\left( x \right) = \frac{3}{2} + \frac{1}{2}\text{sgn}\!\left( x \right)
+	\]
+	which, once more, is a constant added by an odd  function. Therefore the \( a_{n} \) coefficients remain zero, while the \( a_{0} \) coefficient simply is added by 1, which we can verify by
+	\[
+		a_{0} = \frac{1}{2L}\!\left[ \int^{0}_{-L}  \, dx + \int^{L}_{0} 2 \, dx \right] = \frac{3}{2}
+	\]
+	The \( b_{n} \) coefficients remain unchanged. The quick way to see this is by exploiting the oddness of sine:
+	\begin{align*}
+		b_{n} & = \frac{1}{L}\!\left[ \underbrace{\int^{0}_{-L} \sin\!\left(\frac{n \pi x}{L}\right) \, dx}_{= -\int^{L}_{0} \sin\!\left(\frac{n \pi x}{L}\right) \, dx} + 2 \int^{L}_{0} \sin\!\left(\frac{n \pi x}{L}\right) \, dx \right] \\
+		 & = \frac{1}{L}\int^{L}_{0} \sin\!\left(\frac{n \pi x}{L}\right) \, dx
+	\end{align*}
+	\begin{center}
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.2/chap3sec3.2ex2g.pdf}
+	\end{center}
+\end{enumerate}
+
+\newpage
+% QUESTION 3
+\qs{3.2.3}{Show that the Fourier series operation is linear: that is, show that the Fourier series of \( c_{1}f \!\left( x \right) + c_{2}g \!\left( x \right) \) is the sum of \( c_{1} \) times the Fourier series of \( f \!\left( x \right) \) and \( c_{2} \) times the Fourier series of \( g \!\left( x \right) \).}
+
+Suppose that \( f \) and \( g \) have Fourier series defined over \( \!\left[ -L,L \right] \) with period \( 2L \). The respective coefficients for any function \( h \!\left( x \right) \) on the aforementioned interval are defined by
+\begin{align*}
+	\!\left[ a_{0} \right]_{h} & = \frac{1}{2L}\int^{L}_{-L} h \!\left( x \right) \, dx \\
+	\!\left[ a_{n} \right]_{h} & = \frac{1}{L}\int^{L}_{-L} h \!\left( x \right)\cos\!\left(\frac{n \pi x}{L}\right) \, dx \\
+	\!\left[ b_{n} \right]_{h} & = \frac{1}{L}\int^{L}_{-L} h \!\left( x \right)\sin\!\left(\frac{n \pi x}{L}\right) \, dx
+\end{align*}
+By linearity of integration, the coefficients for the linear combination are
+\begin{align*}
+	\!\left[ a_{n} \right]_{c_{1}f + c_{2}g} = \frac{1}{L}\int^{L}_{-L} \!\left[ c_{1}f \!\left( x \right) + c_{2}g \!\left( x \right) \right]\cos\!\left(\frac{n \pi x}{L}\right) \, dx & = c_{1}\!\left[ a_{n} \right]_{f} + c_{2}\!\left[ a_{n} \right]_{g} \\
+	\!\left[ b_{n} \right]_{c_{1}f + c_{2}g} = \frac{1}{L}\int^{L}_{-L} \!\left[ c_{1}f \!\left( x \right) + c_{2}g \!\left( x \right) \right]\sin\!\left(\frac{n \pi x}{L}\right) \, dx & = c_{1}\!\left[ b_{n} \right]_{f} + c_{2}\!\left[ b_{n} \right]_{g}
+\end{align*}
+with an analogous calculation for \( \!\left[ a_{0} \right]_{h} \). Since the coefficients of the linear combination are the sum of \( c_{1} \) times the Fourier coefficients of \( f \) and \( c_{2} \) times the Fourier coefficients of \( g \), it follows that the Fourier series itself is composed of \( c_{1} \) times that of \( f \) plus \( c_{2} \) times that of \( g \), establishing that the Fourier series operation is linear.
+
+\vspace{12pt}
+
+% QUESTION 4
+\qs{3.2.4}{Suppose that \( f \!\left( x \right) \) is piecewise smooth. What value does the Fourier series of \( f \!\left( x \right) \) converge to at the endpoint \( x = -L \)? at \( x = L \)?}
+
+One subtlety to be mindful of is \( f \!\left( x \right) \) is defined over \( \!\left[ -L,L \right] \). Let the superscript \( + \) and \( - \) in \( f \!\left( x^{+} \right) \) and \( f \!\left( x^{-} \right) \) be defined as approaching \( x \) from above (the right) and below (the left). From the construction of our interval, however, it is impossible to have either \( f \!\left( -L^{-} \right) \) or \( f \!\left( L^{+} \right) \), for \( L \) and \( -L \) are the absolute maximum and minimum values of the interval. 
+
+Fortunately, there is a workaround. Let \( F \) be the periodic extension of \( f \). Note that there is a difference in where \( F \) and \( f \) are defined; the former is over all \( x \), and the latter only on \( \!\left[ -L,L \right] \). By Fourier's theorem, the Fourier series of \( f \) converges to \( \frac{1}{2}\!\left[ F \!\left( x^{+} \right) + F \!\left( x^{-} \right) \right] \); by periodicity, this means that approaching the left boundary from below is akin to approaching the right boundary from below (and vice-versa for the other boundary). Equivalently,
+\[
+	F \!\left( -L^{-} \right) = f \!\left( L^{-} \right) \quad \text{and} \quad F \!\left( L^{+} \right) = f \!\left( -L^{+} \right)
+\]
+From this logic, it turns out that the point of convergence is the same at \( x = -L \) and \( x = L \), which is
+\[
+	\frac{1}{2}\!\left[ f \!\left( -L^{+} \right) + f \!\left( L^{-} \right) \right] 
+\]
+
+\newpage
+\subsection{\textsf{3.3 - Fourier Cosine and Sine Series}}
+
+% QUESTION 1
+\qs{3.3.1}{For the following functions, sketch \( f \!\left( x \right) \), the Fourier series of \( f \!\left( x \right) \), the Fourier sine series of \( f \!\left( x \right) \), and the Fourier cosine series of \( f \!\left( x \right) \).
+\begin{enumerate}[label=(\alph*)]
+	\item \( f \!\left( x \right) = 1 \)
+	\item \( f \!\left( x \right) = 1 + x \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		x & x < 0 \\
+		1 + x & x > 0 
+	\end{cases} \)
+	\item \( f \!\left( x \right) = e^{x} \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		2 & x < 0 \\
+		e^{-x} & x > 0 
+	\end{cases} \)
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item 
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex1a.pdf}
+	\item 
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex1b.pdf}
+	\item 
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex1c.pdf}
+	\item 
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex1d.pdf}
+	\item 
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex1e.pdf}
+\end{enumerate}
+
+% QUESTION 2
+\qs{3.3.2}{For the following functions, sketch the Fourier sine series of \( f \!\left( x \right) \) and determine its Fourier coefficients:
+\begin{enumerate}[label=(\alph*)]
+	\item \( f \!\left( x \right) = \cos\!\left(\pi x / L\right) \) [Verify formula (3.3.13).]
+	\item \( f \!\left( x \right) = \begin{cases}
+		1 & x < L/6 \\
+		3 & L/6 < x < L/2 \\
+		0 & x > L/2
+	\end{cases} \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		0 & x < L/2 \\
+		x & x > L/2 
+	\end{cases} \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		1 & x < L/2 \\
+		0 & x > L/2 
+	\end{cases} \)
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item \begin{align*}
+		B_{1} & = \frac{2}{L}\int^{L}_{0} \cos\!\left(\frac{\pi x}{L}\right)\sin\!\left(\frac{\pi x}{L}\right) \, dx \\
+		      & = \frac{1}{L}\int^{L}_{0} \sin\!\left(\frac{2\pi x}{L}\right) \, dx \\
+      & = -\frac{1}{2\pi}\cos\!\left(\frac{2\pi x}{L}\right)\Big|^{L}_{0} \\
+      & = 0 \\
+		B_{n} & = \frac{2}{L}\int^{L}_{0} \cos\!\left(\frac{\pi x}{L}\right)\sin\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		& = \frac{1}{L}\int^{L}_{0} \left[\sin\!\left(\frac{(n+1) \pi x}{L}\right) + \sin\!\left(\frac{(n-1) \pi x}{L}\right)\right] dx \\
+      & = \frac{1}{\pi}\left(1 - (-1)^{n+1}\right)\left[\frac{1}{n+1} + \frac{1}{n-1}\right] \\
+      & = \frac{2n\left(1 + (-1)^n\right)}{\pi\left(n^2 - 1\right)}, \qquad n \neq 1
+	\end{align*}
+	The \( B_{n} \) coefficients split into even and odd cases:
+	\[
+		B_{n} = \begin{cases}
+			0 & n \text{ odd} \\
+			\displaystyle{\frac{4n}{\pi \!\left( n^{2} - 1 \right)}} & n \text{ even} 
+		\end{cases}
+	\]
+	verifying equation (3.3.13).
+
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex2a.pdf}
+	\item \begin{align*}
+			B_{n} & = \frac{2}{L}\!\left[ \int^{L/6}_{0} \sin\!\left(\frac{n \pi x}{L}\right) \, dx + 3\int^{L/2}_{L/6} \sin\!\left(\frac{n \pi x}{L}\right) \, dx \right] \\
+			      & = \frac{2}{L}\cdot\frac{L}{n\pi}\left[ -\cos\!\left(\frac{n \pi x}{L}\right)\Big|^{L/6}_{0} - 3\cos\!\left(\frac{n \pi x}{L}\right)\Big|^{L/2}_{L/6} \right] \\
+      & = \frac{2}{n\pi}\left[ \left(1 - \cos\!\left(\frac{n\pi}{6}\right)\right) + 3\left(\cos\!\left(\frac{n\pi}{6}\right) - \cos\!\left(\frac{n\pi}{2}\right)\right) \right] \\
+      & = \frac{2}{n\pi}\left[ 1 + 2\cos\!\left(\frac{n\pi}{6}\right) - 3\cos\!\left(\frac{n\pi}{2}\right) \right]
+	\end{align*}
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex2b.pdf}
+	\item \begin{align*}
+		B_{n} & = \frac{2}{L}\int^{L}_{L/2} x \sin\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		& = \frac{2}{L}\left[ -\frac{L}{n\pi}\,x\cos\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{L/2} + \frac{L}{n\pi}\int^{L}_{L/2} \cos\!\left(\frac{n \pi x}{L}\right) \, dx \right] \\
+      & = \frac{2}{L}\left[ -\frac{L}{n\pi}\left( L(-1)^n - \frac{L}{2}\cos\!\left(\frac{n\pi}{2}\right) \right) + \frac{L^2}{n^2\pi^2}\sin\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{L/2} \right] \\
+      & = \frac{2L}{n\pi}\left[ \frac{1}{2}\cos\!\left(\frac{n\pi}{2}\right) - (-1)^n \right] - \frac{2L}{n^2\pi^2}\sin\!\left(\frac{n\pi}{2}\right)
+	\end{align*}
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex2c.pdf}
+	\item \begin{align*}
+		B_{n} & = \frac{2}{L}\int^{L/2}_{0} \sin\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		 & = -\frac{2}{n \pi}\cos\!\left(\frac{n \pi x}{L}\right)\Big|^{L/2}_{0} \\ 
+		 & = \frac{2}{n \pi}\!\left[ 1 - \cos\!\left(\frac{n \pi}{2}\right) \right] \\
+		 & = \begin{cases}
+			 \displaystyle{\frac{2}{n \pi}} & n \text{ odd} \\[10pt]
+			\displaystyle{\frac{1}{m \pi}\!\left( 1 - \!\left( -1 \right)^{m} \right)} & n = 2m 
+		 \end{cases}
+	\end{align*}
+	where we substitute \( n = 2m \). 
+	\vspace{6pt}
+
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex2d.pdf}
+\end{enumerate}
+
+\newpage
+% QUESTION 3
+\qs{3.3.3}{For the following functions, sketch the Fourier sine series of \( f \!\left( x \right) \). Also, roughly sketch the sum of a \textit{finite} number of nonzero terms (at least the first two) of the Fourier sine series:
+\begin{enumerate}[label=(\alph*)]
+	\item \( f \!\left( x \right) = \cos\!\left(\pi x / L\right) \) [Use formula (3.3.13).]
+	\item \( f \!\left( x \right) = \begin{cases}
+		1 & x < L/2 \\
+		0 & x > L/2 
+	\end{cases} \)
+\item \( f \!\left( x \right) = x \) [Use formula (3.3.12).]
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item 
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex3a.pdf}
+	\item
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex3b.pdf}
+	\item
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex3c.pdf}
+\end{enumerate}
+
+\newpage
+% QUESTION 4
+\qs{3.3.4}{Sketch the Fourier cosine series of \( f \!\left( x \right) = \sin\!\left(\pi x / L\right) \). Briefly discuss.}
+
+\includegraphics[width=1.0\textwidth]{../chap3/sec3.3/chap3sec3.3ex4.pdf}
+
+\vspace{12pt}
+
+The Fourier cosine series looks exactly like \( \abs{\sin\!\left(\pi x / L\right)} \), having period \( L \). If we were to actually derive the Fourier series (and thus the even extension of \( f \!\left( x \right) \)), we would find
+
+\begin{align*}
+	A_{0} & = \frac{1}{L}\int^{L}_{0} \sin\!\left(\frac{\pi x}{L}\right) \, dx \\
+	 & = -\frac{1}{\pi}\cos\!\left(\frac{\pi x}{L}\right)\Big|^{L}_{0} \\ 
+	 & = \frac{2}{\pi} \\
+	A_{1} & = \frac{2}{L}\int^{L}_{0} \sin\!\left(\frac{\pi x}{L}\right)\cos\!\left(\frac{\pi x}{L}\right) \, dx \\
+	      & = \frac{1}{L}\int^{L}_{0} \sin\!\left(\frac{2\pi x}{L}\right) \, dx \\
+      & = -\frac{1}{2\pi}\cos\!\left(\frac{2\pi x}{L}\right)\Big|^{L}_{0} \\
+      & = 0 \\
+	A_{n} & = \frac{2}{L}\int^{L}_{0} \sin\!\left(\frac{\pi x}{L}\right)\cos\!\left(\frac{n \pi x}{L}\right) \, dx \\
+	      & = \frac{1}{L}\int^{L}_{0} \left[\sin\!\left(\frac{(n+1) \pi x}{L}\right) - \sin\!\left(\frac{(n-1) \pi x}{L}\right)\right] dx \\
+      & = \frac{1}{\pi}\left(1 + (-1)^{n}\right)\left[\frac{1}{n+1} - \frac{1}{n-1}\right] \\
+      & = -\frac{2\left(1 + (-1)^n\right)}{\pi\left(n^2 - 1\right)}, \qquad n \neq 1
+\end{align*}
+for the \( A_{n} \), let \( n = 2m \) and reindex as 
+\[
+	A_{m} = -\frac{4}{\pi \!\left( 4m^{2} - 1 \right)} 
+\]
+which combine to produce
+\[
+	f \!\left( x \right) \sim \frac{2}{\pi} - \frac{4}{\pi}\sum^{\infty}_{m=1} \frac{\cos\!\left(2m \pi x / L\right)}{4m^{2} - 1}
+\]
+Observe the pattern: \textit{the Fourier cosine series consists only of even terms}. Moreover, since \( \sin\!\left(\pi x / L\right) = 0 \) at \( x = 0 \) and \( x = L \), the Fourier series converges to \( f \!\left( x \right) \) for \textit{all} \( x \) over \( \!\left[ 0,L \right] \), not only \( \!\left( 0,L \right) \). Crucially, \textbf{there is no Gibbs overshoot at the boundary}, as we have no jump discontinuity. \textbf{This is a crucial point and one I would advise the reader to internalize!}
+
+\vspace{12pt}
+
+% QUESTION 5
+\qs{3.3.5}{For the following functions, sketch the Fourier cosine series of \( f \!\left( x \right) \) and determine its Fourier coefficients:
+\begin{enumerate}[label=(\alph*)]
+	\item \( f \!\left( x \right) = x^{2} \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		1 & x < L/6 \\
+		3 & L/6 < x < L/2 \\
+		0 & x > L/2
+	\end{cases} \)
+	\item \( f \!\left( x \right) = \begin{cases}
+		0 & x < L/2 \\
+		x & x > L/2 
+	\end{cases} \)
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item \begin{align*}
+		A_{0} & = \frac{1}{L}\int^{L}_{0} x^{2} \, dx \\
+		 & = \frac{L^{2}}{3} \\ 
+		A_{n} & = \frac{2}{L}\int^{L}_{0} x^{2}\cos\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		      & = \frac{2}{L}\left[ \frac{L}{n\pi}\,x^{2}\sin\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{0} - \frac{2L}{n\pi}\int^{L}_{0} x\sin\!\left(\frac{n \pi x}{L}\right) \, dx \right] \\
+      & = -\frac{4}{n\pi}\left[ -\frac{L}{n\pi}\,x\cos\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{0} + \frac{L}{n\pi}\int^{L}_{0} \cos\!\left(\frac{n \pi x}{L}\right) \, dx \right] \\
+      & = -\frac{4}{n\pi}\left[ -\frac{L^{2}(-1)^n}{n\pi} + 0 \right] \\
+      & = \frac{4L^{2}(-1)^{n}}{n^{2}\pi^{2}}
+	\end{align*}
+	\includegraphics[width=1.0\textwidth]{../chap3/sec3.3/chap3sec3.3ex5a.pdf}
+	\item \begin{align*}
+			A_{0} & = \frac{1}{L}\!\left[ \int^{L/6}_{0} \, dx + \int^{L/2}_{L/6} 3 \, dx \right] \\
+		 & = \frac{1}{L}\!\left( \frac{L}{6} + L \right) \\ 
+		 & = \frac{7}{6} \\
+		A_{n} & = \frac{2}{L}\!\left[ \int^{L/6}_{0} \cos\!\left(\frac{n \pi x}{L}\right) \, dx + 3\int^{L/2}_{L/6} \cos\!\left(\frac{n \pi x}{L}\right) \, dx \right] \\
+      & = \frac{2}{n\pi}\left[ \sin\!\left(\frac{n \pi x}{L}\right)\Big|^{L/6}_{0} + 3\sin\!\left(\frac{n \pi x}{L}\right)\Big|^{L/2}_{L/6} \right] \\
+      & = \frac{2}{n\pi}\left[ 3\sin\!\left(\frac{n\pi}{2}\right) - 2\sin\!\left(\frac{n\pi}{6}\right) \right]
+	\end{align*}
+	\includegraphics[width=1.0\textwidth]{../chap3/sec3.3/chap3sec3.3ex5b.pdf}
+	\item \begin{align*}
+		A_{0} & = \frac{1}{L}\int^{L}_{L/2} x \, dx \\
+		 & = \frac{1}{L}\!\left( \frac{L^{2}}{2} - \frac{L^{2}}{8} \right) \\ 
+		 & = \frac{3L}{8} \\
+		A_{n} & = \frac{2}{L}\int^{L}_{L/2} x \cos\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		      & = \frac{2}{L}\left[ \frac{L}{n\pi}\,x\sin\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{L/2} - \frac{L}{n\pi}\int^{L}_{L/2} \sin\!\left(\frac{n \pi x}{L}\right) \, dx \right] \\
+      & = \frac{2}{L}\left[ -\frac{L^{2}}{2n\pi}\sin\!\left(\frac{n\pi}{2}\right) + \frac{L^{2}}{n^{2}\pi^{2}}\cos\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{L/2} \right] \\
+      & = -\frac{L}{n\pi}\sin\!\left(\frac{n\pi}{2}\right) + \frac{2L}{n^{2}\pi^{2}}\left[ (-1)^{n} - \cos\!\left(\frac{n\pi}{2}\right) \right]
+	\end{align*}
+	\includegraphics[width=1.0\textwidth]{../chap3/sec3.3/chap3sec3.3ex5c.pdf}
+\end{enumerate}
+
+\newpage
+% QUESTION 6
+\qs{3.3.6}{For the following functions, sketch the Fourier cosine series of \( f \!\left( x \right) \). Also, roughly sketch the sum of a finite number of nonzero terms (at least the first two) of the Fourier cosine series:
+\begin{enumerate}[label=(\alph*)]
+	\item \( f \!\left( x \right) = x \) [Use formulas (3.3.22) and (3.3.23)].
+	\item \( f \!\left( x \right) = \begin{cases}
+		0 & x < L/2 \\
+		1 & x > L/2 
+	\end{cases} \) [Use carefully formulas (3.2.6) and (3.2.7).]
+	\item \( f \!\left( x \right) = \begin{cases}
+		1 & x < L/2 \\
+		0 & x > L/2 
+	\end{cases} \) [\textit{Hint}: Add the functions in parts (b) and (c).]
+\end{enumerate}}
+
+Note that there is a typographical error in the text; what I have written here is the correct problem statement.
+
+\begin{enumerate}[label=(\alph*)]
+	\item \begin{align*}
+		A_{0} & = \frac{1}{L}\int^{L}_{0} x \, dx \\
+		 & = \frac{1}{L}\!\left( \frac{L^{2}}{2} \right) \\ 
+		 & = \frac{L}{2} \\
+		A_{n} & = \frac{2}{L}\int^{L}_{0} x \cos\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		      & = \frac{2}{L}\frac{L^{2}}{n^{2}\pi^{2}}\!\left[ \cos\!\left(\frac{n \pi x}{L}\right) + \frac{n \pi x}{L}\sin\!\left(\frac{n \pi x}{L}\right) \right]^{L}_{0} \\
+		      & = \frac{2L}{\!\left( n \pi \right)^{2}}\!\left[ \cos\!\left(n \pi\right) - 1 \right]
+	\end{align*}
+	Since \( \cos\!\left(n \pi\right) - 1 \) is \( 0 \) for even \( n \) and \( -2 \) for odd \( n \), the even coefficients vanish and, writing \( n = 2m - 1 \),
+	\[
+		A_{2m-1} = -\frac{4L}{\pi^{2}\!\left( 2m-1 \right)^{2}} 
+	\]
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex6a.pdf}
+	\item \begin{align*}
+		A_{0} & = \frac{1}{L}\int^{L}_{L/2} \, dx \\
+		 & = \frac{1}{2} \\ 
+		A_{n} & = \frac{2}{L}\int^{L}_{L/2} \cos\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		      & = \frac{2}{n \pi}\sin\!\left(\frac{n \pi x}{L}\right)\Big|^{L}_{L/2} \\
+		      & = -\frac{2}{n \pi}\sin\!\left(\frac{n \pi}{2}\right)
+	\end{align*}
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex6b.pdf}
+	\item \begin{align*}
+		A_{0} & = \frac{1}{L}\int^{L/2}_{0} \, dx \\
+		 & = \frac{1}{2} \\ 
+		A_{n} & = \frac{2}{L}\int^{L/2}_{0} \cos\!\left(\frac{n \pi x}{L}\right) \, dx \\
+		      & = \frac{2}{n \pi}\sin\!\left(\frac{n \pi x}{L}\right)\Big|^{L/2}_{0} \\
+		      & = \frac{2}{n \pi}\sin\!\left(\frac{n \pi}{2}\right)
+	\end{align*}
+	Observe that adding the two Fourier series cancels the \( A_{n} \) terms from each, leaving only the \( A_{0} \) terms: \( 1/2 + 1/2 = 1 \).
+
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex6c.pdf}
+\end{enumerate}
+
+% QUESTION 7
+\qs{3.3.7}{Show that \( e^{x} \) is the sum of an even and an odd function.}
+\[
+	e^{x} = \underbrace{\frac{1}{2}\!\left( e^{x} + e^{-x} \right)}_{f_{\text{even}}} + \underbrace{\frac{1}{2}\!\left( e^{x} - e^{-x} \right)}_{f_{\text{odd}}} = \cosh\!\left(x\right) + \sinh\!\left(x\right)
+\]
+Observe that 
+\[
+	f_{\text{even}}\!\left( x \right) = \frac{1}{2}\!\left( e^{x} + e^{-x} \right) = \frac{1}{2}\!\left( e^{-x} + e^{x} \right) = f_{\text{even}}\!\left( -x \right) 
+\]
+and
+\[
+	f_{\text{odd}}\!\left( x \right) = \frac{1}{2}\!\left( e^{x} - e^{-x} \right) = -\frac{1}{2}\!\left( e^{-x} - e^{x} \right) = -f_{\text{odd}}\!\left( -x \right)
+\]
+
+\newpage
+% QUESTION 8
+\qs{3.3.8}{\begin{enumerate}[label=(\alph*)]
+	\item Determine formulas for the even extension of any \( f \!\left( x \right) \). Compare to the formula for the even part of \( f \!\left( x \right) \).
+	\item Do the same for the odd extension of \( f \!\left( x \right) \) and the odd part of \( f \!\left( x \right) \).
+	\item Calculate and sketch the four functions of parts (a) and (b) if 
+	\[
+		f \!\left( x \right) = \begin{cases}
+			x & x > 0 \\
+			x^{2} & x < 0 
+		\end{cases} 
+	\]
+	Graphically add the even and odd parts of \( f \!\left( x \right) \). What occurs? Similarly, add the even and odd extensions. What occurs then?
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item The even extension of \( f \!\left( x \right) \) is given by
+	\[
+		f_{\text{even}}\!\left( x \right) = \begin{cases}
+			f \!\left( x \right) & x > 0 \\
+			f \!\left( -x \right) & x < 0 
+		\end{cases} 
+	\]
+	As Haberman is emphatic about, do \textbf{not} confuse the even \textit{part} of \( f \!\left( x \right) \) with its \textit{extension}. They are equal, however, when \( f \!\left( x \right) \) is itself an even function. The part and extension differ in their construction: the extension performs a mirror reflection of \( f \!\left( x \right) \) about the vertical axis, while the part takes an arithmetic mean of \( f \!\left( x \right) \) evaluated at \textit{both} positive and negative \( x \).
+	\item The odd extension of \( f \!\left( x \right) \) is given by
+	\[
+		f_{\text{odd}}\!\left( x \right) = \begin{cases}
+			f \!\left( x \right) & x > 0 \\
+			-f \!\left( -x \right) & x < 0 
+		\end{cases} 
+	\]
+	Similarly, when \( f \!\left( x \right) \) is itself odd, the extension and part are equal. In their construction, the extension is a reflection through the origin (i.e. reflecting across the vertical axis \textit{and then} the horizontal axis), while the part is an arithmetic mean of \( f \!\left( x \right) \) and \( -f \!\left( -x \right) \).
+	\item First, for clarity in evaluating \( f \!\left( -x \right) \), keep the following in mind: define \( y = -x \). When \( x < 0 \), then \( y > 0 \). When that is the case, \( f \!\left( y \right) = y = -x \). Alternatively, when \( x > 0 \), \( y < 0 \), and \(  f \!\left( y \right) = y^{2} = \!\left( -x \right)^{2} = x^{2} \).
+
+	It is critical to not simply substitute in a negative sign in each branch. Instead, the sign of \( -x \) directs us to which case of \( f \!\left( x \right) \) we should be on.
+	\[
+		f \!\left( x \right) = \begin{cases}
+			x & x > 0 \\
+			x^{2} & x < 0 
+		\end{cases},
+		\quad
+		f \!\left( -x \right) = \begin{cases}
+			x^{2} & x > 0 \\
+			-x & x < 0 
+		\end{cases},
+		\quad
+		-f \!\left( -x \right) = \begin{cases}
+			-x^{2} & x > 0 \\
+			x & x < 0 
+		\end{cases}
+	\]
+	Then we derive
+	\begin{align*}
+		f_{\text{even part}}\!\left( x \right) & = \frac{1}{2}\!\left( f \!\left( x \right) + f \!\left( -x \right) \right) =  \begin{cases}
+			\frac{1}{2}\!\left( x + x^{2} \right) & x > 0 \\
+			\frac{1}{2}\!\left( -x + x^{2} \right) & x < 0
+		\end{cases} \\
+		f_{\text{odd part}}\!\left( x \right) & = \frac{1}{2}\!\left( f \!\left( x \right) - f \!\left( -x \right) \right) = \begin{cases}
+			\frac{1}{2}\!\left( x - x^{2} \right) & x > 0 \\
+			\frac{1}{2}\!\left( x + x^{2} \right) & x < 0 
+		\end{cases} \\ 
+		f_{\text{even ext.}}\!\left( x \right) & = \begin{cases}
+			x & x > 0 \\
+			-x & x < 0 
+		\end{cases} = \abs{x} \\
+		f_{\text{odd ext.}}\!\left( x \right) & = \begin{cases}
+			x & x > 0 \\
+			x & x < 0 
+		\end{cases} = x
+	\end{align*}
+	Adding the parts, we simply get back \( f \!\left( x \right) \), as expected. Adding the extensions produces
+	\[
+		f_{\text{even ext.}}\!\left( x \right) + f_{\text{odd ext.}}\!\left( x \right) = \begin{cases}
+			2x & x > 0 \\
+			0 & x < 0 
+		\end{cases} 
+	\]
+	which we expect, as both extensions will agree on the \( x > 0 \) portion (in a sense, they double each other in the sum), but cancel each other out on the \( x < 0 \) portion, being mirror images of one another about the horizontal axis. See the graph below for all four equations and the sums of the parts and extensions graphed out alongside \( f \!\left( x \right) \).
+
+	\vspace{12pt}
+	\includegraphics[width=1.0\textwidth]{../chap3/sec3.3/chap3sec3.3ex8c.pdf}
+\end{enumerate}
+
+% QUESTION 9
+\qs{3.3.9}{What is the sum of the Fourier sine series of \( f \!\left( x \right) \) and the Fourier cosine series of \( f \!\left( x \right) \)? [What is the sum of the even and odd extensions of \( f \!\left( x \right) \)?]}
+
+Akin to our solution from 3.3.8(c), the sum of the Fourier sine and cosine series will converge to 
+\[
+	g \!\left( x \right) = \begin{cases}
+		2f \!\left( x \right) & 0 < x < L \\
+		0 & -L < x < 0
+	\end{cases} 
+\]
+and extended with period \( 2L \). This parallels the \( x < 0 \) segment vanishing in the previous problem. From the convergence theorem, we know that at the endpoints, the series converges to the arithmetic mean of \( g \!\left( x^{+} \right) \) and \( g \!\left( x^{-} \right) \).
+
+\vspace{12pt}
+
+% QUESTION 10
+\qs{3.3.10}{If \( f \!\left( x \right) = \displaystyle{\begin{cases}
+	x^{2} & x < 0 \\
+	e^{-x} & x > 0 
+\end{cases}} \), what are the even and odd parts of \( f \!\left( x \right) \)?}
+
+When \( x < 0 \), then \( y = -x > 0 \), and \( f \!\left( y \right) = e^{y} = e^{x} \). Additionally, when \( x > 0 \), \( y = -x < 0 \), and \( f \!\left( y \right) = y^{2} = \!\left( -x \right)^{2} = x^{2} \). With these insights we can conclude
+\[
+	f \!\left( -x \right) = \begin{cases}
+		e^{x} & x < 0 \\
+		x^{2} & x > 0 
+	\end{cases}, \qquad 
+	-f \!\left( -x \right) = \begin{cases}
+		-e^{x} & x < 0 \\
+		-x^{2} & x > 0 
+	\end{cases}
+\]
+Then we can compute 
+\begin{alignat*}{2}
+	f_{\text{even}}\!\left( x \right) & = \begin{cases}
+		\frac{1}{2}\!\left( x^{2} + e^{x} \right) & x < 0 \\
+		\frac{1}{2}\!\left( x^{2} + e^{-x} \right) & x > 0 
+	\end{cases} && = \frac{1}{2}\!\left( x^{2} + e^{-\abs{x}} \right) \\
+	f_{\text{odd}}\!\left( x \right) & = \begin{cases}
+		\frac{1}{2}\!\left( x^{2} - e^{x} \right) & x < 0 \\
+		\frac{1}{2}\!\left( -x^{2} + e^{-x} \right) & x > 0 
+	\end{cases} && = \frac{1}{2}\text{sgn}\!\left( x \right)\!\left( e^{-\abs{x}} - x^{2} \right)
+\end{alignat*}
+As we anticipate, \( f_{\text{even}} + f_{\text{odd}} = f \).
+
+\vspace{12pt}
+
+% QUESTION 11
+\qs{3.3.11}{Given a sketch of \( f \!\left( x \right) \), describe a procedure to sketch the even and odd parts of \( f \!\left( x \right) \).}
+
+For the even part:
+\begin{enumerate}[label=(\arabic*)]
+	\item Draw the mirror image of \( f \!\left( x \right) \) about the vertical axis.
+	\item Draw the even part, which is the vertical average of the original function and its mirror.
+\end{enumerate}
+
+For the odd part:
+\begin{enumerate}[label=(\arabic*)]
+	\item Rotate the graph of \( f \!\left( x \right) \) by \( 180^{\circ} \); that is what the mirror image of \( f \!\left( x \right) \) looks like on the original plot.
+	\item Draw the odd part, which is the vertical average of the original function and its mirror.
+\end{enumerate}
+
+% QUESTION 12
+\qs{3.3.12}{\begin{enumerate}[label=(\alph*)]
+	\item Graphically show that the even terms (\( n \) even) of the Fourier sine series of any function on \( 0 \le x \le L \) are odd (antisymmetric) around \( x = L/2 \).
+	\item Consider a function \( f \!\left( x \right) \) that is odd around \( x = L/2 \). Show that the odd coefficients (\( n \) odd) of the Fourier sine series of \( f \!\left( x \right) \) on \( 0 \le x \le L \) are zero.
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item 
+	\includegraphics[width=0.9\textwidth]{../chap3/sec3.3/chap3sec3.3ex12a.pdf}
+	\item The coefficients are given by 
+	\[
+		B_{n} = \frac{2}{L}\int^{L}_{0} f \!\left( x \right)\sin\!\left(\frac{n \pi x}{L}\right) \, dx 
+	\]
+	By premise, over \( \!\left[ 0,L \right] \), \( f \!\left( x \right) \) is odd about \( x = L/2 \). We wish to establish that for \( n \) odd, \( \sin\!\left(n \pi x / L\right) \) is even about \( L/2 \), as that would mean the integrand \( f \!\left( x \right)\sin\!\left(n \pi x / L\right) \) is odd about \( L/2 \) and vanishes when integrated over the symmetric interval \( \!\left[ 0,L \right] \). Equivalently, we can demonstrate that
+	\[
+		g \!\left( x \right) = \sin\!\left[\frac{n \pi}{L}\!\left( x + \frac{L}{2} \right)\right]
+	\]
+	is even about the origin. Let \( n = 2m + 1 \), \( m = 0, 1, ... \) and derive
+	\begin{align*}
+		g \!\left( x \right) & = \sin\!\left[\frac{\!\left( 2m + 1 \right)\pi}{L}\!\left( x + \frac{L}{2} \right)\right] = \sin\!\left[\frac{\!\left( 2m + 1 \right)\pi x}{L} + \frac{\!\left( 2m + 1 \right)\pi}{2} \right] \\
+				     & = \!\left( -1 \right)^{m}\cos\!\left[\frac{\!\left( 2m + 1 \right)\pi x}{L}\right]
+	\end{align*}
+	Since cosine is even about the origin, we must also have \( g \!\left( x \right) \) is even, proving the result.
+\end{enumerate}
+
+% QUESTION 13
+\qs{3.3.13}{Consider a function \( f \!\left( x \right) \) that is even around \( x = L/2 \). Show that the even coefficients (\( n \) even) of the Fourier sine series of \( f \!\left( x \right) \) on \( 0 \le x \le L \) are zero.}
+
+The coefficients are given by
+\[
+	B_{n} = \frac{2}{L}\int^{L}_{0} f \!\left( x \right)\sin\!\left(\frac{n \pi x}{L}\right) \, dx  
+\]
+By premise, over \( \!\left[ 0,L \right] \), \( f \!\left( x \right) \) is even about \( x = L/2 \). The objective is to demonstrate that when \( n \) is even, \( f \!\left( x \right)\sin\!\left(n \pi x / L\right) \) is odd about \( x = L/2 \). Equivalently, we need only prove that \( \sin\!\left(n \pi
+ x / L\right) \) is odd about that point (since an even times an odd function is odd), and an even easier way to frame this is to show that
+\[
+	g \!\left( x \right) = \sin\!\left[\frac{n \pi}{L}\!\left( x + \frac{L}{2} \right)\right]
+\]
+is odd about the origin. Let \( n = 2m \) and rewrite as 
+\[
+	g \!\left( x \right) = \sin\!\left[\frac{2m \pi}{L}\!\left( x + \frac{L}{2}\right)\right] = \sin\!\left(\frac{2m \pi x}{L} + m \pi\right) = \!\left( -1 \right)^{m}\sin\!\left(\frac{2m \pi x}{L}\right)
+\]
+Immediately we can deduce
+\[
+	g \!\left( -x \right) = \!\left( -1 \right)^{m + 1}\sin\!\left(\frac{2m \pi x}{L}\right) \implies -g \!\left( -x \right) = \!\left( -1 \right)^{m}\sin\!\left(\frac{2m \pi x}{L}\right) = g \!\left( x \right)
+\]
+Proving that \( g \!\left( x \right) \) is odd. Given that the integrand is established to be odd about \( x = L/2 \) for even \( n \), by symmetry of \( \!\left[ 0,L \right] \) about \( L/2 \), we have proven that \( B_{n} = 0 \).
+
+\vspace{12pt}
+
+% QUESTION 14
+\qs{3.3.14}{\begin{enumerate}[label=(\alph*)]
+	\item Consider a function \( f \!\left( x \right) \) that is even around \( x = L/2 \). Show that the odd coefficients (\( n \) odd) of the Fourier cosine series of \( f \!\left( x \right) \) on \( 0 \le x \le L \) are zero.
+	\item Explain the result of part (a) by considering a Fourier cosine series of \( f \!\left( x \right) \) on the interval \( 0 \le x \le L/2 \).
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item The coefficients are given by
+	\[
+		A_{n} = \frac{2}{L}\int^{L}_{0} f \!\left( x \right)\cos\!\left(\frac{n \pi x}{L}\right) \, dx 
+	\]
+	By premise, over \( \!\left[ 0,L \right] \), \( f \!\left( x \right) \) is even about \( x = L/2 \). We wish to prove that when \( n \) is odd, \( f \!\left( x \right)\cos\!\left(n \pi x / L\right) \) is odd about \( L/2 \). Put differently, we must prove that \( \cos\!\left(n \pi x / L\right) \) is odd about that point, or equivalently
+	\[
+		g \!\left( x \right) = \cos\!\left[\frac{n \pi}{L}\!\left( x + \frac{L}{2} \right)\right] 
+	\]
+	is odd about the origin. Let \( n = 2m + 1 \), \( m = 0,1,... \) and deduce
+	\begin{align*}
+		g \!\left( x \right) & = \cos\!\left[\frac{\!\left( 2m + 1 \right)\pi}{L}\!\left( x + \frac{L}{2} \right)\right] = \cos\!\left[\frac{\!\left( 2m + 1 \right)\pi x}{L} + \frac{\!\left( 2m + 1 \right)\pi}{2}\right] \\
+				     & = \!\left( -1 \right)^{m + 1}\sin\!\left[\frac{\!\left( 2m + 1 \right)\pi x}{L}\right]
+	\end{align*}
+	and since sine is odd, we must also have \( g \!\left( x \right) \) is odd, establishing the result.
+	\item It is good to motivate some geometric intuition: since \( f \!\left( x \right) \) is even about \( L/2 \), we know that the segments on \( \!\left[ 0,L/2 \right] \) and \( \!\left[ L/2,L \right] \) are mirror images of each other around \( x = L/2 \). If we replace the interval with \( \!\left[ 0,L/2 \right] \), our coefficients are written as 
+	\[
+		A_{n} = \frac{4}{L}\int^{L/2}_{0} f \!\left( x \right)\cos\!\left(\frac{2n \pi x}{L}\right) \, dx  
+	\]
+	In particular, observe that the basis functions \( \cos\!\left(2n \pi x / L\right) \) are only the even modes. The odd modes are nowhere to be found, which comports with our result from part (a). The Fourier cosine series built from these coefficients converges to \( f \!\left( x \right) \) on \( \!\left[ 0,L/2 \right] \). But we get two for the price of one: convince yourself that when we horizontally shift the cosine to the left by \( L/2 \), we can see that
+	\[
+		g \!\left( x \right) = \cos\!\left[\frac{2n \pi}{L}\!\left( x + \frac{L}{2} \right)\right] = \cos\!\left(\frac{2n \pi x}{L} + n \pi\right) = \!\left( -1 \right)^{n}\cos\!\left(\frac{2n \pi x}{L}\right)
+	\]
+	is even about the origin; by the translation, we can immediately deduce that \( \cos\!\left(2n \pi x / L\right) \) is even about \( L/2 \). Since both \( f \!\left( x \right) \) and the cosine basis functions are even about that point, \( A_{n} \) is exactly the same over \( \!\left[ 0,L/2 \right] \) \textit{and} \( \!\left[ L/2,L \right] \), and by even symmetry, \( \int^{L}_{0} = 2\int^{L/2}_{0}  \). This establishes
+	\begin{align*}
+		\frac{2}{L}\int^{L}_{0} f \!\left( x \right)\cos\!\left(\frac{2n \pi x}{L}\right) \, dx & = \frac{4}{L}\int^{L/2}_{0} f \!\left( x \right)\cos\!\left(\frac{2n \pi x}{L}\right) \, dx \\
+													& = \frac{4}{L}\int^{L}_{L/2} f \!\left( x \right)\cos\!\left(\frac{2n \pi x}{L}\right) \, dx    
+	\end{align*}
+	where the left side includes only the even modes that match term-by-term with \( A_{n} \), proving that the odd modes must vanish as we established in part (a).
+\end{enumerate}
+
+% QUESTION 15
+\qs{3.3.15}{Consider a function \( f \!\left( x \right) \) that is odd around \( x = L/2 \). Show that the even coefficients (\( n \) even) of the Fourier cosine series of \( f \!\left( x \right) \) on \( 0 \le x \le L \) are zero.}
+
+The coefficients are given by
+\[
+	A_{n} = \frac{2}{L}\int^{L}_{0} f \!\left( x \right)\cos\!\left(\frac{n \pi x}{L}\right) \, dx 
+\]
+Our objective is to prove that \( f \!\left( x \right)\cos\!\left(n \pi x / L\right) \) is odd about \( L/2 \). By premise, \( f \!\left( x \right) \) is odd around that point, so we need only prove that \( \cos\!\left(n \pi x / L\right) \) is even about \( L/2 \). Equivalently, prove
+\[
+	g \!\left( x \right) = \cos\!\left[\frac{n \pi}{L}\!\left( x + \frac{L}{2} \right)\right]
+\]
+is even about the origin. Let \( n = 2m \) and deduce
+\[
+	g \!\left( x \right) = \cos\!\left(\frac{2m \pi x}{L} + m \pi \right) = \!\left( -1 \right)^{m}\cos\!\left(\frac{2m \pi x}{L}\right)
+\]
+Since cosine is even about the origin, so is \( g \!\left( x \right) \). Then \( f \!\left( x \right)\cos\!\left(n \pi x / L\right) \) is odd about \( L/2 \), and by symmetry of \( \!\left[ 0,L \right] \) around that point, \( A_{n} \) vanishes for all even \( n \).
+
+\vspace{12pt}
+
+% QUESTION 16
+\qs{3.3.16}{Fourier series can be defined on other intervals besides \( -L \le x \le L \). Suppose that \( g \!\left( y \right) \) is defined for \( a \le y \le b \). Represent \( g \!\left( y \right) \) using periodic trigonometric functions with period \( b - a \). Determine formulas for coefficients. [\textit{Hint}: Use the linear transformation
+\[
+	y = \frac{a + b}{2} + \frac{b - a}{2L}x.] 
+\]}
+
+First, let us experiment with the book's hint for \( y \). Observe that \( y \!\left( L \right) = b \) and \( y \!\left( -L \right) = a \). Structurally, it is a sum of the average of the \( y \)-endpoints and a scaling term transforming between the \( 2L \) and \( b - a \) periods.
+
+Expressing in terms of \( x \), do some algebraic manipulation to derive
+\[
+	x = \!\left( \frac{a + b}{a - b} \right)L + \frac{2L}{b - a}y
+\]
+where the differentials are related by
+\[
+	dx = \frac{2L}{b - a}dy
+\]
+Substituting into our full Fourier series, we have
+\begin{align*}
+	g \!\left( y \right) & \sim A_{0} + \sum^{\infty}_{n=1} A_{n}\cos\!\left[n \pi \!\left( \frac{a + b}{a - b} + \frac{2}{b - a}y \right) \right] + \sum^{\infty}_{n=1} B_{n}\sin\!\left[n \pi \!\left( \frac{a + b}{a - b} + \frac{2}{b - a}y \right) \right] \\
+			     & \sim  A_{0} + \sum^{\infty}_{n=1} A_{n}\cos\!\left[ \frac{2n \pi}{b - a}\!\left( y - \frac{a + b}{2} \right) \right] + \sum^{\infty}_{n=1} B_{n}\sin\!\left[ \frac{2n \pi}{b - a}\!\left( y - \frac{a + b}{2} \right) \right]
+\end{align*}
+where the coefficients are 
+\begin{align*}
+	A_{0} & = \frac{1}{b - a}\int^{b}_{a} g \!\left( y \right) \, dy \\
+	A_{n} & = \frac{2}{b - a}\int^{b}_{a} g \!\left( y \right)\cos\!\left[ \frac{2n \pi}{b - a}\!\left( y - \frac{a + b}{2} \right) \right] \, dy  \\
+	B_{n} & = \frac{2}{b - a}\int^{b}_{a} g \!\left( y \right)\sin\!\left[ \frac{2n \pi}{b - a}\!\left( y - \frac{a + b}{2} \right) \right] \, dy 
+\end{align*}
+But since the coefficients and basis functions have the same phase shift, we can effectively get rid of the \( -\!\left( a + b \right) / 2 \) terms everywhere. All that matters is that the integrals in the coefficients cycle through the entire period over \( \!\left[ a,b \right] \).
+
+\vspace{12pt}
+
+% QUESTION 17
+\qs{3.3.17}{Consider 
+\[
+	\int^{1}_{0} \frac{dx}{1 + x^{2}}  
+\]
+\begin{enumerate}[label=(\alph*)]
+	\item Evaluate explicitly.
+	\item Use the Taylor series of \( 1 / \!\left( 1 + x^{2} \right) \) (itself a geometric series) to obtain an infinite series for the integral.
+	\item Equate part (a) to part (b) in order to derive a formula for \( \pi \).
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item Let \( x = \tan\!\left(u\right) \). Then \( dx = \sec^{2}\!\left(u\right) \, du \). The bounds change to \( \!\left[ 0,\pi / 4 \right] \). Substituting, we get
+	\[
+		\int^{\pi / 4}_{0} \frac{\sec^{2}\!\left(u\right)}{1 + \tan^{2}\!\left(u\right)} \, du  
+	\]
+	Using the fact that \( 1 + \tan^{2}\!\left(u\right) = \sec^{2}\!\left(u\right) \), we have
+	\[
+		\int^{\pi / 4}_{0}  \, du = \frac{\pi}{4}
+	\]
+	\item The Taylor series is
+	\[
+		\frac{1}{1 + x^{2}} = \sum^{\infty}_{n=0} \!\left( -1 \right)^{n}x^{2n} 
+	\]
+	Note that a crucial point that Haberman omits is that this sum is valid only for \( \abs{x} < 1 \). We will handwave our way through this for now. Then the integral can be rewritten as 
+	\begin{align*}
+		\int^{1}_{0} \sum^{\infty}_{n=0} \!\left( -1 \right)^{n}x^{2n} \, dx & = \int^{1}_{0} \!\left( 1 - x^{2} + x^{4} - \cdots \right) \, dx = \!\left( x - \frac{x^{3}}{3} + \frac{x^{5}}{5} - \cdots \right)\Big|^{1}_{0} \\
+										     & = \sum^{\infty}_{n=1} \frac{\!\left( -1 \right)^{n + 1}}{2n - 1}
+	\end{align*}
+	\item Combining the two results, derive
+	\[
+		\pi = 4 \sum^{\infty}_{n=1} \frac{\left( -1 \right)^{n + 1}}{2n - 1}
+	\]
+\end{enumerate}
+
+\newpage
+% QUESTION 18
+\qs{3.3.18}{For continuous functions,
+\begin{enumerate}[label=(\alph*)]
+	\item Under what conditions does \( f \!\left( x \right) \) equal its Fourier series for all \( x \), \( -L \le x \le L \)?
+	\item Under what conditions does \( f \!\left( x \right) \) equal its Fourier sine series for all \( x \), \( 0 \le x \le L \)?
+	\item Under what conditions does \( f \!\left( x \right) \) equal its Fourier cosine series for all \( x \), \( 0 \le x \le L \)?
+\end{enumerate}}
+
+In all cases, \( f \!\left( x \right) \) must be continuous and piecewise smooth.
+\begin{enumerate}[label=(\alph*)]
+	\item \( f \!\left( -L \right) = f \!\left( L \right) \)
+	\item \( f \!\left( 0 \right) = f \!\left( L \right) = 0 \)
+	\item No extra condition required.
+\end{enumerate}
 
 
 \end{document}
