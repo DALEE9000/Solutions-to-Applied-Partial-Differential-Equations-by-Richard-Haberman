@@ -5976,5 +5976,53 @@ In all cases, \( f \!\left( x \right) \) must be continuous and piecewise smooth
 	\item No extra condition required.
 \end{enumerate}
 
+\newpage
+\subsection{\textsf{3.4 - Term-by-Term Differentiation of Fourier Series}}
+% QUESTION 1
+\qs{3.4.1}{The integration-by-parts formula
+\[
+	\int^{b}_{a} u \frac{d v}{d x} \, dx = uv \Big|^{b}_{a} - \int^{b}_{a} v \frac{d u}{d x} \, dx 
+\]
+is known to be valid for functions \( u \!\left( x \right) \) and \( v \!\left( x \right) \), which are continuous and have continuous first derivatives. However, we will assume that \( u \), \( v \), \( du / dx \), and \( dv / dx \) are continuous only for \( a \le x \le c \) and \( c \le x \le b \); we assume that all quantities may have a jump discontinuity at \( x = c \).
+\begin{enumerate}[label=(\alph*)]
+	\item Derive an expression for \( \int^{b}_{a} u dv / dx \, dx \) in terms of \( \int^{b}_{a} v du / dx \, dx \).
+	\item Show that this reduces to the integration-by-parts formula if \( u \) and \( v \) are continuous across \( x = c \). It is \textit{not} necessary for \( du / dx \) and \( dv / dx \) to be continuous at \( x = c \).
+\end{enumerate}}
+
+\begin{enumerate}[label=(\alph*)]
+	\item Split the interval \( \!\left[ a,b \right] \) as partitioned by \( c \) and evaluate over both sub-intervals:
+	\[
+		\int^{c}_{a} u \frac{d v}{d x} \, dx + \int^{b}_{c} u \frac{d v}{d x} \, dx   
+	\]
+	Since \( u \) and \( v \) and their first derivatives are continuous within each sub-interval, we can apply the integration-by-parts formula normally in each:
+	\begin{align*}
+		\int^{c}_{a} u \frac{d v}{d x} \, dx & = uv \Big|^{c^{-}}_{a} - \int^{c}_{a} v \frac{d u}{d x} \, dx \\
+		\int^{b}_{c} u \frac{d v}{d x} \, dx & = uv \Big|^{b}_{c^{+}} - \int^{b}_{c} v \frac{d u}{d x} \, dx
+	\end{align*}
+	Now add these expressions to find
+	\begin{align*}
+		\int^{c}_{a} u \frac{d v}{d x} \, dx + \int^{b}_{c} u \frac{d v}{d x} \, dx & = \!\left( uv \Big|^{c^{-}}_{a} + uv \Big|^{b}_{c^{+}} \right) - \!\left( \int^{c}_{a} v \frac{d u}{d x} \, dx + \int^{b}_{c} v \frac{d u}{d x} \, dx \right) \\
+											    & = uv \Big|^{b}_{a} + uv \Big|^{c^{-}}_{c^{+}} - \!\left( \int^{c}_{a} v \frac{d u}{d x} \, dx + \int^{b}_{c} v \frac{d u}{d x} \, dx \right)
+	 \end{align*}
+	As for the \( \int v du / dx \, dx \) terms, note that the discontinuity of \( du / dx \) does \textit{not} affect the evaluation of the definite integral at all. In geometric terms, we evaluate the area underneath \( v du / dx \), which is not a function of the exact value of \( \lim\limits_{x \to c^{-}} v du / dx \) or \( \lim\limits_{x \to c^{+}} v du / dx \). Put differently, the value of the integrand at a single point does not change the definite integral. Thus we have
+	\[
+		\int^{b}_{a} v \frac{d u}{d x} \, dx = \int^{c}_{a} v \frac{d u}{d x} \, dx + \int^{b}_{c} v \frac{d u}{d x} \, dx  
+	\]
+	Leaving us with the final expression
+	\[
+		 uv \Big|^{b}_{a} + uv \Big|^{c^{-}}_{c^{+}} - \int^{b}_{a} v \frac{d u}{d x} \, dx
+	\]
+	\item With a potential discontinuity, it is not generally true that \( u \!\left( c^{-} \right) v \!\left( c^{-} \right) = u \!\left( c^{+} \right) v \!\left( c^{+} \right) \). But with the assumption of continuity of \( u \) and \( v \) at \( x = c \), then equality holds, and the \( uv \) terms collapse into pointwise evaluation at the endpoints \( \!\left[ a,b \right] \) as before:
+	\[
+		\int^{b}_{a} u \frac{d v}{d x} \, dx = uv \Big|^{b}_{a} + \underbrace{uv \Big|^{c^{-}}_{c^{+}}}_{= 0} - \int^{b}_{a} v \frac{d u}{d x} \, dx = uv \Big|^{b}_{a} - \int^{b}_{a} v \frac{d u}{d x} \, dx 
+	\]
+	All throughout, never once did we require continuity of the derivatives.
+\end{enumerate}
+
+% QUESTION 2
+\qs{3.4.2}{Suppose that \( f \!\left( x \right) \) and \( df / dx \) are piecewise smooth. Prove that the Fourier series of \( f \!\left( x \right) \) can be differentiated term by term if the Fourier series of \( f \!\left( x \right) \) is continuous.}
+
+Suppose that the Fourier series of \( f \!\left( x \right) \) is continuous. Since the Fourier series has period \( 2L \), we will have \( f \!\left( L \right) = f \!\left( -L \right) \) on each period.
+
 
 \end{document}
